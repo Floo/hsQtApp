@@ -15,5 +15,4 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-target.path = d:/Privat/Entwicklung/Meth9/
-INSTALLS += target
+
