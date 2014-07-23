@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>content/bewaesserung_m.png</file>
+        <file>content/haus_klein.png</file>
+        <file>content/icon-left-arrow.png</file>
+        <file>content/jalousie_m.png</file>
+        <file>content/licht_m.png</file>
+        <file>content/szene_m.png</file>
+        <file>ButtonMeth.qml</file>
+    </qresource>
+</RCC>
