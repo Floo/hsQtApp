@@ -1,12 +1,21 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>content/bewaesserung_m.png</file>
-        <file>content/haus_klein.png</file>
-        <file>content/icon-left-arrow.png</file>
-        <file>content/jalousie_m.png</file>
-        <file>content/licht_m.png</file>
-        <file>content/szene_m.png</file>
-        <file>ButtonMeth.qml</file>
+        <file>content/StartButton.qml</file>
+        <file>images/bewaesserung_m.png</file>
+        <file>images/haus_klein.png</file>
+        <file>images/jalousie_m.png</file>
+        <file>images/licht_m.png</file>
+        <file>images/navigation_next_item.png</file>
+        <file>images/navigation_previous_item.png</file>
+        <file>images/szene_m.png</file>
+        <file>images/toolbar.png</file>
+        <file>content/LichtPage.qml</file>
+        <file>content/BewaesserungPage.qml</file>
+        <file>content/JalousiePage.qml</file>
+        <file>content/SzenePage.qml</file>
+        <file>content/SingleJalDelegate.qml</file>
+        <file>content/SingleJalModel.qml</file>
+        <file>content/GroupJalModel.qml</file>
     </qresource>
 </RCC>

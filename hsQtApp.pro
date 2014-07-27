@@ -6,8 +6,14 @@ SOURCES += main.cpp
 
 RESOURCES += qml.qrc
 
-OTHER_FILES += *.qml content/*.png \
-    ButtonMeth.qml
+OTHER_FILES += *.qml images/*.png \
+    content/*.qml \
+    content/LichtPage.qml \
+    content/BewaesserungPage.qml \
+    content/SzenePage.qml \
+    content/JalousiePage.qml \
+    content/SingleJalDelegate.qml \
+    content/SingleJalModel.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

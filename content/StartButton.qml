@@ -9,10 +9,10 @@ Rectangle {
 
     Image {
         id: image
-        width: parent.width
-        height: parent.height
+        width: parent.width / 2
+        height: parent.height / 2
+        anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
-        source: "content/jalousie_m.png"
     }
 
     MouseArea {
