@@ -26,27 +26,38 @@ ApplicationWindow {
             id: infoButton
             width: stackView.depth > 1 ? 0 : 80
             height: 80
-            anchors.left: parent.left
-            anchors.leftMargin: -30
+            //anchors.left: parent.left
+            //anchors.leftMargin: -30
+            x: -30
             anchors.verticalCenter: parent.verticalCenter
             color: "transparent"
+
+            Behavior on x { NumberAnimation {} }
+
             Image {
                 width: parent.width; height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
                 source: "images/info_white.png"
             }
+
             MouseArea {
                 id: infomouse
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked: {
-                    console.debug("infomouse")
+                    //console.debug("infomouse")
                     if (mainPage.state == "infoVisible") {
+                        overlay.visible = false
+                        overlay.opacity = 0
                         mainPage.state = ""
-                        infoButton.anchors.leftMargin = -30
+                        //infoButton.anchors.leftMargin = -30
+                        infoButton.x = -30
                     } else {
+                        overlay.visible = true
+                        overlay.opacity = 0.5
                         mainPage.state = "infoVisible"
-                        infoButton.anchors.leftMargin = -50
+                        //infoButton.anchors.leftMargin = -50
+                        infoButton.x = -50
                     }
                 }
             }
@@ -91,22 +102,26 @@ ApplicationWindow {
             title: "Jalousie"
             page: "content/JalousiePage.qml"
             pic: "images/jalousie_m.png"
+            buttontext: "Jalousie"
         }
         ListElement {
             title: "Bewässerung"
             page: "content/BewaesserungPage.qml"
             pic: "images/bewaesserung_m.png"
+            buttontext: "Bewässerung"
 
         }
         ListElement {
             title: "Licht"
             page: "content/LichtPage.qml"
             pic: "images/licht_m.png"
+            buttontext: "Licht"
         }
         ListElement {
             title: "Lichtszenen"
             page: "content/SzenePage.qml"
             pic: "images/szene_m.png"
+            buttontext: "Lichtszenen"
         }
     }
 
@@ -131,26 +146,32 @@ ApplicationWindow {
 
                 Image {
                     id: meth9Pic
+                    height: 280
+                    width: 280
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/haus_klein.png"
+                    fillMode: Image.PreserveAspectFit
                 }
                 Text {
                     id: meth9Text
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "#E3905C"
                     font.family: "Abel"
-                    font.pointSize: 15
+                    font.pointSize: 18
                     text: "Haussteuerung - Methfesselstr. 9"
                 }
 
                 GridView {
+                    id: gridView
                     anchors.horizontalCenter: parent.horizontalCenter
                     model: pageModel
-                    width: 400; height: 400
-                    cellWidth: 200; cellHeight: 200
+                    width: 600; height: 600
+                    cellWidth: width/2; cellHeight: height/2
                     delegate: StartButton {
+                        width: gridView.cellWidth
                         source: pic
-                        onButtonClicked: stackView.push(Qt.resolvedUrl(page))
+                        text: buttontext
+                        onButtonClicked: { if (overlay.visible == false) stackView.push(Qt.resolvedUrl(page)) }
                     }
 
                 }
@@ -173,6 +194,15 @@ ApplicationWindow {
             }
             transitions: Transition {
                 AnchorAnimation { duration: 200 }
+            }
+            Rectangle {
+                id: overlay
+                anchors.fill: parent
+                color: "grey"
+                opacity: 0
+                visible: false
+
+                Behavior on opacity { NumberAnimation {}}
             }
         }
     }    
