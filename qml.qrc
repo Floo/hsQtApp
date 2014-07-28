@@ -17,5 +17,14 @@
         <file>content/SingleJalDelegate.qml</file>
         <file>content/SingleJalModel.qml</file>
         <file>content/GroupJalModel.qml</file>
+        <file>images/Ab.png</file>
+        <file>images/Auf.png</file>
+        <file>images/ImpAb.png</file>
+        <file>images/ImpAuf.png</file>
+        <file>images/Sonne.png</file>
+        <file>images/Stop.png</file>
+        <file>images/info_white.png</file>
+        <file>images/previous_page_white.png</file>
+        <file>images/setup_white.png</file>
     </qresource>
 </RCC>
