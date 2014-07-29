@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQml.Models 2.1
+import QtGraphicalEffects 1.0
 import "content"
 import "javascript/hsClient.js" as Hsclient
 
@@ -62,6 +63,27 @@ ApplicationWindow {
                 }
             }
         }
+        Rectangle {
+            id: setupButton
+            width: 80
+            height: 80
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 30
+
+            color: "transparent"
+
+            Image {
+                anchors.fill: parent
+                source: "images/setup_white.png"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                anchors.margins: -10
+                onClicked: { setupMenu.visible = true }
+            }
+        }
 
         Rectangle {
             id: backButton
@@ -96,6 +118,38 @@ ApplicationWindow {
             text: "Meth 9"
         }
     }
+
+    Rectangle {
+        id: setupMenu
+        width: 200
+        height: 240
+        x: 500
+        y: 0
+        color: "white"
+        ListView {
+            anchors.fill: parent
+            model: [ "Jalousie", "Bewässerung", "Abluft", "Eigenschaften" ]
+            delegate: Rectangle {
+                width: 200
+                height: 60
+                color: "green"
+                Text {
+                    anchors.centerIn: parent
+                    text: modelData
+                }
+            }
+        }
+    }
+    DropShadow {
+        anchors.fill: setupMenu
+        horizontalOffset: 3
+        verticalOffset: 3
+        radius: 8.0
+        samples: 16
+        color: "#80000000"
+        source: setupMenu
+    }
+
     ListModel {
         id: pageModel
         ListElement {
