@@ -14,7 +14,8 @@ OTHER_FILES += *.qml images/*.png \
     content/JalousiePage.qml \
     content/SingleJalDelegate.qml \
     content/SingleJalModel.qml \
-    javascript/hsClient.js
+    javascript/hsClient.js \
+    content/PanelBewaesserung.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
