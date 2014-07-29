@@ -26,5 +26,6 @@
         <file>images/info_white.png</file>
         <file>images/previous_page_white.png</file>
         <file>images/setup_white.png</file>
+        <file>javascript/hsClient.js</file>
     </qresource>
 </RCC>

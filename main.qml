@@ -2,12 +2,15 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQml.Models 2.1
 import "content"
+import "javascript/hsClient.js" as Hsclient
 
 ApplicationWindow {
     visible: true
     width: 800
     height: 1280
     title: qsTr("Meth 9")
+
+    Component.onCompleted: { Hsclient.getStatus() }
 
     Rectangle {
         id: root
@@ -26,8 +29,6 @@ ApplicationWindow {
             id: infoButton
             width: stackView.depth > 1 ? 0 : 80
             height: 80
-            //anchors.left: parent.left
-            //anchors.leftMargin: -30
             x: -30
             anchors.verticalCenter: parent.verticalCenter
             color: "transparent"
@@ -50,14 +51,13 @@ ApplicationWindow {
                         overlay.visible = false
                         overlay.opacity = 0
                         mainPage.state = ""
-                        //infoButton.anchors.leftMargin = -30
                         infoButton.x = -30
                     } else {
                         overlay.visible = true
                         overlay.opacity = 0.5
                         mainPage.state = "infoVisible"
-                        //infoButton.anchors.leftMargin = -50
                         infoButton.x = -50
+                        Hsclient.getStatus()
                     }
                 }
             }
@@ -186,6 +186,145 @@ ApplicationWindow {
                 //anchors.right: parent.left
                 x: -width + 20
                 z: 2
+
+                Column {
+                    property int largeFont: 12
+                    property int smallFont: 10
+
+                    anchors.top: parent.top
+                    anchors.topMargin: 40
+                    Text {
+                        anchors { left: parent.left; leftMargin: 10 }
+                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                        text: "Temperatur:"
+                    }
+                    Text {
+                        id: tempAussen
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: tempInnen
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        anchors { left: parent.left; leftMargin: 10 }
+                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                        text: "Jalousie:"
+                    }
+                    Text {
+                        id: jal1
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: jal2
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: jal3
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: jal4
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        anchors { left: parent.left; leftMargin: 10 }
+                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                        text: "Schaltzustände:"
+                    }
+                    Text {
+                        id: orient
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: abluftHWR
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: zentraleAbluft
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+
+                    Text {
+                        anchors { left: parent.left; leftMargin: 10 }
+                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                        text: "Sonnenzeiten:"
+                    }
+                    Text {
+                        id: sa
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: su
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        anchors { left: parent.left; leftMargin: 10 }
+                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                        text: "Letzter Funkempfang:"
+                    }
+                    Text {
+                        id: funkWetter
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+                    Text {
+                        id: funkHell
+                        anchors { left: parent.left; leftMargin: 18 }
+                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                    }
+
+                    Rectangle {
+                        id: menuSetup
+                        width: infoLeiste.width
+                        height: 80
+                        color: "green"
+
+                        Text {
+                            text: "Setup"
+                            font { family: "Abel"; pointSize: 18}
+                            anchors.centerIn: parent
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: { Hsclient.getStatus() }
+                        }
+                    }
+                    Rectangle {
+                        width: infoLeiste.width - 30
+                        height: 1
+                        anchors.horizontalCenter: menuSetup.horizontalCenter
+                        color: "black"
+                    }
+                    Rectangle {
+                        width: infoLeiste.width
+                        height: 80
+                        color: "green"
+
+                        Text {
+                            text: "Verlauf"
+                            font { family: "Abel"; pointSize: 18}
+                            anchors.centerIn: parent
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: { Hsclient.getStatus() }
+                        }
+                    }
+                }
             }
 
             states: State {
@@ -203,7 +342,8 @@ ApplicationWindow {
                 visible: false
 
                 Behavior on opacity { NumberAnimation {}}
+
             }
         }
-    }    
+    }
 }
