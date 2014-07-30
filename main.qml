@@ -81,7 +81,7 @@ ApplicationWindow {
             MouseArea {
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: { setupMenu.visible = true }
+                onClicked: { if (setupMenu.y < 0) setupMenu.y = 0; else setupMenu.y = -320 }
             }
         }
 
@@ -110,6 +110,7 @@ ApplicationWindow {
         }
 
         Text {
+            id: textStatuszeile
             font.pixelSize: 42
             Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
             x: backButton.x + backButton.width + 20
@@ -122,32 +123,68 @@ ApplicationWindow {
     Rectangle {
         id: setupMenu
         width: 200
-        height: 240
-        x: 500
-        y: 0
+        height: 300
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        y: -320
         color: "white"
+        border.color: "grey"
+
         ListView {
             anchors.fill: parent
-            model: [ "Jalousie", "Bewässerung", "Abluft", "Eigenschaften" ]
+            model: setupModel
             delegate: Rectangle {
                 width: 200
                 height: 60
-                color: "green"
+                color: index == 0 ? "lightgrey" : "transparent"
+                border.color: "grey"
                 Text {
-                    anchors.centerIn: parent
-                    text: modelData
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    font.family: "Abel"
+                    font.pointSize: 18
+                    text: title
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: { if (index > 0) { setupMenu.y = -320; console.debug(index); stackView.push(Qt.resolvedUrl(page)) }}
                 }
             }
         }
     }
     DropShadow {
         anchors.fill: setupMenu
-        horizontalOffset: 3
-        verticalOffset: 3
-        radius: 8.0
-        samples: 16
+        horizontalOffset: 5
+        verticalOffset: 5
+        radius: 12
+        samples: 24
+        spread: 1.0
         color: "#80000000"
         source: setupMenu
+    }
+
+    ListModel {
+        id: setupModel
+        ListElement {
+            title: "Einstellungen"
+        }
+        ListElement {
+            title: "Jalousie"
+            page: "content/JalousieSetup.qml"
+        }
+        ListElement {
+            title: "Bewässerung"
+            page: "content/BewaesserungSetup.qml"
+        }
+        ListElement {
+            title: "Lüftung"
+            page: "content/AbluftSetup.qml"
+        }
+        ListElement {
+            title: "System"
+            page: "content/SystemSetup.qml"
+        }
     }
 
     ListModel {

@@ -15,7 +15,12 @@ OTHER_FILES += *.qml images/*.png \
     content/SingleJalDelegate.qml \
     content/SingleJalModel.qml \
     javascript/hsClient.js \
-    content/PanelBewaesserung.qml
+    content/PanelBewaesserung.qml \
+    content/JalousieSetup.qml \
+    content/AbluftSetup.qml \
+    content/BewaesserungSetup.qml \
+    content/SystemSetup.qml \
+    content/SetupCheckbox.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
