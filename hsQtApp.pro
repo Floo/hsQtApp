@@ -26,7 +26,8 @@ OTHER_FILES += *.qml images/*.png \
     content/TimePickerSASUDialog.qml \
     content/SASUPicker.qml \
     content/SetupValue.qml \
-    content/ValuePickerDialog.qml
+    content/ValuePickerDialog.qml \
+    content/TextDialog.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

@@ -42,5 +42,6 @@
         <file>content/SASUPicker.qml</file>
         <file>content/SetupValue.qml</file>
         <file>content/ValuePickerDialog.qml</file>
+        <file>content/TextDialog.qml</file>
     </qresource>
 </RCC>

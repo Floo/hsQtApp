@@ -274,7 +274,6 @@ ApplicationWindow {
                 width: 0.75 * parent.width
                 anchors.top: parent.top
                 color: "#eeeeee"
-                //anchors.right: parent.left
                 x: -width + 20
                 z: 2
 

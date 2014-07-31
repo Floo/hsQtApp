@@ -17,7 +17,11 @@ Rectangle {
                 id: hostname
                 bezeichner: "Hostname:"
                 value: "snugata.selfhost.eu"
-                onClicked: { console.debug("Hostname") }
+                onClicked: {
+                    textdialog.text = value;
+                    textdialog.obj = this;
+                    textdialog.dialogvisible = true;
+                }
             }
         }
         Item {
@@ -27,7 +31,11 @@ Rectangle {
                 id: username
                 bezeichner: "Benutzername:"
                 value: "florian"
-                onClicked: { console.debug("User") }
+                onClicked: {
+                    textdialog.text = value;
+                    textdialog.obj = this;
+                    textdialog.dialogvisible = true;
+                }
             }
         }
         Item {
@@ -37,7 +45,11 @@ Rectangle {
                 id: password
                 bezeichner: "Passwort"
                 value: "*******"
-                onClicked: { console.debug("Passwort") }
+                onClicked: {
+                    textdialog.text = value;
+                    textdialog.obj = this;
+                    textdialog.dialogvisible = true;
+                }
             }
         }
 
@@ -111,5 +123,9 @@ Rectangle {
     TimePickerDialog {
         id: timepickerdialog
         onHasChanged: { obj.value = timepickerdialog.zeit }
+    }
+    TextDialog {
+        id: textdialog
+        onHasChanged: { obj.value = textdialog.text }
     }
 }

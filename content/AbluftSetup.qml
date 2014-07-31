@@ -31,7 +31,9 @@ Rectangle {
                 border.width: 1
             }
         }
+
         ExclusiveGroup { id: hwrGroup }
+
         Item {
             width: parent.width
             height: 100
@@ -51,7 +53,7 @@ Rectangle {
                 id: hwrAn
                 checked: false
                 radioButton: true
-                bezeichner: "An"
+                bezeichner: "Dauerbetrieb"
                 exclusiveGroup: hwrGroup
                 onCheckedChanged: {}
             }
