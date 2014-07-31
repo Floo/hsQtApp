@@ -20,7 +20,9 @@ OTHER_FILES += *.qml images/*.png \
     content/AbluftSetup.qml \
     content/BewaesserungSetup.qml \
     content/SystemSetup.qml \
-    content/SetupCheckbox.qml
+    content/SetupCheckbox.qml \
+    content/TimePicker.qml \
+    content/TimePickerDialog.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

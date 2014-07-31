@@ -33,5 +33,7 @@
         <file>content/JalousieSetup.qml</file>
         <file>content/SystemSetup.qml</file>
         <file>content/SetupCheckbox.qml</file>
+        <file>content/TimePicker.qml</file>
+        <file>content/TimePickerDialog.qml</file>
     </qresource>
 </RCC>
