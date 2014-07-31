@@ -8,11 +8,20 @@ Item {
 
     property alias dialogvisible: dialogBody.visible
     property string zeit: ""
-    property alias hour: picker.hour
-    property int minute: picker.minute
-    property bool valid: false
+    property int hour
+    property int minute
+    property int sonne // 0 - SA, 1 - SU
+    property int offset
     property QtObject obj
+    property bool sasu: false // true - Sonnenstand, false - Uhrzeit
+    property bool valid: false
     signal hasChanged
+
+    QtObject {
+        id: shield
+        property string tmpSASU: ""
+        property string tmpUrzeit: ""
+    }
 
     anchors.fill: parent
 
@@ -42,16 +51,42 @@ Item {
 
         onVisibleChanged: {
             if (visible == true) {
-                dialog.valid = false
+                dialog.valid = false;
+                dialog.sasu ? tabview.currentIndex = 1 : tabview.currentIndex = 0;
             }
         }
 
-        TimePicker {
-            id: picker
+        TabView {
+            id: tabview
             width: parent.width
-            anchors.top: parent.top
-            anchors.topMargin: 30
-            anchors.horizontalCenter: parent.horizontalCenter
+            height: 300
+            style: tabTouchStyle
+            Tab {
+                title: "Uhrzeit"
+                TimePicker {
+                    id: uhrzeitPicker
+                    width: parent.width
+                    anchors.top: parent.top
+                    anchors.topMargin: 30
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    hour: dialog.hour
+                    minute: dialog.minute
+                    onValueChanged: { dialog.hour = hour; dialog.minute = minute; shield.tmpUrzeit = uhrzeit }
+                }
+            }
+            Tab {
+                title: "Sonnenstand"
+                SASUPicker {
+                    id: sonnenstandPicker
+                    width: parent.width
+                    anchors.top: parent.top
+                    anchors.topMargin: 30
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    sonne: dialog.sonne
+                    offset: dialog.offset
+                    onValueChanged: { dialog.sonne = sonne; dialog.offset = offset; shield.tmpSASU = uhrzeit }
+                }
+            }
         }
 
         Rectangle {
@@ -80,8 +115,13 @@ Item {
                 onClicked: {
                     dialogBody.visible = false;
                     dialog.valid = true;
-                    dialog.zeit = picker.uhrzeit;
-                    dialog.hasChanged();
+                    dialog.sasu = tabview.currentIndex == 0 ? false : true;
+                    if (dialog.sasu) {
+                        dialog.zeit = shield.tmpSASU;
+                    } else {
+                        dialog.zeit = shield.tmpUrzeit
+                    }
+                    dialog.hasChanged()
                 }
             }
         }
@@ -133,5 +173,38 @@ Item {
         spread: 1.0
         color: "#80000000"
         source: dialogBody
+    }
+
+    Component {
+        id: tabTouchStyle
+        TabViewStyle {
+            tabsAlignment: Qt.AlignVCenter
+            tabOverlap: 0
+            frame: Item { }
+            tab: Item {
+                implicitWidth: control.width/control.count
+                implicitHeight: 50
+                BorderImage {
+                    anchors.fill: parent
+                    border.bottom: 8
+                    border.top: 8
+                    source: styleData.selected ? "../images/tab_selected.png":"../images/tabs_standard.png"
+                    Text {
+                        anchors.centerIn: parent
+                        color: "white"
+                        text: styleData.title.toUpperCase()
+                        font.pixelSize: 16
+                    }
+                    Rectangle {
+                        visible: index > 0
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.margins: 10
+                        width:1
+                        color: "#3a3a3a"
+                    }
+                }
+            }
+        }
     }
 }

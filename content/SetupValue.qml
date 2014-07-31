@@ -6,10 +6,9 @@ import QtQuick.Controls.Styles 1.2
 Item {
     id: root
     property alias bezeichner: bezeichner.text
-    property alias hilfetext: hilfetext.text
-    property alias checked: checkbox.checked
+    property alias value: value.text
     property int leftTextMargin: 30
-    signal checkboxChanged
+    signal clicked
 
     anchors.fill: parent
 
@@ -31,28 +30,18 @@ Item {
                     text: ""
                 }
                 Text {
-                    id: hilfetext
+                    id: value
                     width: parent.width
                     visible: text.length > 0
                     anchors.left: parent.left
                     anchors.leftMargin: root.leftTextMargin
                     font.family: "Abel"
-                    font.pointSize: 10
+                    font.pointSize: 12
                     color: root.enabled ? "black" : "grey"
                     text: ""
                 }
             }
 
-            CheckBox {
-                id: checkbox
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 50
-                checked: true
-                enabled: root.enabled
-                style: checkBoxStyle
-                onCheckedChanged: root.checkboxChanged()
-            }
             Rectangle {
                 width: parent.width
                 height: 2
@@ -64,31 +53,9 @@ Item {
             MouseArea {
                 id: windMouse
                 anchors.fill: parent
-                onClicked: checkbox.checked == true ? checkbox.checked = false : checkbox.checked = true
+                onClicked: root.clicked()
             }
         }
     }
 
-    Component {
-        id: checkBoxStyle
-        CheckBoxStyle {
-            indicator: Rectangle {
-                implicitWidth: 32
-                implicitHeight: 32
-                radius: 3
-                border.color: control.activeFocus ? "darkblue" : "gray"
-                border.width: 2
-                Rectangle {
-                    visible: control.checked
-                    color: "#E3905C"
-                    border.color: Qt.darker("#E3905C", 1.2)
-                    border.width: 1
-                    radius: 1
-                    anchors.margins: 8
-                    anchors.fill: parent
-                }
-            }
-        }
-
-    }
 }

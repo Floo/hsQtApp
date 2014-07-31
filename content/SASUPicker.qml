@@ -6,8 +6,8 @@ Item {
     id: root
     width: 600
 
-    property alias hour: stundenSlider.value
-    property alias minute: minutenSlider.value
+    property alias sonne: sonnenSlider.value
+    property alias offset: offsetSlider.value
     property alias uhrzeit: uhrzeit.text
     signal valueChanged
 
@@ -22,42 +22,40 @@ Item {
             color: "#E3905C"
             font.bold: true
             text: {
-                var hour = "0" + stundenSlider.value;
-                var min = "0" + minutenSlider.value;
-                hour = hour.substring(hour.length - 2, hour.length);
-                min = min.substring(min.length - 2, min.length);
-                return hour + ":" + min
+                var sonne = (sonnenSlider.value == 1 ? "SU" : "SA");
+                var offset = (offsetSlider.value < 0 ? offsetSlider.value.toString() : ("+" + offsetSlider.value.toString()));
+                return sonne + offset;
             }
             onTextChanged: root.valueChanged()
         }
 
         Slider {
-            id: stundenSlider
+            id: sonnenSlider
             anchors.horizontalCenter: parent.horizontalCenter
             minimumValue: 0
-            maximumValue: 23
+            maximumValue: 1
             stepSize: 1
-            style: stundenSliderStyle
-            value: 8
+            style: sonnenSliderStyle
+            value: 1
         }
 
         Slider {
-            id: minutenSlider
+            id: offsetSlider
             anchors.horizontalCenter: parent.horizontalCenter
-            minimumValue: 0
-            maximumValue: 55
-            stepSize: 5
-            style: minutenSliderStyle
-            value: 20
+            minimumValue: -90
+            maximumValue: 90
+            stepSize: 15
+            style: offsetSliderStyle
+            value: 0
         }
     }
 
     Component {
-        id: stundenSliderStyle
+        id: sonnenSliderStyle
 
         SliderStyle {
             handle: Rectangle {
-                width: 25
+                width: 300
                 height: 46
                 radius: 1
                 antialiasing: true
@@ -78,10 +76,10 @@ Item {
                     ListView {
                         anchors.fill: parent
                         orientation: Qt.Horizontal
-                        model: ["0", ".", ".", "3", ".", ".", "6", ".", ".", "9", ".", ".", "12", ".", ".", "15", ".", ".", "18", ".", ".", "21", ".", "."]
+                        model: ["SA", "SU"]
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 25
+                            width: 300
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"
@@ -96,10 +94,10 @@ Item {
     }
 
     Component {
-        id: minutenSliderStyle
+        id: offsetSliderStyle
         SliderStyle {
             handle: Rectangle {
-                width: 50
+                width: 46
                 height: 46
                 radius: 1
                 antialiasing: true
@@ -120,10 +118,10 @@ Item {
                     ListView {
                         anchors.fill: parent
                         orientation: Qt.Horizontal
-                        model: ["00", ".", ".", "15", ".", ".", "30", ".", ".", "45", ".", "."]
+                        model: ["-90", ".", "-60", ".", "-30", ".", "0", ".", "30", ".", "60", ".", "90"]
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 50
+                            width: 46
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"

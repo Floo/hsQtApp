@@ -62,6 +62,8 @@ Rectangle {
                 onCheckboxChanged: console.debug("Lücke")
             }
         }
+
+        // Separator
         Item {
             width: parent.width
             height: 30
@@ -74,6 +76,7 @@ Rectangle {
                 border.width: 1
             }
         }
+
         Item {
             width: parent.width
             height: 100
@@ -82,17 +85,49 @@ Rectangle {
                 checked: true
                 bezeichner: "Zeitautomatik"
                 hilfetext: "Öffnet und schließt die Jalousien zeitabhängig."
-                onCheckboxChanged: { dialog.dialogvisible = true }
+                onCheckboxChanged: console.debug("Zeit")
+            }
+        }
+        Item {
+            width: parent.width
+            height: 100
+            SetupValue {
+                id: zeitOeffnen
+                leftTextMargin: 50
+                enabled: zeit.checked
+                bezeichner: "Zeit zum Öffnen:"
+                value: "12:40"
+                onClicked: {
+                    dialog.obj = this;
+                    dialog.hour = 12;
+                    dialog.minute = 40;
+                    dialog.sasu = false;
+                    dialog.dialogvisible = true;
+                }
+            }
+        }
+        Item {
+            width: parent.width
+            height: 100
+            SetupValue {
+                id: zeitSchliessen
+                leftTextMargin: 50
+                enabled: zeit.checked
+                bezeichner: "Zeit zum Schließen:"
+                value: "SA-60"
+                onClicked: {
+                    dialog.obj = this;
+                    dialog.sonne = 0;
+                    dialog.offset = -60;
+                    dialog.sasu = true;
+                    dialog.dialogvisible = true;
+                }
             }
         }
     }
 
-    TimePickerDialog {
+    TimePickerSASUDialog {
         id: dialog
-        hour: 12
-        minute: 40
-        onHasChanged: console.debug(hour + ":" + minute)
+        onHasChanged: { obj.value = dialog.zeit }
     }
-
-
 }

@@ -148,7 +148,7 @@ ApplicationWindow {
                 }
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { if (index > 0) { setupMenu.y = -320; console.debug(index); stackView.push(Qt.resolvedUrl(page)) }}
+                    onClicked: { if (index > 0) { setupMenu.y = -320; stackView.push(Qt.resolvedUrl(page)) }}
                 }
             }
         }

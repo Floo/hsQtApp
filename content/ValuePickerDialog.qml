@@ -7,10 +7,12 @@ Item {
     id: dialog
 
     property alias dialogvisible: dialogBody.visible
-    property string zeit: ""
-    property alias hour: picker.hour
-    property int minute: picker.minute
+    property int value
     property bool valid: false
+    property int minValue: 0
+    property int maxValue: 10
+    property int stepSize: 1
+    property var modelData: ["0", ".", "2", ".", "4", ".", "6", ".", "8", ".", "10"]
     property QtObject obj
     signal hasChanged
 
@@ -31,7 +33,7 @@ Item {
     Rectangle {
         id: dialogBody
         width: 700
-        height: 400
+        height: 300
         opacity: 1.0
         visible: false
         anchors.centerIn: parent
@@ -46,12 +48,31 @@ Item {
             }
         }
 
-        TimePicker {
-            id: picker
-            width: parent.width
+        Column {
+            width: 600
             anchors.top: parent.top
             anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 30
+            Text {
+                id: valueText
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: "Abel"
+                font.pointSize: 30
+                color: "#E3905C"
+                font.bold: true
+                text: valueSlider.value
+            }
+
+            Slider {
+                id: valueSlider
+                anchors.horizontalCenter: parent.horizontalCenter
+                minimumValue: minValue
+                maximumValue: maxValue
+                stepSize: dialog.stepSize
+                style: valueSliderStyle
+                value: dialog.value
+            }
         }
 
         Rectangle {
@@ -80,7 +101,7 @@ Item {
                 onClicked: {
                     dialogBody.visible = false;
                     dialog.valid = true;
-                    dialog.zeit = picker.uhrzeit;
+                    dialog.value = valueSlider.value;
                     dialog.hasChanged();
                 }
             }
@@ -133,5 +154,48 @@ Item {
         spread: 1.0
         color: "#80000000"
         source: dialogBody
+    }
+
+    Component {
+        id: valueSliderStyle
+
+        SliderStyle {
+            handle: Rectangle {
+                width: Math.round(600 / dialog.modelData.length)
+                height: 46
+                radius: 1
+                antialiasing: true
+                color: "transparent"
+                border.color: "#E3905C"
+                border.width: 3
+            }
+
+            groove: Item {
+                implicitHeight: 50
+                implicitWidth: 600
+                Rectangle {
+                    height: 40
+                    width: parent.width
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "#444"
+                    opacity: 0.8
+                    ListView {
+                        anchors.fill: parent
+                        orientation: Qt.Horizontal
+                        model: dialog.modelData
+                        delegate: Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: Math.round(600 / dialog.modelData.length)
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            font.family: "Abel"
+                            font.pointSize: 15
+                            text: modelData
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }
