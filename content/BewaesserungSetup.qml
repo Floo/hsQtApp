@@ -85,6 +85,7 @@ Rectangle {
                     valuepickerdialog.maxValue = 30;
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = ["1", ".", ".", ".", "5", ".", ".", ".", ".", "10", ".", ".", ".", ".", "15", ".", ".", ".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30"];
+                    valuepickerdialog.einheit = " min";
                     valuepickerdialog.value = 8;
                     valuepickerdialog.dialogvisible = true;
                 }
@@ -167,6 +168,7 @@ Rectangle {
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = ["1", ".", ".", ".", "5", ".", ".", ".", ".", "10", ".", ".", ".", ".", "15", ".", ".", ".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30"];
                     valuepickerdialog.value = 8;
+                    valuepickerdialog.einheit = " min";
                     valuepickerdialog.dialogvisible = true;
                 }
             }

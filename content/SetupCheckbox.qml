@@ -8,7 +8,9 @@ Item {
     property alias bezeichner: bezeichner.text
     property alias hilfetext: hilfetext.text
     property alias checked: checkbox.checked
+    property alias exclusiveGroup: checkbox.exclusiveGroup
     property int leftTextMargin: 30
+    property bool radioButton: false
     signal checkboxChanged
 
     anchors.fill: parent
@@ -75,7 +77,7 @@ Item {
             indicator: Rectangle {
                 implicitWidth: 32
                 implicitHeight: 32
-                radius: 3
+                radius: radioButton ? implicitWidth / 2 : 3
                 border.color: control.activeFocus ? "darkblue" : "gray"
                 border.width: 2
                 Rectangle {
@@ -83,7 +85,7 @@ Item {
                     color: "#E3905C"
                     border.color: Qt.darker("#E3905C", 1.2)
                     border.width: 1
-                    radius: 1
+                    radius: radioButton ? width / 2 : 1
                     anchors.margins: 8
                     anchors.fill: parent
                 }

@@ -13,6 +13,7 @@ Item {
     property int maxValue: 10
     property int stepSize: 1
     property var modelData: ["0", ".", "2", ".", "4", ".", "6", ".", "8", ".", "10"]
+    property string einheit: ""
     property QtObject obj
     signal hasChanged
 
@@ -61,7 +62,7 @@ Item {
                 font.pointSize: 30
                 color: "#E3905C"
                 font.bold: true
-                text: valueSlider.value
+                text: valueSlider.value + dialog.einheit
             }
 
             Slider {
