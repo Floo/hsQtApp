@@ -8,6 +8,8 @@ Item {
     property alias statusText: status.text
     property alias value: slider_id.value
     property alias checked: schalter.checked
+    signal switched
+
     width: 100
 
     Column {
@@ -38,6 +40,7 @@ Item {
             Switch {
                 id: schalter
                 style: switchStyle
+                onCheckedChanged: panelBewaesserung.switched()
             }
 
             Text {
@@ -59,7 +62,7 @@ Item {
                 height: 30
                 radius: height
                 antialiasing: true
-                color: Qt.lighter("#468bb7", 1.2)
+                color: Qt.lighter("#E3905C", 1.2)
             }
 
             groove: Item {
@@ -74,7 +77,7 @@ Item {
                     Rectangle {
                         antialiasing: true
                         radius: 1
-                        color: "#468bb7"
+                        color: "#E3905C"
                         height: parent.height
                         width: parent.width * control.value / control.maximumValue
                     }
@@ -97,7 +100,7 @@ Item {
                     width: parent.width/2 - 2
                     height: 20
                     anchors.margins: 2
-                    color: control.checked ? "#468bb7" : "#222"
+                    color: control.checked ? "#E3905C" : "#222"
                     Behavior on color {ColorAnimation {}}
                     Text {
                         font.pixelSize: 23

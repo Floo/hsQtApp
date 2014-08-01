@@ -14,9 +14,6 @@
         <file>content/BewaesserungPage.qml</file>
         <file>content/JalousiePage.qml</file>
         <file>content/SzenePage.qml</file>
-        <file>content/SingleJalDelegate.qml</file>
-        <file>content/SingleJalModel.qml</file>
-        <file>content/GroupJalModel.qml</file>
         <file>images/Ab.png</file>
         <file>images/Auf.png</file>
         <file>images/ImpAb.png</file>
@@ -43,5 +40,10 @@
         <file>content/SetupValue.qml</file>
         <file>content/ValuePickerDialog.qml</file>
         <file>content/TextDialog.qml</file>
+        <file>content/ListViewDelegate.qml</file>
+        <file>images/next_page_pan472c.png</file>
+        <file>images/previous_page_pan472c.png</file>
+        <file>images/Licht_Aus.png</file>
+        <file>images/Licht_An.png</file>
     </qresource>
 </RCC>

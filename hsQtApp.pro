@@ -12,7 +12,6 @@ OTHER_FILES += *.qml images/*.png \
     content/BewaesserungPage.qml \
     content/SzenePage.qml \
     content/JalousiePage.qml \
-    content/SingleJalDelegate.qml \
     content/SingleJalModel.qml \
     javascript/hsClient.js \
     content/PanelBewaesserung.qml \
@@ -27,7 +26,8 @@ OTHER_FILES += *.qml images/*.png \
     content/SASUPicker.qml \
     content/SetupValue.qml \
     content/ValuePickerDialog.qml \
-    content/TextDialog.qml
+    content/TextDialog.qml \
+    content/ListViewDelegate.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

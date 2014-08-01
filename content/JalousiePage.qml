@@ -1,13 +1,21 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
+import QtGraphicalEffects 1.0
 import "../content"
+import "../javascript/hsClient.js" as Hsclient
 
 //ScrollView {
 Item {
     id: rootJalPage
     width: parent.width
     height: parent.height
+
+    Component.onCompleted: { Hsclient.getStatus() }
+
+    property int listViewDelegateHeight: 100
+    property var jalNr
+
     Rectangle {
         id: singleHeadline
         height: 80
@@ -22,23 +30,85 @@ Item {
             text: "Einzeln:"
         }
     }
+
+    ListModel {
+        id: singleJalModel
+        ListElement {
+            name: "Süd links"
+            position: ""
+            checked: false
+            jalNr: "[0]"
+        }
+        ListElement {
+            name: "Süd Tür"
+            position: ""
+            checked: false
+            jalNr: "[1]"
+        }
+        ListElement {
+            name: "Süd rechts"
+            position: ""
+            checked: false
+            jalNr: "[2]"
+        }
+        ListElement {
+            name: "West"
+            position: ""
+            checked: false
+            jalNr: "[3]"
+        }
+    }
+
+    ListModel {
+        id: groupJalModel
+        ListElement {
+            name: "alle"
+            checked: false
+            jalNr: "[0, 1, 2, 3]"
+        }
+        ListElement {
+            name: "alle (Tür offen)"
+            checked: false
+            jalNr: "[0, 2, 3]"
+        }
+        ListElement {
+            name: "Süd"
+            checked: false
+            jalNr: "[0, 1, 2]"
+        }
+        ListElement {
+            name: "Süd (Tür offen)"
+            checked: false
+            jalNr: "[0, 2]"
+        }
+    }
+
+
     ListView {
         id: listSingle
         anchors.fill: parent
         anchors.top: parent.top
         anchors.topMargin: 80
-        model: SingleJalModel {}
-        delegate: SingleJalDelegate {
-            text: name
-            subtext: "Undefiniert/Stop"
-            onClicked: { rootJalPage.state = "buttonVisible" }
+        model: singleJalModel
+        delegate: ListViewDelegate {
+            bezeichner: name
+            subtext: position
+            height: listViewDelegateHeight
+            selected: checked
+            onClicked: {
+                rootJalPage.state = "buttonVisible";
+                for ( var i = 0; i < listSingle.model.count; i++ ) listSingle.model.setProperty( i, "checked", false );
+                for ( i = 0; i < listGroup.model.count; i++ ) listGroup.model.setProperty( i, "checked", false );
+                listSingle.model.setProperty(index, "checked", true);
+                rootJalPage.jalNr = singleJalModel.get(index).jalNr;
+            }
         }
     }
     Rectangle {
         id: groupHeadline
         anchors.top: parent.top
-        anchors.topMargin: 432
-        height: 80
+        anchors.topMargin: listViewDelegateHeight * singleJalModel.count + singleHeadline.height
+        height: singleHeadline.height
         width: parent.width
         color: "#E3905C"
         Text {
@@ -53,11 +123,19 @@ Item {
         id: listGroup
         anchors.fill: parent
         anchors.top: parent.top
-        anchors.topMargin: 512
-        model: GroupJalModel {}
-        delegate: SingleJalDelegate {
-            onClicked: { rootJalPage.state = "buttonVisible" }
-            text: name
+        anchors.topMargin: listViewDelegateHeight * singleJalModel.count + singleHeadline.height + groupHeadline.height
+        model: groupJalModel
+        delegate: ListViewDelegate {
+            bezeichner: name
+            selected: checked
+            height: listViewDelegateHeight
+            onClicked: {
+                rootJalPage.state = "buttonVisible";
+                for ( var i = 0; i < listSingle.model.count; i++ ) listSingle.model.setProperty( i, "checked", false );
+                for ( i = 0; i < listGroup.model.count; i++) listGroup.model.setProperty(i, "checked", false);
+                listGroup.model.setProperty(index, "checked", true);
+                rootJalPage.jalNr = groupJalModel.get(index).jalNr;
+            }
         }
     }
     Rectangle {
@@ -66,52 +144,100 @@ Item {
         anchors.top: parent.top
         width: 120
         color: "#eeeeee"
-//        x: {
-//            var x = parent.width
-//            console.debug(x)
-//            return x - width
-//        }
-        x : parent.width - 10
+        x : parent.width
         Column {
             width: parent.width
+            anchors.verticalCenter: parent.verticalCenter
             spacing: 2
             StartButton {
+                color: Qt.lighter("#E3905C", 1.2)
+                border.color: Qt.lighter("#E3905C", 1.5)
+                border.width: 2
                 width: parent.width; height: parent.width
                 source: "../images/ImpAuf.png"
-                onButtonClicked: { rootJalPage.state = "" }
+                onButtonClicked: {
+                    rootJalPage.state = "";
+                    Hsclient.drvJalousie(jalNr, "IMPAUF");
+                }
             }
             StartButton {
+                color: Qt.lighter("#E3905C", 1.2)
+                border.color: Qt.lighter("#E3905C", 1.5)
+                border.width: 2
                 width: parent.width; height: parent.width
                 source: "../images/Auf.png"
-                onButtonClicked: { rootJalPage.state = "" }
+                onButtonClicked: {
+                    rootJalPage.state = "";
+                    Hsclient.drvJalousie(jalNr, "AUF");
+                }
             }
             StartButton {
+                color: Qt.lighter("#E3905C", 1.2)
+                border.color: Qt.lighter("#E3905C", 1.5)
+                border.width: 2
                 width: parent.width; height: parent.width
                 source: "../images/Stop.png"
-                onButtonClicked: { rootJalPage.state = "" }
+                onButtonClicked: {
+                    rootJalPage.state = "";
+                    Hsclient.drvJalousie(jalNr, "STP");
+                }
             }
             StartButton {
+                color: Qt.lighter("#E3905C", 1.2)
+                border.color: Qt.lighter("#E3905C", 1.5)
+                border.width: 2
                 width: parent.width; height: parent.width
                 source: "../images/Ab.png"
-                onButtonClicked: { rootJalPage.state = "" }
+                onButtonClicked: {
+                    rootJalPage.state = "";
+                    Hsclient.drvJalousie(jalNr, "AB");
+                }
             }
             StartButton {
+                color: Qt.lighter("#E3905C", 1.2)
+                border.color: Qt.lighter("#E3905C", 1.5)
+                border.width: 2
                 width: parent.width; height: parent.width
                 source: "../images/ImpAb.png"
-                onButtonClicked: { rootJalPage.state = "" }
+                onButtonClicked: {
+                    rootJalPage.state = "";
+                    Hsclient.drvJalousie(jalNr, "IMPAB");
+                }
             }
+
             Rectangle { height: 10; width: parent.width; color: buttonListe.color }
+
             StartButton {
+                color: Qt.lighter("#E3905C", 1.2)
+                border.color: Qt.lighter("#E3905C", 1.5)
+                border.width: 2
                 width: parent.width; height: parent.width
                 source: "../images/Sonne.png"
-                onButtonClicked: { rootJalPage.state = "" }
+                onButtonClicked: {
+                    rootJalPage.state = "";
+                    Hsclient.drvJalousie(jalNr, "SUN");
+                }
             }
         }
 
     }
+    DropShadow {
+        id: shadowButtonLeiste
+        anchors.fill: buttonListe
+        horizontalOffset: -5
+        verticalOffset: 0
+        radius: 12
+        samples: 24
+        spread: 1.0
+        visible: false
+        color: "#80000000"
+        source: buttonListe
+    }
+
     states: State {
         name: "buttonVisible"
-        AnchorChanges { target: buttonListe; anchors.right: rootJalPage.right}
+        AnchorChanges { target: buttonListe; anchors.right: rootJalPage.right }
+        PropertyChanges { target: shadowButtonLeiste; visible: true }
     }
     transitions: Transition {
         AnchorAnimation { duration: 200 }

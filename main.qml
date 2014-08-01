@@ -11,7 +11,7 @@ ApplicationWindow {
     height: 1280
     title: qsTr("Meth 9")
 
-    Component.onCompleted: { Hsclient.getStatus() }
+   // Component.onCompleted: { Hsclient.getStatus() }
 
     Rectangle {
         id: root
@@ -262,7 +262,11 @@ ApplicationWindow {
                         width: gridView.cellWidth
                         source: pic
                         text: buttontext
-                        onButtonClicked: { if (overlay.visible == false) stackView.push(Qt.resolvedUrl(page)) }
+                        onButtonClicked: {
+                            if (overlay.visible == false) {
+                                stackView.push(Qt.resolvedUrl(page));
+                            }
+                        }
                     }
 
                 }
