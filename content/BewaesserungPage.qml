@@ -7,6 +7,9 @@ Item {
     id: rootBewaesserungPage
     width: parent.width
     height: parent.height
+
+    Component.onCompleted: Hsclient.getStatusBewaesserung()
+
     Column {
         Rectangle {
             height: 80

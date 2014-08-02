@@ -20,7 +20,7 @@ Item {
             font.family: "Abel"
             font.pointSize: 16
             font.bold: true
-            text: "Status: geschlossen"
+            text: "Status: "
         }
 
         Slider {

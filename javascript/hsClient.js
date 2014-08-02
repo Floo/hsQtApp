@@ -1,19 +1,17 @@
 //.pragma library //um Variablenzugriff von überall zu ermöglichen
+.import "global.js" as Global
 
-
-var hostname = "snugata.selfhost.eu";
-var username = "florian";
-var password = "vegas";
-
-var	FS20_AUS = 0,
-    FS20_AN = 17,
-    FS20_DIMM_UP = 19,
-    FS20_DIMM_DOWN = 20,
-    DIMM_UP_START = 1,
-    DIMM_UP_STOP = 2,
-    DIMM_DOWN_START = 3,
-    DIMM_DOWN_STOP = 4;
-
+//Hilfsfunktionen
+function stringToBoolean(string){
+    if (typeof string === 'boolean') {
+        return(string);
+    }
+    switch(string.toLowerCase()){
+        case "true": case "yes": case "1": return true;
+        case "false": case "no": case "0": case null: case "": return false;
+        default: return Boolean(string);
+    }
+}
 
 function getElementsByTagName(rootElement, tagName) {
     var childNodes = rootElement.childNodes;
@@ -24,6 +22,10 @@ function getElementsByTagName(rootElement, tagName) {
         }
     }
     return elements;
+}
+
+function getXMLfirstChild(rootElement, tagname) {
+    return getElementsByTagName(rootElement, tagname)[0].firstChild.data
 }
 
 function getStatus () {
@@ -45,33 +47,216 @@ function getStatus () {
             //                                        showRequestInfo("Last modified -->");
             //                                        showRequestInfo(xmlhttp.getResponseHeader ("Last-Modified"));
 
-            tempAussen.text = "außen: " + getElementsByTagName(a, 'TempAussen')[0].firstChild.data + " °C";
-            tempInnen.text = "innen: " + getElementsByTagName(a, 'TempInnen')[0].firstChild.data + " °C";
-            var jal0text = getElementsByTagName(a, 'posJal_0')[0].firstChild.data + "/" + getElementsByTagName(a, 'drvJal_0')[0].firstChild.data;
-            var jal1text = getElementsByTagName(a, 'posJal_1')[0].firstChild.data + "/" + getElementsByTagName(a, 'drvJal_1')[0].firstChild.data;
-            var jal2text = getElementsByTagName(a, 'posJal_2')[0].firstChild.data + "/" + getElementsByTagName(a, 'drvJal_2')[0].firstChild.data;
-            var jal3text = getElementsByTagName(a, 'posJal_3')[0].firstChild.data + "/" + getElementsByTagName(a, 'drvJal_3')[0].firstChild.data;
+            tempAussen.text = "außen: " + getXMLfirstChild(a, 'TempAussen') + " °C";
+            tempInnen.text = "innen: " + getXMLfirstChild(a, 'TempInnen') + " °C";
+            var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
+            var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');
+            var jal2text = getXMLfirstChild(a, 'posJal_2') + "/" + getXMLfirstChild(a, 'drvJal_2');
+            var jal3text = getXMLfirstChild(a, 'posJal_3') + "/" + getXMLfirstChild(a, 'drvJal_3');
             jal1.text = "Jalousie 1: " + jal0text;
             jal2.text = "Jalousie 2: " + jal1text;
             jal3.text = "Jalousie 3: " + jal2text;
             jal4.text = "Jalousie 4: " + jal3text;
-            listSingle.model.setProperty( 0, "subtext", jal0text);
-            listSingle.model.setProperty( 1, "subtext", jal1text);
-            listSingle.model.setProperty( 2, "subtext", jal2text);
-            listSingle.model.setProperty( 3, "subtext", jal3text);
-            orient.text = "Orientierungslicht: " + getElementsByTagName(a, 'Orient')[0].firstChild.data
-            abluftHWR.text = "Abluft HWR: " + getElementsByTagName(a, 'HWR')[0].firstChild.data
-            zentraleAbluft.text = "Zentrale Abluft: " + getElementsByTagName(a, 'Abluft')[0].firstChild.data
-            sa.text = "Sonnenaufgang: " + getElementsByTagName(a, 'SA')[0].firstChild.data
-            su.text = "Sonnenuntergang: " + getElementsByTagName(a, 'SU')[0].firstChild.data
-            funkHell.text = "Helligkeit: " + getElementsByTagName(a, 'EmpfangHell')[0].firstChild.data
-            funkWetter.text = "Wetter: " + getElementsByTagName(a, 'EmpfangWetter')[0].firstChild.data
-            beete.statusText = "Status: " + getElementsByTagName(a, 'Ventil_1')[0].firstChild.data
-            kuebel.statusText = "Status: " + getElementsByTagName(a, 'Ventil_2')[0].firstChild.data
+            orient.text = "Orientierungslicht: " + getXMLfirstChild(a, 'Orient')
+            abluftHWR.text = "Abluft HWR: " + getXMLfirstChild(a, 'HWR')
+            sa.text = "Sonnenaufgang: " + getXMLfirstChild(a, 'SA')
+            su.text = "Sonnenuntergang: " + getXMLfirstChild(a, 'SU')
+            funkHell.text = "Helligkeit: " + getXMLfirstChild(a, 'EmpfangHell')
+            funkWetter.text = "Wetter: " + getXMLfirstChild(a, 'EmpfangWetter')
         }
     }
-    xmlhttp.open("POST", "http://" + hostname + "/weather.php", "true", username, password)
+    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
     xmlhttp.send()
+}
+
+function getStatusJal() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var a = xmlhttp.responseXML.documentElement;
+            var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
+            var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');
+            var jal2text = getXMLfirstChild(a, 'posJal_2') + "/" + getXMLfirstChild(a, 'drvJal_2');
+            var jal3text = getXMLfirstChild(a, 'posJal_3') + "/" + getXMLfirstChild(a, 'drvJal_3');
+            listSingle.model.setProperty( 0, "position", jal0text);
+            listSingle.model.setProperty( 1, "position", jal1text);
+            listSingle.model.setProperty( 2, "position", jal2text);
+            listSingle.model.setProperty( 3, "position", jal3text);
+        }
+    }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
+    xmlhttp.send()
+}
+
+function getStatusBewaesserung() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var a = xmlhttp.responseXML.documentElement;
+            beete.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_1')
+            kuebel.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_2')
+        }
+    }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
+    xmlhttp.send()
+}
+
+//"up_time":"20:00","down_time":"10:00","auto_time":false,"jal_2_open":false,"weather":"0",
+//"wind_protection":false,"open_on_rain":false,"close_to_sun":"1"
+function getSetupJal() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var json = xmlhttp.responseText;
+            var obj = JSON.parse(json);
+            rootJalSetupPage.init = true;
+            luecke.checked = stringToBoolean(obj.blinds.close_to_sun);
+            wetter.checked = stringToBoolean(obj.blinds.weather);
+            wind.checked = stringToBoolean(obj.blinds.wind_protection);
+            tuer.checked = stringToBoolean(obj.blinds.jal_2_open);
+            regen.checked = stringToBoolean(obj.blinds.open_on_rain);
+            zeit.checked = stringToBoolean(obj.blinds.auto_time);
+            zeitOeffnen.value = obj.blinds.up_time;
+            zeitSchliessen.value = obj.blinds.down_time;
+            rootJalSetupPage.init = false;
+        }
+    }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.send()
+}
+
+function setSetupJal () {
+    var data = "txtAuf=" + zeitOeffnen.value.replace("+", "g") + "&txtZu=" + zeitSchliessen.value.replace("+", "g")
+            + "&chkLuecke=" + luecke.checked + "&chkAuto=" + zeit.checked + "&chkTuer=" + tuer.checked +
+            "&chkWeather=" + wetter.checked + "&chkRain=" + regen.checked + "&chkWind=" + wind.checked;
+    //console.debug(data);
+    httpPost("setJalousie.php", data);
+}
+
+function initJalTimeDialog(value) {
+    if (value.search(/S/) !== -1) {
+        dialog.sasu = true;
+        dialog.hour = 8;
+        dialog.minute = 0;
+        dialog.sonne = (value.substr(0, 2) === "SA") ? 0 : 1;
+        dialog.offset = value.substring(2, value.length);
+    } else {
+        dialog.sasu = false;
+        dialog.hour = value.substring(0, value.indexOf(":"));
+        dialog.minute = value.substring(value.indexOf(":") + 1, value.length);
+        dialog.sonne = 0;
+        dialog.offset = 0;
+    }
+}
+
+//"ventil_1_start":"20:30","ventil_2_start":"21:00","ventil_1_duration":"9","ventil_2_duration":"8",
+//"ventil_1_auto":"0","ventil_2_auto":"1","ventil_1_rain":"","ventil_2_rain":""
+function getSetupBewaesserung() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var json = xmlhttp.responseText;
+            var obj = JSON.parse(json);
+            rootBewaesserungSetupPage.init = true;
+            beeteRegen.checked = stringToBoolean(obj.irrigation.ventil_1_rain);
+            kuebelRegen.checked = stringToBoolean(obj.irrigation.ventil_2_rain);
+            beeteAuto.checked = stringToBoolean(obj.irrigation.ventil_1_auto);
+            kuebelAuto.checked = stringToBoolean(obj.irrigation.ventil_2_auto);
+            beeteDauer.value = obj.irrigation.ventil_1_duration + " min";
+            kuebelDauer.value = obj.irrigation.ventil_2_duration + " min";
+            beeteZeit.value = obj.irrigation.ventil_1_start;
+            kuebelZeit.value = obj.irrigation.ventil_2_start;
+            rootBewaesserungSetupPage.init = false;
+        }
+    }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.send()
+}
+
+function setSetupBewaesserung() {
+    var data = "txtV1Start=" + beeteZeit.value + "&txtV2Start=" + kuebelZeit.value + "&txtV1Dauer=" +
+            beeteDauer.value.substring(0, value.indexOf(" ")) + "&txtV2Dauer=" +
+            kuebelDauer.value.substring(0, value.indexOf(" ")) + "&chkV1Auto=" + beeteAuto.checked +
+            "&chkV2Auto=" + kuebelAuto.checked + "&chkV1Rain=" + beeteRegen.checked + "&chkV2Rain=" + kuebelRegen.checked;
+    httpPost("setTerrasse.php", data);
+}
+
+function initBewaesserungDauerDialog (value) {
+    valuepickerdialog.value = value.substring(0, value.indexOf(" "));
+}
+
+function initBewaesserungZeitDialog(value) {
+    timepickerdialog.hour = value.substring(0, value.indexOf(":"));
+    timepickerdialog.minute = value.substring(value.indexOf(":") + 1, value.length);
+}
+
+//"HWRthreshold":"35","HWRpermanent":"0","HWRauto":"0","AClow":"1"
+function getSetupAbluft() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var json = xmlhttp.responseText;
+            var obj = JSON.parse(json);
+            rootAbluftSetupPage.init = true;
+            valuepickerdialog.value = obj.abluft.HWRthreshold;
+            if (stringToBoolean(obj.abluft.HWRpermanent)) {
+                hwrAus.checked = false;
+                hwrAn.checked = true;
+                hwrTemp.checked = false;
+            } else if (stringToBoolean(obj.abluft.HWRauto)) {
+                hwrAus.checked = false;
+                hwrAn.checked = false;
+                hwrTemp.checked = true;
+            } else {
+                hwrAus.checked = true;
+                hwrAn.checked = false;
+                hwrTemp.checked = false;
+            }
+            abluft.checked = stringToBoolean(obj.abluft.AClow)
+            rootAbluftSetupPage.init = false;
+        }
+    }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.send()
+}
+
+function initAbluftTempDialog (value) {
+    valuepickerdialog.value = value.substring(0, value.indexOf(" "));
+}
+
+function setSetupAbluft() {
+    var data = "txtTemp=" + hwrTempValue.value.substring(0, value.indexOf(" "))  +  "&chkAClow=" +
+            abluft.checked +  "&chkHWRpermanent=" + hwrAn.checked  + "&chkHWRauto=" + hwrTemp.checked;
+    httpPost("setLueftung.php", data)
+}
+
+//"display_wakeup":"7:00"
+function getSetupSystem() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var json = xmlhttp.responseText;
+            var obj = JSON.parse(json);
+
+            rootSystemSetupPage.init = true;
+            if(obj.hsgui.display_wakeup === "") {
+                autostartGUIZeit.value = "7:00";
+                autostartGUI.checked = false;
+            } else {
+                autostartGUIZeit.value = obj.hsgui.display_wakeup;
+                autostartGUI.checked = true;
+            }
+            rootSystemSetupPage.init = false;
+        }
+    }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.send()
+}
+
+function setSetupSystem() {
+    var data = "txtStartGUI=";
+    if(autostartGUI.checked) data = data + autostartGUIZeit.value;
+    httpPost("setSystem", data)
 }
 
 function getLicht () {
@@ -86,7 +271,7 @@ function getLicht () {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + hostname + "/licht_m.php?id=licht", "true", username, password)
+    xmlhttp.open("POST", "http://" + Global.hostname + "/licht_m.php?id=licht", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -102,7 +287,7 @@ function getSzene () {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + hostname + "/licht_m.php?id=szene", "true", username, password)
+    xmlhttp.open("POST", "http://" + Global.hostname + "/licht_m.php?id=szene", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -143,7 +328,7 @@ function drvJalousie(jalNr, command) {
 
 function httpPost (destination, data) {
     var http = new XMLHttpRequest()
-    http.open("POST", "http://" + hostname + "/" + destination, "true", username, password);
+    http.open("POST", "http://" + Global.hostname + "/" + destination, "true", Global.username, Global.password);
 
     // Send the proper header information along with the request
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

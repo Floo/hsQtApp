@@ -2,10 +2,17 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
+import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
 
 Rectangle {
+    id: rootSystemSetupPage
     width: parent.width
     height: parent.height
+
+    property bool init: true
+
+    Component.onCompleted: Hsclient.getSetupSystem()
 
     Column {
         anchors.fill: parent
@@ -16,12 +23,13 @@ Rectangle {
             SetupValue {
                 id: hostname
                 bezeichner: "Hostname:"
-                value: "snugata.selfhost.eu"
+                value: Global.hostname
                 onClicked: {
                     textdialog.text = value;
                     textdialog.obj = this;
                     textdialog.dialogvisible = true;
                 }
+                onValueChanged: { if(!rootSystemSetupPage.init) Global.hostname = value }
             }
         }
         Item {
@@ -30,12 +38,13 @@ Rectangle {
             SetupValue {
                 id: username
                 bezeichner: "Benutzername:"
-                value: "florian"
+                value: Global.username
                 onClicked: {
                     textdialog.text = value;
                     textdialog.obj = this;
                     textdialog.dialogvisible = true;
                 }
+                onValueChanged: { if(!rootSystemSetupPage.init) Global.username = value }
             }
         }
         Item {
@@ -44,12 +53,18 @@ Rectangle {
             SetupValue {
                 id: password
                 bezeichner: "Passwort"
-                value: "*******"
+                value: {
+                    var str = "";
+                    for (var i = 0; i < Global.password.length; i++)
+                        str = str + "*";
+                    return str;
+                }
                 onClicked: {
                     textdialog.text = value;
                     textdialog.obj = this;
                     textdialog.dialogvisible = true;
                 }
+                onValueChanged: { if(!rootSystemSetupPage.init) Global.password = value }
             }
         }
 
@@ -72,10 +87,9 @@ Rectangle {
             height: 100
             SetupCheckbox {
                 id: autostartGUI
-                checked: true
                 bezeichner: "Autostart GUI"
                 hilfetext: "Zeitabhängiger Neustart des Touchscreens."
-                onCheckedChanged: {}
+                onCheckedChanged: { if(!rootSystemSetupPage.init) Hsclient.setSetupSystem() }
             }
         }
         Item {
@@ -89,8 +103,7 @@ Rectangle {
                 value: "7:00"
                 onClicked: {
                     timepickerdialog.obj = this;
-                    timepickerdialog.hour = 7;
-                    timepickerdialog.minute = 0;
+                    Hsclient.initBewaesserungZeitDialog(autostartGUIZeit.value)
                     timepickerdialog.dialogvisible = true;
                 }
             }
@@ -122,7 +135,7 @@ Rectangle {
     }
     TimePickerDialog {
         id: timepickerdialog
-        onHasChanged: { obj.value = timepickerdialog.zeit }
+        onHasChanged: { obj.value = timepickerdialog.zeit; if(!rootSystemSetupPage.init) Hsclient.setSetupSystem() }
     }
     TextDialog {
         id: textdialog

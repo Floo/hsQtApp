@@ -2,10 +2,16 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
+import "../javascript/hsClient.js" as Hsclient
 
 Rectangle {
+    id: rootBewaesserungSetupPage
     width: parent.width
     height: parent.height
+
+    property bool init: true
+
+    Component.onCompleted: Hsclient.getSetupBewaesserung()
 
     Column {
         anchors.fill: parent
@@ -39,7 +45,7 @@ Rectangle {
                 checked: true
                 bezeichner: "Regenabhängig"
                 hilfetext: "Bewässerung nur, wenn kein Regen gefallen ist."
-                onCheckedChanged: {}
+                onCheckedChanged: { if(!rootBewaesserungSetupPage.init) Hsclient.setSetupBewaesserung() }
             }
         }
         Item {
@@ -50,7 +56,7 @@ Rectangle {
                 checked: true
                 bezeichner: "Automatik"
                 hilfetext: "Bewässerung zeitabhängig."
-                onCheckedChanged: {}
+                onCheckedChanged: { if(!rootBewaesserungSetupPage.init) Hsclient.setSetupBewaesserung() }
             }
         }
         Item {
@@ -64,8 +70,7 @@ Rectangle {
                 value: "12:40"
                 onClicked: {
                     timepickerdialog.obj = this;
-                    timepickerdialog.hour = 12;
-                    timepickerdialog.minute = 40;
+                    Hsclient.initBewaesserungZeitDialog(beeteZeit.value)
                     timepickerdialog.dialogvisible = true;
                 }
             }
@@ -78,7 +83,7 @@ Rectangle {
                 leftTextMargin: 50
                 enabled: beeteAuto.checked
                 bezeichner: "Dauer:"
-                value: "8 min"
+                value: "0 min"
                 onClicked: {
                     valuepickerdialog.obj = this;
                     valuepickerdialog.minValue = 1;
@@ -86,7 +91,7 @@ Rectangle {
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = ["1", ".", ".", ".", "5", ".", ".", ".", ".", "10", ".", ".", ".", ".", "15", ".", ".", ".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30"];
                     valuepickerdialog.einheit = " min";
-                    valuepickerdialog.value = 8;
+                    Hsclient.initBewaesserungDauerDialog(beeteDauer.value)
                     valuepickerdialog.dialogvisible = true;
                 }
             }
@@ -121,7 +126,7 @@ Rectangle {
                 checked: true
                 bezeichner: "Regenabhängig"
                 hilfetext: "Bewässerung nur, wenn kein Regen gefallen ist."
-                onCheckedChanged: {}
+                onCheckedChanged: { if(!rootBewaesserungSetupPage.init) Hsclient.setSetupBewaesserung() }
             }
         }
         Item {
@@ -132,7 +137,7 @@ Rectangle {
                 checked: true
                 bezeichner: "Automatik"
                 hilfetext: "Bewässerung zeitabhängig."
-                onCheckedChanged: {}
+                onCheckedChanged: { if(!rootBewaesserungSetupPage.init) Hsclient.setSetupBewaesserung() }
             }
         }
         Item {
@@ -141,13 +146,12 @@ Rectangle {
             SetupValue {
                 id: kuebelZeit
                 leftTextMargin: 50
-                enabled: beeteAuto.checked
+                enabled: kuebelAuto.checked
                 bezeichner: "Startzeit:"
                 value: "12:40"
                 onClicked: {
                     timepickerdialog.obj = this;
-                    timepickerdialog.hour = 12;
-                    timepickerdialog.minute = 40;
+                    Hsclient.initBewaesserungZeitDialog(kuebelZeit.value)
                     timepickerdialog.dialogvisible = true;
                 }
             }
@@ -158,16 +162,16 @@ Rectangle {
             SetupValue {
                 id: kuebelDauer
                 leftTextMargin: 50
-                enabled: beeteAuto.checked
+                enabled: kuebelAuto.checked
                 bezeichner: "Dauer:"
-                value: "8 min"
+                value: "0 min"
                 onClicked: {
                     valuepickerdialog.obj = this;
                     valuepickerdialog.minValue = 1;
                     valuepickerdialog.maxValue = 30;
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = ["1", ".", ".", ".", "5", ".", ".", ".", ".", "10", ".", ".", ".", ".", "15", ".", ".", ".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30"];
-                    valuepickerdialog.value = 8;
+                    Hsclient.initBewaesserungDauerDialog(kuebelDauer.value)
                     valuepickerdialog.einheit = " min";
                     valuepickerdialog.dialogvisible = true;
                 }
@@ -177,10 +181,10 @@ Rectangle {
     }
     TimePickerDialog {
         id: timepickerdialog
-        onHasChanged: { obj.value = timepickerdialog.zeit }
+        onHasChanged: { obj.value = timepickerdialog.zeit; if(!rootBewaesserungSetupPage.init) Hsclient.setSetupBewaesserung()  }
     }
     ValuePickerDialog {
         id: valuepickerdialog
-        onHasChanged: { obj.value = valuepickerdialog.value + " min" }
+        onHasChanged: { obj.value = valuepickerdialog.value + " min"; if(!rootBewaesserungSetupPage.init) Hsclient.setSetupBewaesserung() }
     }
 }

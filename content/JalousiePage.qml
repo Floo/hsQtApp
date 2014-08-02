@@ -11,7 +11,7 @@ Item {
     width: parent.width
     height: parent.height
 
-    Component.onCompleted: { Hsclient.getStatus() }
+    Component.onCompleted: { Hsclient.getStatusJal() }
 
     property int listViewDelegateHeight: 100
     property var jalNr

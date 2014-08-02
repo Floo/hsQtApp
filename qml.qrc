@@ -45,5 +45,6 @@
         <file>images/previous_page_pan472c.png</file>
         <file>images/Licht_Aus.png</file>
         <file>images/Licht_An.png</file>
+        <file>javascript/global.js</file>
     </qresource>
 </RCC>

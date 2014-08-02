@@ -2,10 +2,16 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
+import "../javascript/hsClient.js" as Hsclient
 
 Rectangle {
+    id: rootAbluftSetupPage
     width: parent.width
     height: parent.height
+
+    property bool init: true
+
+    Component.onCompleted: Hsclient.getSetupAbluft()
 
     Column {
         anchors.fill: parent
@@ -32,7 +38,10 @@ Rectangle {
             }
         }
 
-        ExclusiveGroup { id: hwrGroup }
+        ExclusiveGroup {
+            id: hwrGroup
+            onCurrentChanged: if(!rootAbluftSetupPage.init) Hsclient.setSetupAbluft()
+        }
 
         Item {
             width: parent.width
@@ -43,7 +52,6 @@ Rectangle {
                 exclusiveGroup: hwrGroup
                 radioButton: true
                 bezeichner: "Aus"
-                onCheckedChanged: {}
             }
         }
         Item {
@@ -55,7 +63,6 @@ Rectangle {
                 radioButton: true
                 bezeichner: "Dauerbetrieb"
                 exclusiveGroup: hwrGroup
-                onCheckedChanged: {}
             }
         }
         Item {
@@ -67,7 +74,6 @@ Rectangle {
                 radioButton: true
                 exclusiveGroup: hwrGroup
                 bezeichner: "Temperaturabhängig"
-                onCheckedChanged: {}
             }
         }
         Item {
@@ -78,14 +84,14 @@ Rectangle {
                 leftTextMargin: 50
                 enabled: hwrTemp.checked
                 bezeichner: "Temperaturschwelle:"
-                value: "28 °C"
+                value: valuepickerdialog.value + " °C"
                 onClicked: {
                     valuepickerdialog.obj = this;
                     valuepickerdialog.minValue = 18;
                     valuepickerdialog.maxValue = 37;
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = [".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30", ".", ".", ".", ".", "35", ".", "."];
-                    valuepickerdialog.value = 28;
+                    Hsclient.initAbluftTempDialog( hwrTempValue.value );
                     valuepickerdialog.einheit = " °C"
                     valuepickerdialog.dialogvisible = true;
                 }
@@ -118,18 +124,17 @@ Rectangle {
             height: 100
             SetupCheckbox {
                 id: abluft
-                checked: true
                 radioButton: false
                 bezeichner: "Dauerbetrieb"
                 hilfetext: "Dauerbetrieb auf niedriger Stufe"
-                onCheckedChanged: {}
+                onCheckedChanged: { if(!rootAbluftSetupPage.init) Hsclient.setSetupAbluft() }
             }
         }
 
     }
     ValuePickerDialog {
         id: valuepickerdialog
-        onHasChanged: { obj.value = valuepickerdialog.value + " °C" }
+        onHasChanged: { obj.value = valuepickerdialog.value + " °C"; if(!rootAbluftSetupPage.init) Hsclient.setSetupAbluft() }
     }
 }
 

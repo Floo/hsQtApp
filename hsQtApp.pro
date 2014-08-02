@@ -27,7 +27,8 @@ OTHER_FILES += *.qml images/*.png \
     content/SetupValue.qml \
     content/ValuePickerDialog.qml \
     content/TextDialog.qml \
-    content/ListViewDelegate.qml
+    content/ListViewDelegate.qml \
+    javascript/global.js
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

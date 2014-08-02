@@ -11,7 +11,7 @@ ApplicationWindow {
     height: 1280
     title: qsTr("Meth 9")
 
-   // Component.onCompleted: { Hsclient.getStatus() }
+    Component.onCompleted: { Hsclient.getStatus() }
 
     Rectangle {
         id: root
@@ -122,11 +122,15 @@ ApplicationWindow {
 
     Rectangle {
         id: setupMenu
+
+        Component.onCompleted: console.log(setupMenu.z)
+
         width: 200
         height: 300
         anchors.right: parent.right
         anchors.rightMargin: 10
         y: -320
+        z: 2
         color: "white"
         border.color: "grey"
 
@@ -157,6 +161,7 @@ ApplicationWindow {
         anchors.fill: setupMenu
         horizontalOffset: 5
         verticalOffset: 5
+        z: 2
         radius: 12
         samples: 24
         spread: 1.0
@@ -278,7 +283,7 @@ ApplicationWindow {
                 width: 0.75 * parent.width
                 anchors.top: parent.top
                 color: "#eeeeee"
-                x: -width + 20
+                x: -width - 5
                 z: 2
 
                 Column {
@@ -437,6 +442,16 @@ ApplicationWindow {
 
                 Behavior on opacity { NumberAnimation {}}
 
+            }
+            DropShadow {
+                anchors.fill: infoLeiste
+                horizontalOffset: 5
+                verticalOffset: 0
+                radius: 12
+                samples: 24
+                spread: 1.0
+                color: "#80000000"
+                source: infoLeiste
             }
         }
     }
