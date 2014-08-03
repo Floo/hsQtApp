@@ -12,7 +12,16 @@ Rectangle {
 
     property bool init: true
 
-    Component.onCompleted: Hsclient.getSetupSystem()
+    Component.onCompleted: {
+        Hsclient.getSetupSystem();
+        initSystemSettings();
+    }
+
+    function initSystemSettings() {
+        hostname.value = Global.hostname;
+        username.value = Global.username;
+        password.setPassword(Global.password);
+    }
 
     Column {
         anchors.fill: parent
@@ -22,14 +31,19 @@ Rectangle {
             height: 100
             SetupValue {
                 id: hostname
+
+                property string tmpvalue
+
                 bezeichner: "Hostname:"
-                value: Global.hostname
                 onClicked: {
                     textdialog.text = value;
                     textdialog.obj = this;
                     textdialog.dialogvisible = true;
                 }
-                onValueChanged: { if(!rootSystemSetupPage.init) Global.hostname = value }
+                onTmpvalueChanged: {
+                    Global.hostname = tmpvalue;
+                    value = tmpvalue;
+                }
             }
         }
         Item {
@@ -37,6 +51,9 @@ Rectangle {
             height: 100
             SetupValue {
                 id: username
+
+                property string tmpvalue
+
                 bezeichner: "Benutzername:"
                 value: Global.username
                 onClicked: {
@@ -44,7 +61,10 @@ Rectangle {
                     textdialog.obj = this;
                     textdialog.dialogvisible = true;
                 }
-                onValueChanged: { if(!rootSystemSetupPage.init) Global.username = value }
+                onTmpvalueChanged: {
+                    Global.username = tmpvalue;
+                    value = tmpvalue;
+                }
             }
         }
         Item {
@@ -52,21 +72,28 @@ Rectangle {
             height: 100
             SetupValue {
                 id: password
+
+                property string tmpvalue
+
                 bezeichner: "Passwort"
-                value: {
-                    var str = "";
-                    for (var i = 0; i < Global.password.length; i++)
-                        str = str + "*";
-                    return str;
-                }
                 onClicked: {
                     textdialog.text = value;
                     textdialog.obj = this;
                     textdialog.dialogvisible = true;
                 }
-                onValueChanged: { if(!rootSystemSetupPage.init) Global.password = value }
+                onTmpvalueChanged: {
+                    Global.password = tmpvalue;
+                    setPassword(tmpvalue);
+                }
+                function setPassword (value) {
+                    var str = "";
+                    for (var i = 0; i < value.length; i++)
+                        str = str + "*";
+                    password.value = str;
+                }
             }
         }
+
 
         // Separator
         Item {
@@ -139,6 +166,6 @@ Rectangle {
     }
     TextDialog {
         id: textdialog
-        onHasChanged: { obj.value = textdialog.text }
+        onHasChanged: { obj.tmpvalue = textdialog.text }
     }
 }

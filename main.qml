@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQml.Models 2.1
 import QtGraphicalEffects 1.0
+import QtQuick.LocalStorage 2.0
 import "content"
 import "javascript/hsClient.js" as Hsclient
 
@@ -11,7 +12,16 @@ ApplicationWindow {
     height: 1280
     title: qsTr("Meth 9")
 
-    Component.onCompleted: { Hsclient.getStatus() }
+    Component.onCompleted: {
+        Hsclient.getStatus()
+
+        // Initialize the database
+        Hsclient.initialize();
+        // Sets a value in the database
+        Hsclient.setSetting("mySetting","myValue");
+        // Sets the textDisplay element's text to the value we just set
+        textDisplay.text = "The value of mySetting is:\n" + Hsclient.getSetting("mySetting");
+    }
 
     Rectangle {
         id: root
