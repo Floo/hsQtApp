@@ -10,6 +10,7 @@ Rectangle {
     height: parent.height
 
     property bool init: true
+    readonly property string name: "Setup - Jalousie"
 
     Component.onCompleted: Hsclient.getSetupJal()
 
@@ -102,6 +103,7 @@ Rectangle {
                 leftTextMargin: 50
                 enabled: zeit.checked
                 bezeichner: "Zeit zum Öffnen:"
+                value: "00:00"
                 onClicked: {
                     Hsclient.initJalTimeDialog(zeitOeffnen.value)
                     dialog.obj = this;
@@ -117,6 +119,7 @@ Rectangle {
                 leftTextMargin: 50
                 enabled: zeit.checked
                 bezeichner: "Zeit zum Schließen:"
+                value: "00:00"
                 onClicked: {
                     dialog.obj = this;
                     Hsclient.initJalTimeDialog(zeitSchliessen.value)

@@ -1,8 +1,10 @@
 .pragma library
 
-var hostname = "snugata.selfhost.eu";
-var username = "florian";
-var password = "vegas";
+var hostname = "";
+var username = "";
+var password = "";
+
+var networkconfigOK = false;
 
 var	FS20_AUS = 0,
     FS20_AN = 17,

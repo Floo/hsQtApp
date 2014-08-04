@@ -8,6 +8,8 @@ Item {
     width: parent.width
     height: parent.height
 
+    readonly property string name: "Bewässerung"
+
     Component.onCompleted: Hsclient.getStatusBewaesserung()
 
     Column {

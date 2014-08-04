@@ -1,6 +1,7 @@
 //.pragma library //um Variablenzugriff von überall zu ermöglichen
 .import "global.js" as Global
 
+
 //Hilfsfunktionen
 function stringToBoolean(string){
     if (typeof string === 'boolean') {
@@ -29,6 +30,8 @@ function getXMLfirstChild(rootElement, tagname) {
 }
 
 function getStatus () {
+    if (!Global.networkconfigOK) return;
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.HEADERS_RECEIVED) {
@@ -70,6 +73,8 @@ function getStatus () {
 }
 
 function getStatusJal() {
+    if (!Global.networkconfigOK) return;
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -89,6 +94,8 @@ function getStatusJal() {
 }
 
 function getStatusBewaesserung() {
+    if (!Global.networkconfigOK) return;
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -104,6 +111,8 @@ function getStatusBewaesserung() {
 //"up_time":"20:00","down_time":"10:00","auto_time":false,"jal_2_open":false,"weather":"0",
 //"wind_protection":false,"open_on_rain":false,"close_to_sun":"1"
 function getSetupJal() {
+    if (!Global.networkconfigOK) return;
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -126,6 +135,8 @@ function getSetupJal() {
 }
 
 function setSetupJal () {
+    if (!Global.networkconfigOK) return;
+
     var data = "txtAuf=" + zeitOeffnen.value.replace("+", "g") + "&txtZu=" + zeitSchliessen.value.replace("+", "g")
             + "&chkLuecke=" + luecke.checked + "&chkAuto=" + zeit.checked + "&chkTuer=" + tuer.checked +
             "&chkWeather=" + wetter.checked + "&chkRain=" + regen.checked + "&chkWind=" + wind.checked;
@@ -152,6 +163,8 @@ function initJalTimeDialog(value) {
 //"ventil_1_start":"20:30","ventil_2_start":"21:00","ventil_1_duration":"9","ventil_2_duration":"8",
 //"ventil_1_auto":"0","ventil_2_auto":"1","ventil_1_rain":"","ventil_2_rain":""
 function getSetupBewaesserung() {
+    if (!Global.networkconfigOK) return;
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -174,6 +187,8 @@ function getSetupBewaesserung() {
 }
 
 function setSetupBewaesserung() {
+    if (!Global.networkconfigOK) return;
+
     var data = "txtV1Start=" + beeteZeit.value + "&txtV2Start=" + kuebelZeit.value + "&txtV1Dauer=" +
             beeteDauer.value.substring(0, value.indexOf(" ")) + "&txtV2Dauer=" +
             kuebelDauer.value.substring(0, value.indexOf(" ")) + "&chkV1Auto=" + beeteAuto.checked +
@@ -192,6 +207,7 @@ function initBewaesserungZeitDialog(value) {
 
 //"HWRthreshold":"35","HWRpermanent":"0","HWRauto":"0","AClow":"1"
 function getSetupAbluft() {
+    if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -225,6 +241,7 @@ function initAbluftTempDialog (value) {
 }
 
 function setSetupAbluft() {
+    if (!Global.networkconfigOK) return;
     var data = "txtTemp=" + hwrTempValue.value.substring(0, value.indexOf(" "))  +  "&chkAClow=" +
             abluft.checked +  "&chkHWRpermanent=" + hwrAn.checked  + "&chkHWRauto=" + hwrTemp.checked;
     httpPost("setLueftung.php", data)
@@ -232,6 +249,7 @@ function setSetupAbluft() {
 
 //"display_wakeup":"7:00"
 function getSetupSystem() {
+    if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -254,12 +272,14 @@ function getSetupSystem() {
 }
 
 function setSetupSystem() {
+    if (!Global.networkconfigOK) return;
     var data = "txtStartGUI=";
     if(autostartGUI.checked) data = data + autostartGUIZeit.value;
     httpPost("setSystem", data)
 }
 
 function getLicht () {
+    if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -276,6 +296,7 @@ function getLicht () {
 }
 
 function getSzene () {
+    if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
@@ -292,16 +313,19 @@ function getSzene () {
 }
 
 function setSzene(name) {
+    if (!Global.networkconfigOK) return;
     var data = "device=SZENE&txtSzene=" + name;
     httpPost("drv.php", data);
 }
 
 function setLicht(lampenID, wert) {
+    if (!Global.networkconfigOK) return;
     var data = "device=LICHT&txtLampe=" + lampenID + "&txtWert=" + wert;
     httpPost("drv.php", data);
 }
 
 function setBewaesserung(ventil, state, time) {
+    if (!Global.networkconfigOK) return;
     var data = "";
     if (state == true) {
         if (ventil === 1)
@@ -318,6 +342,7 @@ function setBewaesserung(ventil, state, time) {
 }
 
 function drvJalousie(jalNr, command) {
+    if (!Global.networkconfigOK) return;
     var data = "";
     for (var i = 0; i < jalNr.length; i++) {
         data = "device=JAL&txtButtonName=" + command + "_" + jalNr[i];
@@ -347,59 +372,12 @@ function httpPost (destination, data) {
     http.send(data);
 }
 
-
-//storage.js
-// First, let's create a short helper function to get the database connection
-function getDatabase() {
-    return LocalStorage.openDatabaseSync("MyAppName", "1.0", "StorageDatabase", 100000);
+function checkNetworkSettings() {
+    Global.networkconfigOK = !(Global.hostname === "" || Global.username === "" || Global.password === "");
 }
 
-// At the start of the application, we can initialize the tables we need if they haven't been created yet
-function initialize() {
-    var db = getDatabase();
-    db.transaction(
-                function(tx) {
-                    // Create the settings table if it doesn't already exist
-                    // If the table exists, this is skipped
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS settings(setting TEXT UNIQUE, value TEXT)');
-                });
-}
 
-// This function is used to write a setting into the database
-function setSetting(setting, value) {
-    // setting: string representing the setting name (eg: “username”)
-    // value: string representing the value of the setting (eg: “myUsername”)
-    var db = getDatabase();
-    var res = "";
-    db.transaction(function(tx) {
-        var rs = tx.executeSql('INSERT OR REPLACE INTO settings VALUES (?,?);', [setting,value]);
-        //console.log(rs.rowsAffected)
-        if (rs.rowsAffected > 0) {
-            res = "OK";
-        } else {
-            res = "Error";
-        }
-    }
-    );
-    // The function returns “OK” if it was successful, or “Error” if it wasn't
-    return res;
-}
-// This function is used to retrieve a setting from the database
-function getSetting(setting) {
-    var db = getDatabase();
-    var res="";
-    db.transaction(function(tx) {
-        var rs = tx.executeSql('SELECT value FROM settings WHERE setting=?;', [setting]);
-        if (rs.rows.length > 0) {
-            res = rs.rows.item(0).value;
-        } else {
-            res = "Unknown";
-        }
-    })
-    // The function returns “Unknown” if the setting was not found in the database
-    // For more advanced projects, this should probably be handled through error codes
-    return res
-}
+
 
 
 

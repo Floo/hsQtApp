@@ -1,6 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick widgets
+QT += sql
 
 SOURCES += main.cpp
 
@@ -28,7 +29,8 @@ OTHER_FILES += *.qml images/*.png \
     content/ValuePickerDialog.qml \
     content/TextDialog.qml \
     content/ListViewDelegate.qml \
-    javascript/global.js
+    javascript/global.js \
+    javascript/storage.js
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

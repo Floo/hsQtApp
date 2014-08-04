@@ -46,5 +46,6 @@
         <file>images/Licht_Aus.png</file>
         <file>images/Licht_An.png</file>
         <file>javascript/global.js</file>
+        <file>javascript/storage.js</file>
     </qresource>
 </RCC>

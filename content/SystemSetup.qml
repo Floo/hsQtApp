@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
 import "../javascript/hsClient.js" as Hsclient
 import "../javascript/global.js" as Global
+import "../javascript/storage.js" as Storage
 
 Rectangle {
     id: rootSystemSetupPage
@@ -11,6 +12,7 @@ Rectangle {
     height: parent.height
 
     property bool init: true
+    readonly property string name: "Setup - System"
 
     Component.onCompleted: {
         Hsclient.getSetupSystem();
@@ -42,6 +44,8 @@ Rectangle {
                 }
                 onTmpvalueChanged: {
                     Global.hostname = tmpvalue;
+                    Storage.setSetting("hostname", tmpvalue);
+                    Hsclient.checkNetworkSettings();
                     value = tmpvalue;
                 }
             }
@@ -63,6 +67,8 @@ Rectangle {
                 }
                 onTmpvalueChanged: {
                     Global.username = tmpvalue;
+                    Storage.setSetting("username", tmpvalue);
+                    Hsclient.checkNetworkSettings();
                     value = tmpvalue;
                 }
             }
@@ -83,6 +89,8 @@ Rectangle {
                 }
                 onTmpvalueChanged: {
                     Global.password = tmpvalue;
+                    Storage.setSetting("password", tmpvalue);
+                    Hsclient.checkNetworkSettings();
                     setPassword(tmpvalue);
                 }
                 function setPassword (value) {

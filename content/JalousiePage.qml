@@ -15,6 +15,7 @@ Item {
 
     property int listViewDelegateHeight: 100
     property var jalNr
+    readonly property string name: "Jalousie"
 
     Rectangle {
         id: singleHeadline

@@ -8,6 +8,8 @@ Rectangle {
     width: parent.width
     height: parent.height
 
+    readonly property string name: "Lichtszenen"
+
     Component.onCompleted: { Hsclient.getSzene() }
 
     ListModel {

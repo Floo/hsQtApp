@@ -11,6 +11,7 @@ Rectangle {
     height: parent.height
 
     property int selectedIndex: -1
+    readonly property string name: "Licht"
 
     Component.onCompleted: { Hsclient.getLicht() }
 

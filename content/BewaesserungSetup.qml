@@ -10,6 +10,7 @@ Rectangle {
     height: parent.height
 
     property bool init: true
+    readonly property string name: "Setup - Bewässerung"
 
     Component.onCompleted: Hsclient.getSetupBewaesserung()
 
@@ -67,7 +68,7 @@ Rectangle {
                 leftTextMargin: 50
                 enabled: beeteAuto.checked
                 bezeichner: "Startzeit:"
-                value: "12:40"
+                value: "00:00"
                 onClicked: {
                     timepickerdialog.obj = this;
                     Hsclient.initBewaesserungZeitDialog(beeteZeit.value)
@@ -148,7 +149,7 @@ Rectangle {
                 leftTextMargin: 50
                 enabled: kuebelAuto.checked
                 bezeichner: "Startzeit:"
-                value: "12:40"
+                value: "00:00"
                 onClicked: {
                     timepickerdialog.obj = this;
                     Hsclient.initBewaesserungZeitDialog(kuebelZeit.value)

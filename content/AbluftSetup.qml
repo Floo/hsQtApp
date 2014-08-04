@@ -10,6 +10,7 @@ Rectangle {
     height: parent.height
 
     property bool init: true
+    readonly property string name: "Setup - Lüftung"
 
     Component.onCompleted: Hsclient.getSetupAbluft()
 

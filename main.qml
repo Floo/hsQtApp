@@ -1,10 +1,12 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
+import QtQuick.Dialogs 1.2
 import QtQml.Models 2.1
 import QtGraphicalEffects 1.0
-import QtQuick.LocalStorage 2.0
 import "content"
 import "javascript/hsClient.js" as Hsclient
+import "javascript/global.js" as Global
+import "javascript/storage.js" as Storage
 
 ApplicationWindow {
     visible: true
@@ -13,14 +15,22 @@ ApplicationWindow {
     title: qsTr("Meth 9")
 
     Component.onCompleted: {
-        Hsclient.getStatus()
-
         // Initialize the database
-        Hsclient.initialize();
-        // Sets a value in the database
-        Hsclient.setSetting("mySetting","myValue");
-        // Sets the textDisplay element's text to the value we just set
-        textDisplay.text = "The value of mySetting is:\n" + Hsclient.getSetting("mySetting");
+        Storage.initialize();
+
+        Global.hostname = Storage.getSetting("hostname");
+        Global.username = Storage.getSetting("username");
+        Global.password = Storage.getSetting("password");
+
+        Hsclient.checkNetworkSettings();
+
+        if (!Global.networkconfigOK) {
+            messageDialog.title = "Netzwerkfehler"
+            messageDialog.informativeText = "Netzwerkkonfiguration unvollständig."
+            messageDialog.visible = true;
+        }
+
+        Hsclient.getStatus()
     }
 
     Rectangle {
@@ -115,7 +125,10 @@ ApplicationWindow {
                 id: backmouse
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: stackView.pop()
+                onClicked: {
+                    stackView.pop();
+                    textStatuszeile.text = stackView.currentItem.name;
+                }
             }
         }
 
@@ -162,7 +175,14 @@ ApplicationWindow {
                 }
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { if (index > 0) { setupMenu.y = -320; stackView.push(Qt.resolvedUrl(page)) }}
+                    onClicked: { if (index > 0) {
+                            setupMenu.y = -320;
+                            if (stackView.currentItem.name !== name) {
+                                stackView.push(Qt.resolvedUrl(page))
+                                textStatuszeile.text = name;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -187,18 +207,22 @@ ApplicationWindow {
         ListElement {
             title: "Jalousie"
             page: "content/JalousieSetup.qml"
+            name: "Setup - Jalousie"
         }
         ListElement {
             title: "Bewässerung"
             page: "content/BewaesserungSetup.qml"
+            name: "Setup - Bewässerung"
         }
         ListElement {
             title: "Lüftung"
             page: "content/AbluftSetup.qml"
+            name: "Setup - Lüftung"
         }
         ListElement {
             title: "System"
             page: "content/SystemSetup.qml"
+            name: "Setup - System"
         }
     }
 
@@ -246,8 +270,11 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
 
+            readonly property string name: "Meth 9"
+
             Column {
                 id: meth9
+
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Image {
@@ -280,6 +307,7 @@ ApplicationWindow {
                         onButtonClicked: {
                             if (overlay.visible == false) {
                                 stackView.push(Qt.resolvedUrl(page));
+                                textStatuszeile.text = buttontext;
                             }
                         }
                     }
@@ -299,6 +327,8 @@ ApplicationWindow {
                 Column {
                     property int largeFont: 12
                     property int smallFont: 10
+
+                    spacing: 4
 
                     anchors.top: parent.top
                     anchors.topMargin: 40
@@ -393,12 +423,23 @@ ApplicationWindow {
                         anchors { left: parent.left; leftMargin: 18 }
                         font { family: "Abel"; pointSize: parent.smallFont; bold: false}
                     }
+                }
+                Column {
+                    anchors.bottom: parent.bottom
+
+                    //Separator
+                    Rectangle {
+                        width: infoLeiste.width - 30
+                        height: 1
+                        anchors.horizontalCenter: menuSetup.horizontalCenter
+                        color: "black"
+                    }
 
                     Rectangle {
                         id: menuSetup
                         width: infoLeiste.width
                         height: 80
-                        color: "green"
+                        color: "transparent"
 
                         Text {
                             text: "Setup"
@@ -408,19 +449,22 @@ ApplicationWindow {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: { Hsclient.getStatus() }
+                            onClicked: { }
                         }
                     }
+
+                    //Separator
                     Rectangle {
                         width: infoLeiste.width - 30
                         height: 1
                         anchors.horizontalCenter: menuSetup.horizontalCenter
                         color: "black"
                     }
+
                     Rectangle {
                         width: infoLeiste.width
                         height: 80
-                        color: "green"
+                        color: "transparent"
 
                         Text {
                             text: "Verlauf"
@@ -430,7 +474,7 @@ ApplicationWindow {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: { Hsclient.getStatus() }
+                            onClicked: {  }
                         }
                     }
                 }
@@ -464,5 +508,13 @@ ApplicationWindow {
                 source: infoLeiste
             }
         }
+    }
+    MessageDialog {
+        id: messageDialog
+//        onAccepted: {
+//            console.log("And of course you could only agree.")
+//            //Qt.quit()
+//        }
+        //Component.onCompleted: visible = true
     }
 }
