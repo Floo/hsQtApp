@@ -47,5 +47,6 @@
         <file>images/Licht_An.png</file>
         <file>javascript/global.js</file>
         <file>javascript/storage.js</file>
+        <file>content/Logfile.qml</file>
     </qresource>
 </RCC>

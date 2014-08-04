@@ -101,7 +101,7 @@ ApplicationWindow {
             MouseArea {
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: { if (setupMenu.y < 0) setupMenu.y = 0; else setupMenu.y = -320 }
+                onClicked: { if (setupMenu.y < -100) setupMenu.y = -10; else setupMenu.y = -380 }
             }
         }
 
@@ -142,44 +142,49 @@ ApplicationWindow {
             text: "Meth 9"
         }
     }
-
-    Rectangle {
+    Item {
         id: setupMenu
-
-        Component.onCompleted: console.log(setupMenu.z)
-
-        width: 200
-        height: 300
+        width: 220
+        height: 380
         anchors.right: parent.right
-        anchors.rightMargin: 10
-        y: -320
-        z: 2
-        color: "white"
-        border.color: "grey"
+        anchors.rightMargin: 15
+        z: 3
+        y: -height
 
-        ListView {
-            anchors.fill: parent
-            model: setupModel
-            delegate: Rectangle {
-                width: 200
-                height: 60
-                color: index == 0 ? "lightgrey" : "transparent"
-                border.color: "grey"
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-                    font.family: "Abel"
-                    font.pointSize: 18
-                    text: title
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: { if (index > 0) {
-                            setupMenu.y = -320;
-                            if (stackView.currentItem.name !== name) {
-                                stackView.push(Qt.resolvedUrl(page))
-                                textStatuszeile.text = name;
+        Rectangle {
+
+            Component.onCompleted: console.log(setupMenu.z)
+
+            width: 200
+            height: 360
+            anchors.centerIn: parent
+            color: "white"
+            border.color: "grey"
+
+            ListView {
+                anchors.fill: parent
+                model: setupModel
+                delegate: Rectangle {
+                    width: 200
+                    height: 60
+                    color: index == 0 ? "lightgrey" : "transparent"
+                    border.color: "grey"
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
+                        font.family: "Abel"
+                        font.pointSize: 18
+                        text: title
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: { if (index > 0) {
+                                setupMenu.y = -380;
+                                if (stackView.currentItem.name !== name) {
+                                    stackView.push(Qt.resolvedUrl(page))
+                                    textStatuszeile.text = name;
+                                }
                             }
                         }
                     }
@@ -188,13 +193,12 @@ ApplicationWindow {
         }
     }
     DropShadow {
-        anchors.fill: setupMenu
-        horizontalOffset: 5
-        verticalOffset: 5
-        z: 2
-        radius: 12
+        anchors.fill: source
+        horizontalOffset: 4
+        verticalOffset: 4
+        radius: 14
         samples: 24
-        spread: 1.0
+        spread: 0.3
         color: "#80000000"
         source: setupMenu
     }
@@ -223,6 +227,11 @@ ApplicationWindow {
             title: "System"
             page: "content/SystemSetup.qml"
             name: "Setup - System"
+        }
+        ListElement {
+            title: "Logfile"
+            page: "content/Logfile.qml"
+            name: "Logfile"
         }
     }
 
@@ -313,190 +322,177 @@ ApplicationWindow {
                     }
                 }
             }
+
             Item {
-                id: container
-                width: 120
-                height: 120
-                Rectangle {
-                    id: foo
-                    anchors.centerIn: parent
-                    width: 100
-                    height: 100
-                    color: "red"
-                    radius: 4
-                }
-            }
-            DropShadow {
-                anchors.fill: source
-                horizontalOffset: 5
-                verticalOffset: 5
-                radius: 12
-                samples: 24
-                spread: 1.0
-                color: "#80000000"
-                source: container
-            }
-
-            Rectangle {
                 id: infoLeiste
+
+                property int breite: 0.75 * parent.width
+
+                width: breite + 20
                 height: parent.height
-                width: 0.75 * parent.width
                 anchors.top: parent.top
-                color: "#eeeeee"
-                x: -width - 5
                 z: 2
+                x: -width
 
-                Column {
-                    property int largeFont: 12
-                    property int smallFont: 10
-
-                    spacing: 4
-
+                Rectangle {
+                    height: parent.height
+                    width: parent.breite
                     anchors.top: parent.top
-                    anchors.topMargin: 40
-                    Text {
-                        anchors { left: parent.left; leftMargin: 10 }
-                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                        text: "Temperatur:"
-                    }
-                    Text {
-                        id: tempAussen
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: tempInnen
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        anchors { left: parent.left; leftMargin: 10 }
-                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                        text: "Jalousie:"
-                    }
-                    Text {
-                        id: jal1
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: jal2
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: jal3
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: jal4
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        anchors { left: parent.left; leftMargin: 10 }
-                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                        text: "Schaltzustände:"
-                    }
-                    Text {
-                        id: orient
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: abluftHWR
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: zentraleAbluft
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
+                    color: "#eeeeee"
 
-                    Text {
-                        anchors { left: parent.left; leftMargin: 10 }
-                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                        text: "Sonnenzeiten:"
-                    }
-                    Text {
-                        id: sa
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: su
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        anchors { left: parent.left; leftMargin: 10 }
-                        font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                        text: "Letzter Funkempfang:"
-                    }
-                    Text {
-                        id: funkWetter
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                    Text {
-                        id: funkHell
-                        anchors { left: parent.left; leftMargin: 18 }
-                        font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                    }
-                }
-                Column {
-                    anchors.bottom: parent.bottom
+                    Column {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        property int largeFont: 12
+                        property int smallFont: 10
 
-                    //Separator
-                    Rectangle {
-                        width: infoLeiste.width - 30
-                        height: 1
-                        anchors.horizontalCenter: menuSetup.horizontalCenter
-                        color: "black"
-                    }
+                        spacing: 4
 
-                    Rectangle {
-                        id: menuSetup
-                        width: infoLeiste.width
-                        height: 80
-                        color: "transparent"
+                        anchors.top: parent.top
+                        anchors.topMargin: 40
+                        Text {
+                            anchors { left: parent.left; leftMargin: 10 }
+                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                            text: "Temperatur:"
+                        }
+                        Text {
+                            id: tempAussen
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: tempInnen
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            anchors { left: parent.left; leftMargin: 10 }
+                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                            text: "Jalousie:"
+                        }
+                        Text {
+                            id: jal1
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: jal2
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: jal3
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: jal4
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            anchors { left: parent.left; leftMargin: 10 }
+                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                            text: "Schaltzustände:"
+                        }
+                        Text {
+                            id: orient
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: abluftHWR
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: zentraleAbluft
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
 
                         Text {
-                            text: "Setup"
-                            font { family: "Abel"; pointSize: 18}
-                            anchors.centerIn: parent
+                            anchors { left: parent.left; leftMargin: 10 }
+                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                            text: "Sonnenzeiten:"
                         }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: { }
-                        }
-                    }
-
-                    //Separator
-                    Rectangle {
-                        width: infoLeiste.width - 30
-                        height: 1
-                        anchors.horizontalCenter: menuSetup.horizontalCenter
-                        color: "black"
-                    }
-
-                    Rectangle {
-                        width: infoLeiste.width
-                        height: 80
-                        color: "transparent"
-
                         Text {
-                            text: "Verlauf"
-                            font { family: "Abel"; pointSize: 18}
-                            anchors.centerIn: parent
+                            id: sa
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: su
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            anchors { left: parent.left; leftMargin: 10 }
+                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
+                            text: "Letzter Funkempfang:"
+                        }
+                        Text {
+                            id: funkWetter
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                        Text {
+                            id: funkHell
+                            anchors { left: parent.left; leftMargin: 18 }
+                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        }
+                    }
+                    Column {
+                        anchors.bottom: parent.bottom
+
+                        //Separator
+                        Rectangle {
+                            width: infoLeiste.breite - 30
+                            height: 1
+                            anchors.horizontalCenter: menuSetup.horizontalCenter
+                            color: "black"
                         }
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {  }
+                        Rectangle {
+                            id: menuSetup
+                            width: infoLeiste.breite
+                            height: 80
+                            color: "transparent"
+
+                            Text {
+                                text: "Setup"
+                                font { family: "Abel"; pointSize: 18}
+                                anchors.centerIn: parent
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: { }
+                            }
+                        }
+
+                        //Separator
+                        Rectangle {
+                            width: infoLeiste.breite - 30
+                            height: 1
+                            anchors.horizontalCenter: menuSetup.horizontalCenter
+                            color: "black"
+                        }
+
+                        Rectangle {
+                            width: infoLeiste.breite
+                            height: 80
+                            color: "transparent"
+
+                            Text {
+                                text: "Verlauf"
+                                font { family: "Abel"; pointSize: 18}
+                                anchors.centerIn: parent
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {  }
+                            }
                         }
                     }
                 }
@@ -520,12 +516,12 @@ ApplicationWindow {
 
             }
             DropShadow {
-                anchors.fill: infoLeiste
-                horizontalOffset: 5
+                anchors.fill: source
+                horizontalOffset: 4
                 verticalOffset: 0
-                radius: 12
+                radius: 14
                 samples: 24
-                spread: 1.0
+                spread: 0.3
                 color: "#80000000"
                 source: infoLeiste
             }

@@ -64,8 +64,10 @@ function getStatus () {
             abluftHWR.text = "Abluft HWR: " + getXMLfirstChild(a, 'HWR')
             sa.text = "Sonnenaufgang: " + getXMLfirstChild(a, 'SA')
             su.text = "Sonnenuntergang: " + getXMLfirstChild(a, 'SU')
-            funkHell.text = "Helligkeit: " + getXMLfirstChild(a, 'EmpfangHell')
-            funkWetter.text = "Wetter: " + getXMLfirstChild(a, 'EmpfangWetter')
+            var hellText = getXMLfirstChild(a, 'EmpfangHell');
+            var wetterText = getXMLfirstChild(a, 'EmpfangWetter');
+            funkHell.text = "Helligkeit: " + hellText.substr(0, hellText.length - 1);
+            funkWetter.text = "Wetter: " + wetterText.substr(0, wetterText.length - 1);
         }
     }
     xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
@@ -269,6 +271,30 @@ function getSetupSystem() {
     }
     xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
     xmlhttp.send()
+}
+
+
+function getLogfile() {
+    var http = new XMLHttpRequest()
+    var now = +(new Date);
+    var data = "device=LOGFILE_INVERS&timestamp=" + now;
+    http.open("POST", "http://" + Global.hostname + "/drv.php", "true", Global.username, Global.password);
+
+    // Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.setRequestHeader("Content-length", data.length);
+    http.setRequestHeader("Connection", "close");
+
+    http.onreadystatechange = function() { // Call a function when the state changes.
+        if (http.readyState == XMLHttpRequest.DONE) {
+            var foo = http.responseText;
+            var a = http.responseXML.documentElement;
+            var text = getXMLfirstChild(a, 'log_inv');
+            text.replace(/\n/g, "<br>");
+            logtext.text = text;
+        }
+    }
+    http.send(data);
 }
 
 function setSetupSystem() {
