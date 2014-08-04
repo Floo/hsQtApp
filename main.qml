@@ -311,8 +311,30 @@ ApplicationWindow {
                             }
                         }
                     }
-
                 }
+            }
+            Item {
+                id: container
+                width: 120
+                height: 120
+                Rectangle {
+                    id: foo
+                    anchors.centerIn: parent
+                    width: 100
+                    height: 100
+                    color: "red"
+                    radius: 4
+                }
+            }
+            DropShadow {
+                anchors.fill: source
+                horizontalOffset: 5
+                verticalOffset: 5
+                radius: 12
+                samples: 24
+                spread: 1.0
+                color: "#80000000"
+                source: container
             }
 
             Rectangle {
