@@ -424,9 +424,6 @@ ApplicationWindow {
             y: -height
 
             Rectangle {
-
-                Component.onCompleted: console.log(setupMenu.z)
-
                 width: 200
                 height: 360
                 anchors.centerIn: parent

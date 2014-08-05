@@ -42,9 +42,9 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 #Version numbering
-#ERSION = $$system(svn info -r HEAD . | grep 'Changed\ Rev' | cut -b 19-)
-#VERSION = $$system(git rev-list HEAD --count)
-VERSION = 12
+#VERSION = $$system(svn info -r HEAD . | grep 'Changed\ Rev' | cut -b 19-)
+VERSION = $$system(git rev-list HEAD --count)
+#VERSION = 12
 !isEmpty(VERSION){
    VERSION = 0.$${VERSION}
 }
