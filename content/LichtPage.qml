@@ -9,6 +9,7 @@ Rectangle {
     id: rootLichtPage
     width: parent.width
     height: parent.height
+    z: -1
 
     property int selectedIndex: -1
     readonly property string name: "Licht"
@@ -35,66 +36,70 @@ Rectangle {
             }
         }
     }
-    Rectangle {
+    Item {
         id: buttonListe
         height: parent.height
-        anchors.top: parent.top
-        width: 120
-        color: "#eeeeee"
-        x : parent.width
-        Column {
-            width: parent.width
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 2
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Auf.png"
-                text: "Heller"
-                onButtonClicked: {
-                    rootLichtPage.state = "";
-                    Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_DIMM_UP)
+        width: 140
+        x: parent.width
+        Rectangle {
+            height: parent.height
+            anchors.right: parent.right
+            width: 120
+            color: "#eeeeee"
+            Column {
+                width: parent.width
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 2
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Auf.png"
+                    text: "Heller"
+                    onButtonClicked: {
+                        rootLichtPage.state = "";
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_DIMM_UP)
+                    }
                 }
-            }
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Licht_An.png"
-                text: "Einschalten"
-                onButtonClicked: {
-                    rootLichtPage.state = "";
-                    Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_AN);
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Licht_An.png"
+                    text: "Einschalten"
+                    onButtonClicked: {
+                        rootLichtPage.state = "";
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_AN);
+                    }
                 }
-            }
 
-            Rectangle { height: 10; width: parent.width; color: buttonListe.color }
+                Rectangle { height: 10; width: parent.width; color: "transparent" }
 
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Licht_Aus.png"
-                text: "Ausschalten"
-                onButtonClicked: {
-                    rootLichtPage.state = "";
-                    Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_AUS)
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Licht_Aus.png"
+                    text: "Ausschalten"
+                    onButtonClicked: {
+                        rootLichtPage.state = "";
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_AUS)
+                    }
                 }
-            }
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Ab.png"
-                text: "Dunkler"
-                onButtonClicked: {
-                    rootLichtPage.state = "";
-                    Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_DIMM_DOWN)
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Ab.png"
+                    text: "Dunkler"
+                    onButtonClicked: {
+                        rootLichtPage.state = "";
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_DIMM_DOWN)
+                    }
                 }
             }
         }
@@ -102,12 +107,12 @@ Rectangle {
 
     DropShadow {
         id: shadowButtonleiste
-        anchors.fill: buttonListe
-        horizontalOffset: -5
+        anchors.fill: source
+        horizontalOffset: -4
         verticalOffset: 0
-        radius: 12
+        radius: 14
         samples: 24
-        spread: 1.0
+        spread: 0.3
         color: "#80000000"
         visible: false
         source: buttonListe

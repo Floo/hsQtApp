@@ -7,6 +7,7 @@ Item {
     id: rootBewaesserungPage
     width: parent.width
     height: parent.height
+    z: -1
 
     readonly property string name: "Bewässerung"
 

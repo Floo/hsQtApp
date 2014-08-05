@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
+import AppSettings 1.0
 import "../javascript/hsClient.js" as Hsclient
 import "../javascript/global.js" as Global
 import "../javascript/storage.js" as Storage
@@ -10,6 +11,7 @@ Rectangle {
     id: rootSystemSetupPage
     width: parent.width
     height: parent.height
+    z: -1
 
     property bool init: true
     readonly property string name: "Setup - System"
@@ -167,6 +169,17 @@ Rectangle {
                 onClicked: { console.debug("Logfile anzeigen") }
             }
         }
+
+        Item {
+            width: parent.width
+            height: 100
+            SetupValue {
+                id: showVersion
+                bezeichner: "App Info"
+                value: "Meth9, Version: " + appsettings.version + ", Build: " +
+                       appsettings.builddate + ", " + appsettings.buildtime
+            }
+        }
     }
     TimePickerDialog {
         id: timepickerdialog
@@ -175,5 +188,9 @@ Rectangle {
     TextDialog {
         id: textdialog
         onHasChanged: { obj.tmpvalue = textdialog.text }
+    }
+
+    AppSettings {
+        id: appsettings
     }
 }

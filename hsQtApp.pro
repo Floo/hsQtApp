@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick widgets
 QT += sql
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    appsettings.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,12 +32,27 @@ OTHER_FILES += *.qml images/*.png \
     content/ListViewDelegate.qml \
     javascript/global.js \
     javascript/storage.js \
-    content/Logfile.qml
+    content/Logfile.qml \
+    content/InfoElement.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+#Version numbering
+#ERSION = $$system(svn info -r HEAD . | grep 'Changed\ Rev' | cut -b 19-)
+#VERSION = $$system(git rev-list HEAD --count)
+VERSION = 12
+!isEmpty(VERSION){
+   VERSION = 0.$${VERSION}
+}
+
+VERSTR = '\\"$${VERSION}\\"'  # place quotes around the version string
+DEFINES += VER=\"$${VERSTR}\" # create a VER macro containing the version string
+
+HEADERS += \
+    appsettings.h
 
 

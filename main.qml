@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.1
 import QtGraphicalEffects 1.0
+import AppSettings 1.0
 import "content"
 import "javascript/hsClient.js" as Hsclient
 import "javascript/global.js" as Global
@@ -31,6 +32,11 @@ ApplicationWindow {
         }
 
         Hsclient.getStatus()
+    }
+
+    AppSettings {
+        id: settings
+        Component.onCompleted: console.log("Version " + version)
     }
 
     Rectangle {
@@ -101,7 +107,7 @@ ApplicationWindow {
             MouseArea {
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: { if (setupMenu.y < -100) setupMenu.y = -10; else setupMenu.y = -380 }
+                onClicked: { if (setupMenu.y < -100) setupMenu.y = -10; else setupMenu.y = -380; }
             }
         }
 
@@ -142,66 +148,7 @@ ApplicationWindow {
             text: "Meth 9"
         }
     }
-    Item {
-        id: setupMenu
-        width: 220
-        height: 380
-        anchors.right: parent.right
-        anchors.rightMargin: 15
-        z: 3
-        y: -height
 
-        Rectangle {
-
-            Component.onCompleted: console.log(setupMenu.z)
-
-            width: 200
-            height: 360
-            anchors.centerIn: parent
-            color: "white"
-            border.color: "grey"
-
-            ListView {
-                anchors.fill: parent
-                model: setupModel
-                delegate: Rectangle {
-                    width: 200
-                    height: 60
-                    color: index == 0 ? "lightgrey" : "transparent"
-                    border.color: "grey"
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left
-                        anchors.leftMargin: 20
-                        font.family: "Abel"
-                        font.pointSize: 18
-                        text: title
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: { if (index > 0) {
-                                setupMenu.y = -380;
-                                if (stackView.currentItem.name !== name) {
-                                    stackView.push(Qt.resolvedUrl(page))
-                                    textStatuszeile.text = name;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    DropShadow {
-        anchors.fill: source
-        horizontalOffset: 4
-        verticalOffset: 4
-        radius: 14
-        samples: 24
-        spread: 0.3
-        color: "#80000000"
-        source: setupMenu
-    }
 
     ListModel {
         id: setupModel
@@ -278,6 +225,7 @@ ApplicationWindow {
             id: mainPage
             width: parent.width
             height: parent.height
+            z: -1
 
             readonly property string name: "Meth 9"
 
@@ -327,6 +275,8 @@ ApplicationWindow {
                 id: infoLeiste
 
                 property int breite: 0.75 * parent.width
+                property int largeFont: 12
+                property int smallFont: 14
 
                 width: breite + 20
                 height: parent.height
@@ -341,106 +291,42 @@ ApplicationWindow {
                     color: "#eeeeee"
 
                     Column {
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        //anchors.horizontalCenter: parent.horizontalCenter
                         property int largeFont: 12
                         property int smallFont: 10
 
-                        spacing: 4
-
                         anchors.top: parent.top
-                        anchors.topMargin: 40
-                        Text {
-                            anchors { left: parent.left; leftMargin: 10 }
-                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                            text: "Temperatur:"
-                        }
-                        Text {
-                            id: tempAussen
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            id: tempInnen
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            anchors { left: parent.left; leftMargin: 10 }
-                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                            text: "Jalousie:"
-                        }
-                        Text {
-                            id: jal1
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            id: jal2
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            id: jal3
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            id: jal4
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            anchors { left: parent.left; leftMargin: 10 }
-                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                            text: "Schaltzustände:"
-                        }
-                        Text {
-                            id: orient
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            id: abluftHWR
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
-                        Text {
-                            id: zentraleAbluft
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
-                        }
+                        anchors.topMargin: 10
 
-                        Text {
-                            anchors { left: parent.left; leftMargin: 10 }
-                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                            text: "Sonnenzeiten:"
+                        InfoElement {
+                            id: temperatur
+                            source: "images/Sonne.png"
                         }
-                        Text {
-                            id: sa
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        InfoElement {
+                            id: regen
+                            height: 110
+                            source: "images/Luecke.png"
                         }
-                        Text {
-                            id: su
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        InfoElement {
+                            id: jalousie
+                            height: 140
+                            source: "images/Luecke.png"
                         }
-                        Text {
-                            anchors { left: parent.left; leftMargin: 10 }
-                            font { family: "Abel"; pointSize: parent.largeFont; bold: true}
-                            text: "Letzter Funkempfang:"
+                        InfoElement {
+                            id: lueftung
+                            source: "images/Luecke.png"
                         }
-                        Text {
-                            id: funkWetter
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        InfoElement {
+                            id: sasu
+                            source: "images/Luecke.png"
                         }
-                        Text {
-                            id: funkHell
-                            anchors { left: parent.left; leftMargin: 18 }
-                            font { family: "Abel"; pointSize: parent.smallFont; bold: false}
+                        InfoElement {
+                            id: empfang
+                            source: "images/Luecke.png"
                         }
                     }
+
+
                     Column {
                         anchors.bottom: parent.bottom
 
@@ -526,13 +412,76 @@ ApplicationWindow {
                 source: infoLeiste
             }
         }
+
+        Rectangle {
+            id: setupMenu
+            width: 220
+            height: 380
+            anchors.right: parent.right
+            anchors.rightMargin: 15
+            color: "transparent"
+            z: 99
+            y: -height
+
+            Rectangle {
+
+                Component.onCompleted: console.log(setupMenu.z)
+
+                width: 200
+                height: 360
+                anchors.centerIn: parent
+                color: "white"
+                border.color: "grey"
+
+                ListView {
+                    anchors.fill: parent
+                    model: setupModel
+                    delegate: Rectangle {
+                        width: 200
+                        height: 60
+                        color: index == 0 ? "lightgrey" : "transparent"
+                        border.color: "grey"
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.leftMargin: 20
+                            font.family: "Abel"
+                            font.pointSize: 18
+                            text: title
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: { if (index > 0) {
+                                    setupMenu.y = -380;
+                                    if (stackView.currentItem.name !== name) {
+                                        stackView.push(Qt.resolvedUrl(page))
+                                        textStatuszeile.text = name;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        DropShadow {
+            anchors.fill: source
+            horizontalOffset: 4
+            verticalOffset: 4
+            radius: 14
+            samples: 24
+            spread: 0.3
+            color: "#80000000"
+            source: setupMenu
+        }
+
     }
     MessageDialog {
         id: messageDialog
-//        onAccepted: {
-//            console.log("And of course you could only agree.")
-//            //Qt.quit()
-//        }
+        //        onAccepted: {
+        //            console.log("And of course you could only agree.")
+        //            //Qt.quit()
+        //        }
         //Component.onCompleted: visible = true
     }
 }

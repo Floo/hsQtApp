@@ -7,6 +7,7 @@ import "../javascript/hsClient.js" as Hsclient
 Rectangle {
     width: parent.width
     height: parent.height
+    z: -1
 
     readonly property string name: "Lichtszenen"
 

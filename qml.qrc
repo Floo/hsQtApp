@@ -48,5 +48,10 @@
         <file>javascript/global.js</file>
         <file>javascript/storage.js</file>
         <file>content/Logfile.qml</file>
+        <file>content/InfoElement.qml</file>
+        <file>images/Luecke.png</file>
+        <file>images/Nacht.png</file>
+        <file>images/Regen.png</file>
+        <file>images/Wolke.png</file>
     </qresource>
 </RCC>

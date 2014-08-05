@@ -8,6 +8,7 @@ Rectangle {
     id: rootJalSetupPage
     width: parent.width
     height: parent.height
+    z: -1
 
     property bool init: true
     readonly property string name: "Setup - Jalousie"

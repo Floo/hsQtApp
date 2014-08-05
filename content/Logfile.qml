@@ -8,15 +8,26 @@ Rectangle {
     id: rootLogfilePage
     width: parent.width
     height: parent.height
+    z: -1
 
     property bool init: true
     readonly property string name: "Logfile"
 
     Component.onCompleted: Hsclient.getLogfile()
 
-    Text {
-        id: logtext
+    Flickable {
         anchors.fill: parent
+        contentWidth: logtext.width
+        contentHeight: logtext.height
+        flickableDirection: Flickable.VerticalFlick
+        clip: true
+
+        Text {
+            id: logtext
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            font.pointSize: 10
+        }
     }
 
 }

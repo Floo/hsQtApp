@@ -11,6 +11,8 @@ Item {
     width: parent.width
     height: parent.height
 
+    z: -1;
+
     Component.onCompleted: { Hsclient.getStatusJal() }
 
     property int listViewDelegateHeight: 100
@@ -139,97 +141,101 @@ Item {
             }
         }
     }
-    Rectangle {
+    Item {
         id: buttonListe
         height: parent.height
-        anchors.top: parent.top
-        width: 120
-        color: "#eeeeee"
-        x : parent.width
-        Column {
-            width: parent.width
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 2
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/ImpAuf.png"
-                onButtonClicked: {
-                    rootJalPage.state = "";
-                    Hsclient.drvJalousie(jalNr, "IMPAUF");
+        width: 140
+        x: parent.width
+        Rectangle {
+            height: parent.height
+            anchors.top: parent.top
+            anchors.right: parent.right
+            width: 120
+            color: "#eeeeee"
+            Column {
+                width: parent.width
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 2
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/ImpAuf.png"
+                    onButtonClicked: {
+                        rootJalPage.state = "";
+                        Hsclient.drvJalousie(jalNr, "IMPAUF");
+                    }
                 }
-            }
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Auf.png"
-                onButtonClicked: {
-                    rootJalPage.state = "";
-                    Hsclient.drvJalousie(jalNr, "AUF");
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Auf.png"
+                    onButtonClicked: {
+                        rootJalPage.state = "";
+                        Hsclient.drvJalousie(jalNr, "AUF");
+                    }
                 }
-            }
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Stop.png"
-                onButtonClicked: {
-                    rootJalPage.state = "";
-                    Hsclient.drvJalousie(jalNr, "STP");
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Stop.png"
+                    onButtonClicked: {
+                        rootJalPage.state = "";
+                        Hsclient.drvJalousie(jalNr, "STP");
+                    }
                 }
-            }
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Ab.png"
-                onButtonClicked: {
-                    rootJalPage.state = "";
-                    Hsclient.drvJalousie(jalNr, "AB");
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Ab.png"
+                    onButtonClicked: {
+                        rootJalPage.state = "";
+                        Hsclient.drvJalousie(jalNr, "AB");
+                    }
                 }
-            }
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/ImpAb.png"
-                onButtonClicked: {
-                    rootJalPage.state = "";
-                    Hsclient.drvJalousie(jalNr, "IMPAB");
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/ImpAb.png"
+                    onButtonClicked: {
+                        rootJalPage.state = "";
+                        Hsclient.drvJalousie(jalNr, "IMPAB");
+                    }
                 }
-            }
 
-            Rectangle { height: 10; width: parent.width; color: buttonListe.color }
+                Rectangle { height: 10; width: parent.width; color: "transparent" }
 
-            StartButton {
-                color: Qt.lighter("#E3905C", 1.2)
-                border.color: Qt.lighter("#E3905C", 1.5)
-                border.width: 2
-                width: parent.width; height: parent.width
-                source: "../images/Sonne.png"
-                onButtonClicked: {
-                    rootJalPage.state = "";
-                    Hsclient.drvJalousie(jalNr, "SUN");
+                StartButton {
+                    color: Qt.lighter("#E3905C", 1.2)
+                    border.color: Qt.lighter("#E3905C", 1.5)
+                    border.width: 2
+                    width: parent.width; height: parent.width
+                    source: "../images/Luecke.png"
+                    onButtonClicked: {
+                        rootJalPage.state = "";
+                        Hsclient.drvJalousie(jalNr, "SUN");
+                    }
                 }
             }
         }
-
     }
     DropShadow {
         id: shadowButtonLeiste
-        anchors.fill: buttonListe
-        horizontalOffset: -5
+        anchors.fill: source
+        horizontalOffset: -4
         verticalOffset: 0
-        radius: 12
+        radius: 14
         samples: 24
-        spread: 1.0
+        spread: 0.3
         visible: false
         color: "#80000000"
         source: buttonListe

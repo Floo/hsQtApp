@@ -50,24 +50,26 @@ function getStatus () {
             //                                        showRequestInfo("Last modified -->");
             //                                        showRequestInfo(xmlhttp.getResponseHeader ("Last-Modified"));
 
-            tempAussen.text = "außen: " + getXMLfirstChild(a, 'TempAussen') + " °C";
-            tempInnen.text = "innen: " + getXMLfirstChild(a, 'TempInnen') + " °C";
+            temperatur.text = "außen: " + getXMLfirstChild(a, 'TempAussen') + " °C<br>innen: "
+                    + getXMLfirstChild(a, 'TempInnen') + " °C";
+            temperatur.source = "../images/" + getXMLfirstChild(a, 'Symbol');
             var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
             var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');
             var jal2text = getXMLfirstChild(a, 'posJal_2') + "/" + getXMLfirstChild(a, 'drvJal_2');
             var jal3text = getXMLfirstChild(a, 'posJal_3') + "/" + getXMLfirstChild(a, 'drvJal_3');
-            jal1.text = "Jalousie 1: " + jal0text;
-            jal2.text = "Jalousie 2: " + jal1text;
-            jal3.text = "Jalousie 3: " + jal2text;
-            jal4.text = "Jalousie 4: " + jal3text;
-            orient.text = "Orientierungslicht: " + getXMLfirstChild(a, 'Orient')
-            abluftHWR.text = "Abluft HWR: " + getXMLfirstChild(a, 'HWR')
-            sa.text = "Sonnenaufgang: " + getXMLfirstChild(a, 'SA')
-            su.text = "Sonnenuntergang: " + getXMLfirstChild(a, 'SU')
+            jalousie.text = "Jalousie 1: " + jal0text + "<br>Jalousie 2: " + jal1text + "<br>Jalousie 3: "
+                    + jal2text + "<br>Jalousie 4: " + jal3text;
+            sasu.text = "Sonnenaufgang: " + getXMLfirstChild(a, 'SA') +
+                    "<br>Sonnenuntergang: " + getXMLfirstChild(a, 'SU')
+            lueftung.text = "Orientierungslicht: " + getXMLfirstChild(a, 'Orient') +
+                    "<br>Abluft HWR: " + getXMLfirstChild(a, 'HWR')
             var hellText = getXMLfirstChild(a, 'EmpfangHell');
             var wetterText = getXMLfirstChild(a, 'EmpfangWetter');
-            funkHell.text = "Helligkeit: " + hellText.substr(0, hellText.length - 1);
-            funkWetter.text = "Wetter: " + wetterText.substr(0, wetterText.length - 1);
+            empfang.text = "Helligkeit: " + hellText.substr(0, hellText.length - 1) +
+                    "<br>Wetter: " + wetterText.substr(0, wetterText.length - 1);
+            regen.text = "Regen (1h): " + getXMLfirstChild(a, 'Regen_1h') +
+                    " l/m²<br>Regen (24h): " + getXMLfirstChild(a, 'Regen_24h') +
+                    " l/m²<br>Regen (7d): " + getXMLfirstChild(a, 'Regen_7d') + " l/m²";
         }
     }
     xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
@@ -101,6 +103,8 @@ function getStatusBewaesserung() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            var foo = xmlhttp.responseXML;
+            console.log(foo)
             var a = xmlhttp.responseXML.documentElement;
             beete.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_1')
             kuebel.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_2')
@@ -278,6 +282,7 @@ function getLogfile() {
     var http = new XMLHttpRequest()
     var now = +(new Date);
     var data = "device=LOGFILE_INVERS&timestamp=" + now;
+
     http.open("POST", "http://" + Global.hostname + "/drv.php", "true", Global.username, Global.password);
 
     // Send the proper header information along with the request
@@ -286,10 +291,9 @@ function getLogfile() {
     http.setRequestHeader("Connection", "close");
 
     http.onreadystatechange = function() { // Call a function when the state changes.
-        if (http.readyState == XMLHttpRequest.DONE) {
+        if (http.readyState === XMLHttpRequest.DONE) {
             var foo = http.responseText;
-            var a = http.responseXML.documentElement;
-            var text = getXMLfirstChild(a, 'log_inv');
+            var text = foo.substring(foo.indexOf("<log_inv>") + 9, foo.indexOf("</log_inv>"));
             text.replace(/\n/g, "<br>");
             logtext.text = text;
         }
