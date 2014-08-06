@@ -61,5 +61,6 @@
         <file>images/lueftung_qt.png</file>
         <file>images/bewaesserung_qt.png</file>
         <file>images/regentropfen_qt.png</file>
+        <file>images/icon.png</file>
     </qresource>
 </RCC>

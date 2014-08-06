@@ -107,7 +107,13 @@ ApplicationWindow {
             MouseArea {
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: { if (setupMenu.y < -100) setupMenu.y = -10; else setupMenu.y = -380; }
+                onClicked: { if (mainPage.state == "setupVisible") // (setupMenu.y < -100)
+                        //setupMenu.y = -10;
+                        mainPage.state = ""
+                    else
+                        mainPage.state = "setupVisible"
+                        //setupMenu.y = -380;
+                }
             }
         }
 
@@ -233,6 +239,8 @@ ApplicationWindow {
                 id: meth9
 
                 anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: 20
 
                 Image {
                     id: meth9Pic
@@ -261,6 +269,7 @@ ApplicationWindow {
                         width: gridView.cellWidth
                         source: pic
                         text: buttontext
+                        color: pressed ? "lightgrey" : "transparent"
                         onButtonClicked: {
                             if (overlay.visible == false) {
                                 stackView.push(Qt.resolvedUrl(page));
@@ -384,10 +393,18 @@ ApplicationWindow {
                 }
             }
 
-            states: State {
-                name: "infoVisible"
-                AnchorChanges { target: infoLeiste; anchors.left: mainPage.left}
-            }
+            states: [
+                State {
+                    name: "infoVisible"
+                    AnchorChanges { target: infoLeiste; anchors.left: mainPage.left }
+                    PropertyChanges { target: setupMenu; y: -380 }
+                },
+                State {
+                    name: "setupVisible"
+                    PropertyChanges { target: setupMenu; y: -10 }
+                    PropertyChanges { target: infoLeiste; x: -infoLeiste.width }
+                }
+            ]
             transitions: Transition {
                 AnchorAnimation { duration: 200 }
             }
@@ -399,6 +416,13 @@ ApplicationWindow {
                 visible: false
 
                 Behavior on opacity { NumberAnimation {}}
+                MouseArea {
+                    id: overlayMouse
+                    width: parent.width - infoLeiste.breite
+                    height: parent.height
+                    anchors.right: parent.right
+                    onClicked: { overlay.visible ? mainPage.state = "" : {} }
+                }
 
             }
             DropShadow {
@@ -436,17 +460,18 @@ ApplicationWindow {
                     delegate: Rectangle {
                         width: 200
                         height: 60
-                        color: index == 0 ? "lightgrey" : "transparent"
+                        color: index == setupMouse.pressed ? "lightgrey" : "transparent"
                         border.color: "grey"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.left
                             anchors.leftMargin: 20
                             font.family: "Abel"
-                            font.pointSize: 18
+                            font.pointSize: 14
                             text: title
                         }
                         MouseArea {
+                            id: setupMouse
                             anchors.fill: parent
                             onClicked: { if (index > 0) {
                                     setupMenu.y = -380;

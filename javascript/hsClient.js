@@ -34,22 +34,8 @@ function getStatus () {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.HEADERS_RECEIVED) {
-            //                                        showRequestInfo("Headers -->");
-            //                                        showRequestInfo(xmlhttp.getAllResponseHeaders ());
-            //                                        showRequestInfo("Last modified -->");
-            //                                        showRequestInfo(xmlhttp.getResponseHeader ("Last-Modified"));
-
-        } else if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             var a = xmlhttp.responseXML.documentElement;
-            //                                        for (var ii = 0; ii < a.childNodes.length; ++ii) {
-            //                                            showRequestInfo(a.childNodes[ii].nodeName);
-            //                                        }
-            //                                        showRequestInfo("Headers -->");
-            //                                        showRequestInfo(xmlhttp.getAllResponseHeaders ());
-            //                                        showRequestInfo("Last modified -->");
-            //                                        showRequestInfo(xmlhttp.getResponseHeader ("Last-Modified"));
-
             temperatur.text = "außen: " + getXMLfirstChild(a, 'TempAussen') + " °C<br>innen: "
                     + getXMLfirstChild(a, 'TempInnen') + " °C";
             temperatur.source = "../images/" + getXMLfirstChild(a, 'Symbol');
@@ -72,6 +58,8 @@ function getStatus () {
                     " l/m²<br>Regen (7d): " + getXMLfirstChild(a, 'Regen_7d') + " l/m²";
         }
     }
+    var foo = "http://" + Global.hostname + "/weather.php " + Global.username + " " + Global.password;
+    console.log(foo)
     xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }

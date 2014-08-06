@@ -45,10 +45,10 @@ Rectangle {
                     textdialog.dialogvisible = true;
                 }
                 onTmpvalueChanged: {
-                    Global.hostname = tmpvalue;
-                    Storage.setSetting("hostname", tmpvalue);
+                    Global.hostname = tmpvalue.toLowerCase();
+                    Storage.setSetting("hostname", tmpvalue.toLowerCase());
                     Hsclient.checkNetworkSettings();
-                    value = tmpvalue;
+                    value = tmpvalue.toLowerCase();
                 }
             }
         }
@@ -187,7 +187,7 @@ Rectangle {
     }
     TextDialog {
         id: textdialog
-        onHasChanged: { obj.tmpvalue = textdialog.text }
+        onHasChanged: { obj.tmpvalue = textdialog.text.replace(/ /g, '') }
     }
 
     AppSettings {

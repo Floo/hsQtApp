@@ -7,6 +7,7 @@ Rectangle {
 
     property alias source: image.source
     property alias text: buttontext.text
+    property alias pressed: click.pressed
     signal buttonClicked()
 
     Column {
@@ -15,8 +16,8 @@ Rectangle {
         spacing: 6
         Image {
             id: image
-            width: outerborder.width / 2
-            height: outerborder.height / 2
+            width: outerborder.width / 1.6
+            height: outerborder.height / 1.6
             anchors.horizontalCenter: parent.horizontalCenter
             //anchors.centerIn: parent
             fillMode: Image.PreserveAspectFit
@@ -26,7 +27,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#E3905C"
             font.family: "Abel"
-            font.pointSize: 12
+            font.pointSize: 13
         }
     }
 

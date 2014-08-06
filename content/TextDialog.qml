@@ -61,6 +61,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             color: "transparent"
+            opacity: okMouse.pressed ? 0.2 : 1
             Rectangle {
                 width: parent.width
                 height: 2
@@ -76,6 +77,7 @@ Item {
                 text: "Übernehmen"
             }
             MouseArea {
+                id: okMouse
                 anchors.fill: parent
                 onClicked: {
                     dialogBody.visible = false;
@@ -101,6 +103,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             color: "transparent"
+            opacity: abbruchMouse.pressed ? 0.2 : 1
             Rectangle {
                 width: parent.width
                 height: 2
@@ -116,6 +119,7 @@ Item {
                 text: "Abbrechen"
             }
             MouseArea {
+                id: abbruchMouse
                 anchors.fill: parent
                 onClicked: { dialogBody.visible = false }
             }

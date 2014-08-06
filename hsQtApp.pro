@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick widgets
-QT += sql
+QT += sql network
 
 SOURCES += main.cpp \
     appsettings.cpp
@@ -33,7 +33,8 @@ OTHER_FILES += *.qml images/*.png \
     javascript/global.js \
     javascript/storage.js \
     content/Logfile.qml \
-    content/InfoElement.qml
+    content/InfoElement.qml \
+    android/AndroidManifest.xml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -54,5 +55,7 @@ DEFINES += VER=\"$${VERSTR}\" # create a VER macro containing the version string
 
 HEADERS += \
     appsettings.h
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 
