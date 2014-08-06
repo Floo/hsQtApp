@@ -305,24 +305,24 @@ ApplicationWindow {
                         InfoElement {
                             id: regen
                             height: 110
-                            source: "images/Luecke.png"
+                            source: "images/regentropfen_qt.png"
                         }
                         InfoElement {
                             id: jalousie
                             height: 140
-                            source: "images/Luecke.png"
+                            source: "images/jalousie_qt.png"
                         }
                         InfoElement {
                             id: lueftung
-                            source: "images/Luecke.png"
+                            source: "images/lueftung_qt.png"
                         }
                         InfoElement {
                             id: sasu
-                            source: "images/Luecke.png"
+                            source: "images/sasu_qt.png"
                         }
                         InfoElement {
                             id: empfang
-                            source: "images/Luecke.png"
+                            source: "images/funk_qt.png"
                         }
                     }
 

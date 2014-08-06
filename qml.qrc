@@ -53,5 +53,13 @@
         <file>images/Nacht.png</file>
         <file>images/Regen.png</file>
         <file>images/Wolke.png</file>
+        <file>images/navigation_home.png</file>
+        <file>images/funk_qt.png</file>
+        <file>images/temp_qt.png</file>
+        <file>images/jalousie_qt.png</file>
+        <file>images/sasu_qt.png</file>
+        <file>images/lueftung_qt.png</file>
+        <file>images/bewaesserung_qt.png</file>
+        <file>images/regentropfen_qt.png</file>
     </qresource>
 </RCC>
