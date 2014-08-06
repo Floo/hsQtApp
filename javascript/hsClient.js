@@ -36,26 +36,22 @@ function getStatus () {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             var a = xmlhttp.responseXML.documentElement;
-            temperatur.text = "außen: " + getXMLfirstChild(a, 'TempAussen') + " °C<br>innen: "
+            temperatur.text = getXMLfirstChild(a, 'TempAussen') + " °C<br>"
                     + getXMLfirstChild(a, 'TempInnen') + " °C";
             temperatur.source = "../images/" + getXMLfirstChild(a, 'Symbol');
             var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
             var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');
             var jal2text = getXMLfirstChild(a, 'posJal_2') + "/" + getXMLfirstChild(a, 'drvJal_2');
             var jal3text = getXMLfirstChild(a, 'posJal_3') + "/" + getXMLfirstChild(a, 'drvJal_3');
-            jalousie.text = "Jalousie 1: " + jal0text + "<br>Jalousie 2: " + jal1text + "<br>Jalousie 3: "
-                    + jal2text + "<br>Jalousie 4: " + jal3text;
-            sasu.text = "Sonnenaufgang: " + getXMLfirstChild(a, 'SA') +
-                    "<br>Sonnenuntergang: " + getXMLfirstChild(a, 'SU')
-            lueftung.text = "Orientierungslicht: " + getXMLfirstChild(a, 'Orient') +
-                    "<br>Abluft HWR: " + getXMLfirstChild(a, 'HWR')
+            jalousie.text = jal0text + "<br>" + jal1text + "<br>" + jal2text + "<br>" + jal3text;
+            sasu.text = getXMLfirstChild(a, 'SA') + "<br>" + getXMLfirstChild(a, 'SU')
+            lueftung.text = getXMLfirstChild(a, 'Orient') + "<br>" + getXMLfirstChild(a, 'HWR')
             var hellText = getXMLfirstChild(a, 'EmpfangHell');
             var wetterText = getXMLfirstChild(a, 'EmpfangWetter');
-            empfang.text = "Helligkeit: " + hellText.substr(0, hellText.length - 1) +
-                    "<br>Wetter: " + wetterText.substr(0, wetterText.length - 1);
-            regen.text = "Regen (1h): " + getXMLfirstChild(a, 'Regen_1h') +
-                    " l/m²<br>Regen (24h): " + getXMLfirstChild(a, 'Regen_24h') +
-                    " l/m²<br>Regen (7d): " + getXMLfirstChild(a, 'Regen_7d') + " l/m²";
+            empfang.text = hellText.substr(0, hellText.length - 1) +
+                    " Uhr<br>" + wetterText.substr(0, wetterText.length - 1) + " Uhr";
+            regen.text = getXMLfirstChild(a, 'Regen_1h') + " l/m²<br>" + getXMLfirstChild(a, 'Regen_24h') +
+                    " l/m²<br>" + getXMLfirstChild(a, 'Regen_7d') + " l/m²";
         }
     }
     var foo = "http://" + Global.hostname + "/weather.php " + Global.username + " " + Global.password;

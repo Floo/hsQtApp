@@ -5,6 +5,7 @@ Item {
 
     property alias source: pic.source
     property alias text: text.text
+    property alias bezeichner: bezeichner.text
 
     width: infoLeiste.breite
     height: 80
@@ -32,11 +33,18 @@ Item {
             height: infoElement.height
             width: infoElement.width - 121
             Text {
-                id: text
+                id: bezeichner
                 anchors { left: parent.left; leftMargin: 20; verticalCenter: parent.verticalCenter }
-                font { family: "Abel"; pointSize: infoLeiste.smallFont }
+                font { family: "Abel"; pixelSize: 18 }
                 verticalAlignment: Qt.AlignVCenter
+            }
 
+            Text {
+                id: text
+                x: bezeichner.x + bezeichner.width + 10
+                anchors.verticalCenter: parent.verticalCenter
+                font { family: "Abel"; pixelSize: 18 }
+                verticalAlignment: Qt.AlignVCenter
             }
         }
     }

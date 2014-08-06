@@ -19,7 +19,7 @@ Item {
             id: status
             font.family: "Abel"
             font.pointSize: 16
-            font.bold: true
+            font.bold: false
             text: "Status: "
         }
 
@@ -48,7 +48,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 font.family: "Abel"
-                font.pointSize: 18
+                font.pointSize: 16
                 text: "Dauer: " + slider_id.value + " min"
             }
         }

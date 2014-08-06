@@ -54,45 +54,71 @@ ApplicationWindow {
 
         Rectangle {
             id: infoButton
-            width: stackView.depth > 1 ? 0 : 80
+            width:  80
             height: 80
             x: -30
+            visible: stackView.depth == 1
             anchors.verticalCenter: parent.verticalCenter
             color: "transparent"
 
             Behavior on x { NumberAnimation {} }
 
             Image {
-                width: parent.width; height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
+                width: 70; height: 70
+                anchors.centerIn: parent
                 source: "images/info_white.png"
             }
-
             MouseArea {
                 id: infomouse
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked: {
-                    //console.debug("infomouse")
                     if (mainPage.state == "infoVisible") {
-                        overlay.visible = false
-                        overlay.opacity = 0
                         mainPage.state = ""
-                        infoButton.x = -30
                     } else {
-                        overlay.visible = true
-                        overlay.opacity = 0.5
                         mainPage.state = "infoVisible"
-                        infoButton.x = -50
                         Hsclient.getStatus()
                     }
                 }
             }
         }
+
         Rectangle {
-            id: setupButton
+            id: homeButton
             width: 80
             height: 80
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: setupButton.left
+            anchors.rightMargin: 30
+            visible: opacity
+            opacity: stackView.depth > 1 ? 1 : 0
+            color: "transparent"
+
+            Behavior on opacity { NumberAnimation{} }
+
+            Image {
+                fillMode: Image.PreserveAspectFit
+                width: 65
+                height: 65
+                anchors.centerIn: parent
+                source: "images/navigation_home.png"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                anchors.margins: -10
+                onClicked: {
+                    stackView.pop(null)
+                    textStatuszeile.text = stackView.currentItem.name;
+                    mainPage.state = "";
+                }
+            }
+        }
+
+        Rectangle {
+            id: setupButton
+            width: 70
+            height: 70
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: 30
@@ -107,21 +133,19 @@ ApplicationWindow {
             MouseArea {
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: { if (mainPage.state == "setupVisible") // (setupMenu.y < -100)
-                        //setupMenu.y = -10;
+                onClicked: { if (mainPage.state == "setupVisible")
                         mainPage.state = ""
                     else
                         mainPage.state = "setupVisible"
-                        //setupMenu.y = -380;
                 }
             }
         }
 
         Rectangle {
             id: backButton
-            width: opacity ? 60 : 0
+            width: 60
             anchors.left: parent.left
-            anchors.leftMargin: 80
+            anchors.leftMargin: 60
             opacity: stackView.depth > 1 ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
@@ -140,6 +164,7 @@ ApplicationWindow {
                 onClicked: {
                     stackView.pop();
                     textStatuszeile.text = stackView.currentItem.name;
+                    mainPage.states = "";
                 }
             }
         }
@@ -147,8 +172,8 @@ ApplicationWindow {
         Text {
             id: textStatuszeile
             font.pixelSize: 42
-            Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
-            x: backButton.x + backButton.width + 20
+            //Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
+            x: backButton.x + 80
             anchors.verticalCenter: parent.verticalCenter
             color: "white"
             text: "Meth 9"
@@ -272,6 +297,7 @@ ApplicationWindow {
                         color: pressed ? "lightgrey" : "transparent"
                         onButtonClicked: {
                             if (overlay.visible == false) {
+                                mainPage.state = "";
                                 stackView.push(Qt.resolvedUrl(page));
                                 textStatuszeile.text = buttontext;
                             }
@@ -310,28 +336,34 @@ ApplicationWindow {
                         InfoElement {
                             id: temperatur
                             source: "images/Sonne.png"
+                            bezeichner: "innen:<br>außen:"
                         }
                         InfoElement {
                             id: regen
                             height: 110
                             source: "images/regentropfen_qt.png"
+                            bezeichner: "Regen (1h):<br>Regen (24h):<br>Regen (7d):"
                         }
                         InfoElement {
                             id: jalousie
                             height: 140
                             source: "images/jalousie_qt.png"
+                            bezeichner: "Jalousie 1:<br>Jalousie 2:<br>Jalousie 3:<br>Jalousie 4:"
                         }
                         InfoElement {
                             id: lueftung
                             source: "images/lueftung_qt.png"
+                            bezeichner: "Orientierungslicht:<br>Abluft HWR:"
                         }
                         InfoElement {
                             id: sasu
                             source: "images/sasu_qt.png"
+                            bezeichner: "Sonnenaufgang:<br>Sonnenuntergang:"
                         }
                         InfoElement {
                             id: empfang
                             source: "images/funk_qt.png"
+                            bezeichner: "Helligkeit:<br>Wetter:"
                         }
                     }
 
@@ -397,12 +429,16 @@ ApplicationWindow {
                 State {
                     name: "infoVisible"
                     AnchorChanges { target: infoLeiste; anchors.left: mainPage.left }
-                    PropertyChanges { target: setupMenu; y: -380 }
+                    PropertyChanges { target: setupMenu; y: -500 }
+                    PropertyChanges { target: overlay; opacity: 0.5; visible: true }
+                    PropertyChanges { target: infoButton; x: -50 }
                 },
                 State {
                     name: "setupVisible"
                     PropertyChanges { target: setupMenu; y: -10 }
                     PropertyChanges { target: infoLeiste; x: -infoLeiste.width }
+                    PropertyChanges { target: overlay; opacity: 0; visible: false }
+                    PropertyChanges { target: infoButton; x: -30 }
                 }
             ]
             transitions: Transition {
@@ -445,7 +481,7 @@ ApplicationWindow {
             anchors.rightMargin: 15
             color: "transparent"
             z: 99
-            y: -height
+            y: -500
 
             Rectangle {
                 width: 200
@@ -474,7 +510,7 @@ ApplicationWindow {
                             id: setupMouse
                             anchors.fill: parent
                             onClicked: { if (index > 0) {
-                                    setupMenu.y = -380;
+                                    setupMenu.y = -500;
                                     if (stackView.currentItem.name !== name) {
                                         stackView.push(Qt.resolvedUrl(page))
                                         textStatuszeile.text = name;

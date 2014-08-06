@@ -23,7 +23,8 @@ Item {
                 anchors.centerIn: parent
                 color: "#000000"
                 font.family: "Abel"
-                font.pointSize: 38
+                font.pointSize: 16
+                font.bold: true
                 text: "Beete:"
             }
         }
@@ -46,7 +47,8 @@ Item {
                 anchors.centerIn: parent
                 color: "#000000"
                 font.family: "Abel"
-                font.pointSize: 38
+                font.pointSize: 16
+                font.bold: true
                 text: "Kübel:"
             }
         }

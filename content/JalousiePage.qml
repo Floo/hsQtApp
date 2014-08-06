@@ -29,7 +29,8 @@ Item {
             anchors.centerIn: parent
             color: "#000000"
             font.family: "Abel"
-            font.pointSize: 15
+            font.pointSize: 16
+            font.bold: true
             text: "Einzeln:"
         }
     }
@@ -118,7 +119,8 @@ Item {
             anchors.centerIn: parent
             color: "#000000"
             font.family: "Abel"
-            font.pointSize: 15
+            font.pointSize: 16
+            font.bold: true
             text: "Gruppe:"
         }
     }

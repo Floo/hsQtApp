@@ -40,7 +40,7 @@ Item {
     Rectangle {
         id: dialogBody
         width: 700
-        height: 400
+        height: 450
         opacity: 1.0
         visible: false
         anchors.centerIn: parent
@@ -197,7 +197,7 @@ Item {
                         anchors.centerIn: parent
                         color: "white"
                         text: styleData.title.toUpperCase()
-                        font.pixelSize: 16
+                        font.pixelSize: 18
                     }
                     Rectangle {
                         visible: index > 0
