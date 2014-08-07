@@ -543,3 +543,20 @@ ApplicationWindow {
         //Component.onCompleted: visible = true
     }
 }
+
+/*
+TODO TODO TODO
+==============
+- Eingabedialoge: Focus setzen
+- Schatten bei Dialogen
+- Eingabedialoge: Position wenn virtuelle Tastatatur eingeblendet
+- Fehlerbehandlung bei Netzwerkfehlern, 200 muss bei OK zurückgegeben werden
+- Gestensteuerung
+- Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen aif Screen-Größe
+- GridView in GridLayout verändern
+- Slider in Dialog vergrößern
+- SASUDialog: Tab hat blauen Strich
+- Hardware-Back-Key muss stackView.pop() auslösen
+- Enter-Taste in Eingabedialogen
+*/
+

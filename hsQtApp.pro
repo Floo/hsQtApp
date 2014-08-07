@@ -44,13 +44,18 @@ include(deployment.pri)
 
 #Version numbering
 #VERSION = $$system(svn info -r HEAD . | grep 'Changed\ Rev' | cut -b 19-)
-#VERSION = $$system(git rev-list HEAD --count)
-VERSION = 12
-!isEmpty(VERSION){
-   VERSION = 0.$${VERSION}
+VERSION = $$system(git rev-list HEAD --count)
+#VERSION = 12
+isEmpty(VERSION){
+    VERSION = 1
 }
 
-VERSTR = '\\"$${VERSION}\\"'  # place quotes around the version string
+VERSIONSTRING = 0.$${VERSION}
+
+#Set VERSION in AndroidManifest.xml
+system(modifyAndroid.sh $${VERSION} $${VERSIONSTRING})
+
+VERSTR = '\\"$${VERSIONSTRING}\\"'  # place quotes around the version string
 DEFINES += VER=\"$${VERSTR}\" # create a VER macro containing the version string
 
 HEADERS += \
