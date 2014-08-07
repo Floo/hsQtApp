@@ -41,25 +41,25 @@ Item {
             name: "Süd links"
             position: ""
             checked: false
-            jalNr: "[0]"
+            jalNr: "0"
         }
         ListElement {
             name: "Süd Tür"
             position: ""
             checked: false
-            jalNr: "[1]"
+            jalNr: "1"
         }
         ListElement {
             name: "Süd rechts"
             position: ""
             checked: false
-            jalNr: "[2]"
+            jalNr: "2"
         }
         ListElement {
             name: "West"
             position: ""
             checked: false
-            jalNr: "[3]"
+            jalNr: "3"
         }
     }
 
@@ -68,22 +68,22 @@ Item {
         ListElement {
             name: "alle"
             checked: false
-            jalNr: "[0, 1, 2, 3]"
+            jalNr: "0123"
         }
         ListElement {
             name: "alle (Tür offen)"
             checked: false
-            jalNr: "[0, 2, 3]"
+            jalNr: "023"
         }
         ListElement {
             name: "Süd"
             checked: false
-            jalNr: "[0, 1, 2]"
+            jalNr: "012"
         }
         ListElement {
             name: "Süd (Tür offen)"
             checked: false
-            jalNr: "[0, 2]"
+            jalNr: "02"
         }
     }
 

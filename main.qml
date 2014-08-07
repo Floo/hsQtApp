@@ -164,7 +164,7 @@ ApplicationWindow {
                 onClicked: {
                     stackView.pop();
                     textStatuszeile.text = stackView.currentItem.name;
-                    mainPage.states = "";
+                    mainPage.state = "";
                 }
             }
         }
@@ -205,11 +205,6 @@ ApplicationWindow {
             title: "System"
             page: "content/SystemSetup.qml"
             name: "Setup - System"
-        }
-        ListElement {
-            title: "Logfile"
-            page: "content/Logfile.qml"
-            name: "Logfile"
         }
     }
 
@@ -332,10 +327,41 @@ ApplicationWindow {
 
                         anchors.top: parent.top
                         anchors.topMargin: 10
+                        Rectangle {
+                            height: 100
+                            width: infoLeiste.breite
+                            color: "transparent"
+                            Row {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                spacing: 20
+                                Text {
+                                    height: 100
+                                    font.family: "Abel"
+                                    font.pixelSize: 22
+                                    font.bold: true
+                                    verticalAlignment: Qt.AlignVCenter
+                                    text: "aktuell:"
+                                }
+
+                                Image {
+                                    width: 90
+                                    height: 100
+                                    fillMode: Image.PreserveAspectFit
+                                    id: aktuellesWetter
+                                    source: "images/Sonne.png"
+                                }
+                            }
+                            Rectangle {
+                                height: 1
+                                anchors.bottom: parent.bottom
+                                width: infoLeiste.breite
+                                color: "black"
+                            }
+                        }
 
                         InfoElement {
                             id: temperatur
-                            source: "images/Sonne.png"
+                            source: "images/temp_qt.png"
                             bezeichner: "innen:<br>außen:"
                         }
                         InfoElement {
@@ -375,25 +401,26 @@ ApplicationWindow {
                         Rectangle {
                             width: infoLeiste.breite - 30
                             height: 1
-                            anchors.horizontalCenter: menuSetup.horizontalCenter
+                            anchors.horizontalCenter: menuLog.horizontalCenter
                             color: "black"
                         }
 
                         Rectangle {
-                            id: menuSetup
+                            id: menuLog
                             width: infoLeiste.breite
                             height: 80
-                            color: "transparent"
+                            color: logMouse.pressed ? "grey" : "transparent"
 
                             Text {
-                                text: "Setup"
+                                text: "Logfile"
                                 font { family: "Abel"; pointSize: 18}
                                 anchors.centerIn: parent
                             }
 
                             MouseArea {
+                                id: logMouse
                                 anchors.fill: parent
-                                onClicked: { }
+                                onClicked: { mainPage.state = ""; stackView.push(Qt.resolvedUrl("content/Logfile.qml")) }
                             }
                         }
 
@@ -401,14 +428,14 @@ ApplicationWindow {
                         Rectangle {
                             width: infoLeiste.breite - 30
                             height: 1
-                            anchors.horizontalCenter: menuSetup.horizontalCenter
+                            anchors.horizontalCenter: menuLog.horizontalCenter
                             color: "black"
                         }
 
                         Rectangle {
                             width: infoLeiste.breite
                             height: 80
-                            color: "transparent"
+                            color: verlaufMouse.pressed ? "grey" : "transparent"
 
                             Text {
                                 text: "Verlauf"
@@ -417,8 +444,9 @@ ApplicationWindow {
                             }
 
                             MouseArea {
+                                id: verlaufMouse
                                 anchors.fill: parent
-                                onClicked: {  }
+                                onClicked: { mainPage.state = ""; }
                             }
                         }
                     }
@@ -476,7 +504,7 @@ ApplicationWindow {
         Rectangle {
             id: setupMenu
             width: 220
-            height: 380
+            height: 320
             anchors.right: parent.right
             anchors.rightMargin: 15
             color: "transparent"
@@ -485,7 +513,7 @@ ApplicationWindow {
 
             Rectangle {
                 width: 200
-                height: 360
+                height: 300
                 anchors.centerIn: parent
                 color: "white"
                 border.color: "grey"
@@ -558,5 +586,6 @@ TODO TODO TODO
 - SASUDialog: Tab hat blauen Strich
 - Hardware-Back-Key muss stackView.pop() auslösen
 - Enter-Taste in Eingabedialogen
+- Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite
 */
 

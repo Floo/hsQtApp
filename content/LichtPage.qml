@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
 import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
 
 
 Rectangle {
@@ -59,7 +60,7 @@ Rectangle {
                     text: "Heller"
                     onButtonClicked: {
                         rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_DIMM_UP)
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_UP)
                     }
                 }
                 StartButton {
@@ -71,7 +72,7 @@ Rectangle {
                     text: "Einschalten"
                     onButtonClicked: {
                         rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_AN);
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AN);
                     }
                 }
 
@@ -86,7 +87,7 @@ Rectangle {
                     text: "Ausschalten"
                     onButtonClicked: {
                         rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_AUS)
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AUS)
                     }
                 }
                 StartButton {
@@ -98,7 +99,7 @@ Rectangle {
                     text: "Dunkler"
                     onButtonClicked: {
                         rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Hsclient.FS20_DIMM_DOWN)
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_DOWN)
                     }
                 }
             }

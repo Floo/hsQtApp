@@ -35,7 +35,7 @@ Item {
                 id: beete
                 value: 10
                 checked: statusText.indexOf("An") > -1
-                onSwitched: Hsclient.setBewaesserung(1, checked, value)
+                onSwitched: { Hsclient.setBewaesserung(1, checked, value), Hsclient.getStatusBewaesserung() }
             }
         }
         Rectangle {
@@ -59,7 +59,7 @@ Item {
                 id: kuebel
                 value: 8
                 checked: statusText.indexOf("An") > -1
-                onSwitched: Hsclient.setBewaesserung(2, checked, value)
+                onSwitched: { Hsclient.setBewaesserung(2, checked, value), Hsclient.getStatusBewaesserung() }
             }
         }
     }

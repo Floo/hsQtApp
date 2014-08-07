@@ -38,24 +38,22 @@ function getStatus () {
             var a = xmlhttp.responseXML.documentElement;
             temperatur.text = getXMLfirstChild(a, 'TempAussen') + " °C<br>"
                     + getXMLfirstChild(a, 'TempInnen') + " °C";
-            temperatur.source = "../images/" + getXMLfirstChild(a, 'Symbol');
+            aktuellesWetter.source = "../images/" + getXMLfirstChild(a, 'Symbol');
             var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
             var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');
             var jal2text = getXMLfirstChild(a, 'posJal_2') + "/" + getXMLfirstChild(a, 'drvJal_2');
             var jal3text = getXMLfirstChild(a, 'posJal_3') + "/" + getXMLfirstChild(a, 'drvJal_3');
             jalousie.text = jal0text + "<br>" + jal1text + "<br>" + jal2text + "<br>" + jal3text;
-            sasu.text = getXMLfirstChild(a, 'SA') + "<br>" + getXMLfirstChild(a, 'SU')
+            sasu.text = getXMLfirstChild(a, 'SA') + " Uhr<br>" + getXMLfirstChild(a, 'SU') + " Uhr"
             lueftung.text = getXMLfirstChild(a, 'Orient') + "<br>" + getXMLfirstChild(a, 'HWR')
             var hellText = getXMLfirstChild(a, 'EmpfangHell');
             var wetterText = getXMLfirstChild(a, 'EmpfangWetter');
             empfang.text = hellText.substr(0, hellText.length - 1) +
-                    " Uhr<br>" + wetterText.substr(0, wetterText.length - 1) + " Uhr";
+                    "<br>" + wetterText.substr(0, wetterText.length - 1);
             regen.text = getXMLfirstChild(a, 'Regen_1h') + " l/m²<br>" + getXMLfirstChild(a, 'Regen_24h') +
                     " l/m²<br>" + getXMLfirstChild(a, 'Regen_7d') + " l/m²";
         }
     }
-    var foo = "http://" + Global.hostname + "/weather.php " + Global.username + " " + Global.password;
-    console.log(foo)
     xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
@@ -87,8 +85,6 @@ function getStatusBewaesserung() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            var foo = xmlhttp.responseXML;
-            console.log(foo)
             var a = xmlhttp.responseXML.documentElement;
             beete.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_1')
             kuebel.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_2')
@@ -130,7 +126,6 @@ function setSetupJal () {
     var data = "txtAuf=" + zeitOeffnen.value.replace("+", "g") + "&txtZu=" + zeitSchliessen.value.replace("+", "g")
             + "&chkLuecke=" + luecke.checked + "&chkAuto=" + zeit.checked + "&chkTuer=" + tuer.checked +
             "&chkWeather=" + wetter.checked + "&chkRain=" + regen.checked + "&chkWind=" + wind.checked;
-    //console.debug(data);
     httpPost("setJalousie.php", data);
 }
 
@@ -383,6 +378,7 @@ function httpPost (destination, data) {
             }
         }
     }
+    console.log(data);
     http.send(data);
 }
 
