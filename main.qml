@@ -76,7 +76,7 @@ ApplicationWindow {
                 anchors.margins: -10
                 onClicked: {
                     if (mainPage.state == "infoVisible") {
-                        mainPage.state = ""
+                        mainPage.state = "nothingVisible"
                     } else {
                         mainPage.state = "infoVisible"
                         Hsclient.getStatus()
@@ -112,7 +112,7 @@ ApplicationWindow {
                 onClicked: {
                     stackView.pop(null)
                     textStatuszeile.text = stackView.currentItem.name;
-                    mainPage.state = "";
+                    mainPage.state = "nothingVisible";
                 }
             }
         }
@@ -137,7 +137,7 @@ ApplicationWindow {
                 anchors.margins: -10
                 onClicked: {
                     if (mainPage.state == "setupVisible") {
-                        mainPage.state = ""
+                        mainPage.state = "nothingVisible"
                     } else {
                         if (!stackView.currentItem.isVisibleDialog()) {
                             mainPage.state = "setupVisible"
@@ -170,7 +170,7 @@ ApplicationWindow {
                 onClicked: {
                     stackView.pop();
                     textStatuszeile.text = stackView.currentItem.name;
-                    mainPage.state = "";
+                    mainPage.state = "nothingVisible";
                 }
             }
         }
@@ -265,25 +265,52 @@ ApplicationWindow {
                 return false
             }
 
+//            MouseArea {
+//                property bool gestActive: false
+//                property real oldX
+//                anchors.fill: parent
+//                onPressed: {
+//                    if (mouseX < parent.width / 5) {
+//                        //console.log("startGesture")
+//                        gestActive = true;
+//                        oldX = mouseX;
+//                    }
+//                    Global.mainobj.state = "";
+//                }
+//                onMouseXChanged: {
+//                    if (gestActive && mouseX - oldX > 100) {
+//                        mainPage.state = "infoVisible"
+//                    }
+//                }
+//                onReleased: {
+//                    gestActive = false;
+//                }
+//            }
+
             MouseArea {
                 property bool gestActive: false
-                property real oldX
                 anchors.fill: parent
                 onPressed: {
-                    if (mouseX < parent.width / 5) {
-                        //console.log("startGesture")
+                    if (mouseX < 20) {
                         gestActive = true;
-                        oldX = mouseX;
                     }
-                    Global.mainobj.state = "";
                 }
                 onMouseXChanged: {
-                    if (gestActive && mouseX - oldX > 100) {
-                        mainPage.state = "infoVisible"
+                    if (gestActive) {
+                        infoLeiste.x = mouseX - infoLeiste.breite;
                     }
                 }
                 onReleased: {
-                    gestActive = false;
+                    if (gestActive) {
+                        gestActive = false;
+                        if(mouseX > infoLeiste.breite/2) {
+                            mainPage.state = "infoVisible";
+                        } else {
+                            infoLeiste.x = -infoLeiste.width
+                        }
+                    } else {
+                        mainPage.state = "nothingVisible";
+                    }
                 }
             }
 
@@ -324,7 +351,7 @@ ApplicationWindow {
                         color: pressed ? "lightgrey" : "transparent"
                         onButtonClicked: {
                             if (overlay.visible == false) {
-                                mainPage.state = "";
+                                mainPage.state = "nothingVisible";
                                 stackView.push(Qt.resolvedUrl(page));
                                 textStatuszeile.text = buttontext;
                             }
@@ -346,6 +373,8 @@ ApplicationWindow {
                 z: 2
                 x: -width
 
+                Behavior on x {NumberAnimation { easing.type: Easing.OutCubic } }
+
                 MouseArea {
                     property bool gestActive: false
                     property real oldX
@@ -356,7 +385,7 @@ ApplicationWindow {
                     }
                     onMouseXChanged: {
                         if (gestActive && mouseX - oldX < - 200) {
-                            mainPage.state = ""
+                            mainPage.state = "nothingVisible"
                         }
                     }
                     onReleased: {
@@ -470,7 +499,7 @@ ApplicationWindow {
                             MouseArea {
                                 id: logMouse
                                 anchors.fill: parent
-                                onClicked: { mainPage.state = ""; stackView.push(Qt.resolvedUrl("content/Logfile.qml")) }
+                                onClicked: { mainPage.state = "nothingVisible"; stackView.push(Qt.resolvedUrl("content/Logfile.qml")) }
                             }
                         }
 
@@ -496,7 +525,7 @@ ApplicationWindow {
                             MouseArea {
                                 id: verlaufMouse
                                 anchors.fill: parent
-                                onClicked: { mainPage.state = ""; }
+                                onClicked: { mainPage.state = "nothingVisible"; }
                             }
                         }
                     }
@@ -506,7 +535,8 @@ ApplicationWindow {
             states: [
                 State {
                     name: "infoVisible"
-                    AnchorChanges { target: infoLeiste; anchors.left: mainPage.left }
+                    PropertyChanges { target: infoLeiste; x: 0 }
+                    //AnchorChanges { target: infoLeiste; anchors.left: mainPage.left }
                     PropertyChanges { target: setupMenu; y: -500 }
                     PropertyChanges { target: overlay; opacity: 0.5; visible: true }
                     PropertyChanges { target: infoButton; x: -50 }
@@ -517,10 +547,18 @@ ApplicationWindow {
                     PropertyChanges { target: infoLeiste; x: -infoLeiste.width }
                     PropertyChanges { target: overlay; opacity: 0; visible: false }
                     PropertyChanges { target: infoButton; x: -30 }
+                },
+                State {
+                    name: "nothingVisible"
+                    PropertyChanges { target: setupMenu; y: -500 }
+                    PropertyChanges { target: infoLeiste; x: -infoLeiste.width }
+                    PropertyChanges { target: overlay; opacity: 0; visible: false }
+                    PropertyChanges { target: infoButton; x: -30 }
                 }
+
             ]
             transitions: Transition {
-                AnchorAnimation { duration: 200 }
+                //AnchorAnimation { duration: 200 }
             }
             Rectangle {
                 id: overlay
@@ -535,7 +573,7 @@ ApplicationWindow {
                     width: parent.width - infoLeiste.breite
                     height: parent.height
                     anchors.right: parent.right
-                    onClicked: { overlay.visible ? mainPage.state = "" : {} }
+                    onClicked: { overlay.visible ? mainPage.state = "nothingVisible" : {} }
                 }
 
             }
@@ -588,7 +626,7 @@ ApplicationWindow {
                             id: setupMouse
                             anchors.fill: parent
                             onClicked: { if (index > 0) {
-                                    mainPage.state = ""
+                                    mainPage.state = "nothingVisible"
                                     if (stackView.currentItem.name !== name) {
                                         stackView.push(Qt.resolvedUrl(page))
                                         textStatuszeile.text = name;
