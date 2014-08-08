@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
+import "../javascript/global.js" as Global
 
 
 Item {
@@ -53,7 +54,10 @@ Item {
             MouseArea {
                 id: windMouse
                 anchors.fill: parent
-                onClicked: root.clicked()
+                onClicked: {
+                    Global.mainobj.state = "";
+                    root.clicked();
+                }
             }
         }
     }

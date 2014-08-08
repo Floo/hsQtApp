@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
 import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
 
 Rectangle {
     id: rootBewaesserungSetupPage
@@ -13,7 +14,16 @@ Rectangle {
     property bool init: true
     readonly property string name: "Setup - Bewässerung"
 
+    function isVisibleDialog() {
+        return timepickerdialog.dialogvisible || valuepickerdialog.dialogvisible;
+    }
+
     Component.onCompleted: Hsclient.getSetupBewaesserung()
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
+    }
 
     Column {
         anchors.fill: parent
@@ -72,7 +82,7 @@ Rectangle {
                 value: "00:00"
                 onClicked: {
                     timepickerdialog.obj = this;
-                    Hsclient.initBewaesserungZeitDialog(beeteZeit.value)
+                    Hsclient.initZeitDialog(beeteZeit.value)
                     timepickerdialog.dialogvisible = true;
                 }
             }
@@ -93,7 +103,7 @@ Rectangle {
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = ["1", ".", ".", ".", "5", ".", ".", ".", ".", "10", ".", ".", ".", ".", "15", ".", ".", ".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30"];
                     valuepickerdialog.einheit = " min";
-                    Hsclient.initBewaesserungDauerDialog(beeteDauer.value)
+                    Hsclient.initDauerDialog(beeteDauer.value)
                     valuepickerdialog.dialogvisible = true;
                 }
             }
@@ -153,7 +163,7 @@ Rectangle {
                 value: "00:00"
                 onClicked: {
                     timepickerdialog.obj = this;
-                    Hsclient.initBewaesserungZeitDialog(kuebelZeit.value)
+                    Hsclient.initZeitDialog(kuebelZeit.value)
                     timepickerdialog.dialogvisible = true;
                 }
             }
@@ -173,7 +183,7 @@ Rectangle {
                     valuepickerdialog.maxValue = 30;
                     valuepickerdialog.stepSize = 1;
                     valuepickerdialog.modelData = ["1", ".", ".", ".", "5", ".", ".", ".", ".", "10", ".", ".", ".", ".", "15", ".", ".", ".", ".", "20", ".", ".", ".", ".", "25", ".", ".", ".", ".", "30"];
-                    Hsclient.initBewaesserungDauerDialog(kuebelDauer.value)
+                    Hsclient.initDauerDialog(kuebelDauer.value)
                     valuepickerdialog.einheit = " min";
                     valuepickerdialog.dialogvisible = true;
                 }

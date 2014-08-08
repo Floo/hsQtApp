@@ -16,6 +16,10 @@ Rectangle {
     property bool init: true
     readonly property string name: "Setup - System"
 
+    function isVisibleDialog() {
+        return textdialog.dialogvisible || timepickerdialog.dialogvisible
+    }
+
     Component.onCompleted: {
         Hsclient.getSetupSystem();
         initSystemSettings();
@@ -25,6 +29,11 @@ Rectangle {
         hostname.value = Global.hostname;
         username.value = Global.username;
         password.setPassword(Global.password);
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
     }
 
     Column {
@@ -140,7 +149,7 @@ Rectangle {
                 value: "7:00"
                 onClicked: {
                     timepickerdialog.obj = this;
-                    Hsclient.initBewaesserungZeitDialog(autostartGUIZeit.value)
+                    Hsclient.initZeitDialog(autostartGUIZeit.value)
                     timepickerdialog.dialogvisible = true;
                 }
             }

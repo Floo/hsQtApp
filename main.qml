@@ -23,6 +23,8 @@ ApplicationWindow {
         Global.username = Storage.getSetting("username");
         Global.password = Storage.getSetting("password");
 
+        Global.mainobj = mainPage;
+
         Hsclient.checkNetworkSettings();
 
         if (!Global.networkconfigOK) {
@@ -133,10 +135,14 @@ ApplicationWindow {
             MouseArea {
                 anchors.fill: parent
                 anchors.margins: -10
-                onClicked: { if (mainPage.state == "setupVisible")
+                onClicked: {
+                    if (mainPage.state == "setupVisible") {
                         mainPage.state = ""
-                    else
-                        mainPage.state = "setupVisible"
+                    } else {
+                        if (!stackView.currentItem.isVisibleDialog()) {
+                            mainPage.state = "setupVisible"
+                        }
+                    }
                 }
             }
         }
@@ -255,6 +261,32 @@ ApplicationWindow {
 
             readonly property string name: "Meth 9"
 
+            function isVisibleDialog() {
+                return false
+            }
+
+            MouseArea {
+                property bool gestActive: false
+                property real oldX
+                anchors.fill: parent
+                onPressed: {
+                    if (mouseX < parent.width / 5) {
+                        //console.log("startGesture")
+                        gestActive = true;
+                        oldX = mouseX;
+                    }
+                    Global.mainobj.state = "";
+                }
+                onMouseXChanged: {
+                    if (gestActive && mouseX - oldX > 100) {
+                        mainPage.state = "infoVisible"
+                    }
+                }
+                onReleased: {
+                    gestActive = false;
+                }
+            }
+
             Column {
                 id: meth9
 
@@ -313,6 +345,24 @@ ApplicationWindow {
                 anchors.top: parent.top
                 z: 2
                 x: -width
+
+                MouseArea {
+                    property bool gestActive: false
+                    property real oldX
+                    anchors.fill: parent
+                    onPressed: {
+                        gestActive = true;
+                        oldX = mouseX;
+                    }
+                    onMouseXChanged: {
+                        if (gestActive && mouseX - oldX < - 200) {
+                            mainPage.state = ""
+                        }
+                    }
+                    onReleased: {
+                        gestActive = false;
+                    }
+                }
 
                 Rectangle {
                     height: parent.height
@@ -538,7 +588,7 @@ ApplicationWindow {
                             id: setupMouse
                             anchors.fill: parent
                             onClicked: { if (index > 0) {
-                                    setupMenu.y = -500;
+                                    mainPage.state = ""
                                     if (stackView.currentItem.name !== name) {
                                         stackView.push(Qt.resolvedUrl(page))
                                         textStatuszeile.text = name;
@@ -575,17 +625,12 @@ ApplicationWindow {
 /*
 TODO TODO TODO
 ==============
-- Eingabedialoge: Focus setzen
-- Schatten bei Dialogen
-- Eingabedialoge: Position wenn virtuelle Tastatatur eingeblendet
 - Fehlerbehandlung bei Netzwerkfehlern, 200 muss bei OK zurückgegeben werden
 - Gestensteuerung
 - Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen aif Screen-Größe
 - GridView in GridLayout verändern
-- Slider in Dialog vergrößern
-- SASUDialog: Tab hat blauen Strich
 - Hardware-Back-Key muss stackView.pop() auslösen
-- Enter-Taste in Eingabedialogen
 - Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite
+- vorab laden der Daten
 */
 

@@ -1,6 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
+import "../javascript/global.js" as Global
 
 
 Item {
@@ -66,7 +67,10 @@ Item {
             MouseArea {
                 id: windMouse
                 anchors.fill: parent
-                onClicked: checkbox.checked == true ? checkbox.checked = false : checkbox.checked = true
+                onClicked: {
+                    checkbox.checked == true ? checkbox.checked = false : checkbox.checked = true;
+                    Global.mainobj.state = "";
+                }
             }
         }
     }

@@ -12,6 +12,8 @@ Item {
     property QtObject obj
     signal hasChanged
 
+    onDialogvisibleChanged: { if(dialogvisible == true) eingabeFeld.focus =true }
+
     anchors.fill: parent
 
     Rectangle {
@@ -25,18 +27,13 @@ Item {
             onClicked: { dialogBody.visible = false }
         }
     }
-
-    Rectangle {
+    Item {
         id: dialogBody
-        width: 700
-        height: 300
-        opacity: 1.0
-        visible: false
+        width: 720
+        height: 320
         anchors.centerIn: parent
-        color: "grey"
-        border.color: "black"
-        border.width: 1
-        radius: 3
+        anchors.verticalCenterOffset: -parent.height / 4
+        visible: false
 
         onVisibleChanged: {
             if (visible == true) {
@@ -44,97 +41,113 @@ Item {
             }
         }
 
-        TextField {
-            id: eingabeFeld
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 100
-            text: dialog.text
-            style: touchStyle
+        function dialogOK() {
+            dialogBody.visible = false;
+            dialog.valid = true;
+            dialog.text = eingabeFeld.text;
+            dialog.hasChanged();
         }
 
-
         Rectangle {
-            id: okButton
-            width: parent.width / 2
-            height: 80
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            color: "transparent"
-            opacity: okMouse.pressed ? 0.2 : 1
+            width: 700
+            height: 300
+            opacity: 1.0
+            anchors.centerIn: parent
+            color: "grey"
+            border.color: Qt.lighter("grey", 0.9)
+            border.width: 1
+            radius: 3
+
+            TextField {
+                id: eingabeFeld
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: 100
+                text: dialog.text
+                style: touchStyle
+
+                onEditingFinished: dialogBody.dialogOK()
+            }
+
             Rectangle {
-                width: parent.width
-                height: 2
-                border.color: Qt.lighter("grey", 1.2)
-                border.width: 1
-            }
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.family: "Abel"
-                font.pointSize: 18
-                text: "Übernehmen"
-            }
-            MouseArea {
-                id: okMouse
-                anchors.fill: parent
-                onClicked: {
-                    dialogBody.visible = false;
-                    dialog.valid = true;
-                    dialog.text = eingabeFeld.text;
-                    dialog.hasChanged();
+                id: okButton
+                width: parent.width / 2
+                height: 80
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                color: "transparent"
+                opacity: okMouse.pressed ? 0.2 : 1
+                Rectangle {
+                    width: parent.width
+                    height: 2
+                    border.color: Qt.lighter("grey", 1.2)
+                    border.width: 1
+                }
+                Text {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "Abel"
+                    font.pointSize: 18
+                    text: "Übernehmen"
+                }
+                MouseArea {
+                    id: okMouse
+                    anchors.fill: parent
+                    onClicked: {
+                        dialogBody.dialogOK();
+                    }
                 }
             }
-        }
-        Rectangle {
-            width: 2
-            height: 80
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            border.color: Qt.lighter("grey", 1.2)
-            border.width: 1
-        }
-
-        Rectangle {
-            id: abbruchButton
-            width: parent.width / 2
-            height: 80
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            color: "transparent"
-            opacity: abbruchMouse.pressed ? 0.2 : 1
             Rectangle {
-                width: parent.width
-                height: 2
+                width: 2
+                height: 80
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
                 border.color: Qt.lighter("grey", 1.2)
                 border.width: 1
             }
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.family: "Abel"
-                font.pointSize: 18
-                text: "Abbrechen"
-            }
-            MouseArea {
-                id: abbruchMouse
-                anchors.fill: parent
-                onClicked: { dialogBody.visible = false }
+
+            Rectangle {
+                id: abbruchButton
+                width: parent.width / 2
+                height: 80
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                color: "transparent"
+                opacity: abbruchMouse.pressed ? 0.2 : 1
+                Rectangle {
+                    width: parent.width
+                    height: 2
+                    border.color: Qt.lighter("grey", 1.2)
+                    border.width: 1
+                }
+                Text {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "Abel"
+                    font.pointSize: 18
+                    text: "Abbrechen"
+                }
+                MouseArea {
+                    id: abbruchMouse
+                    anchors.fill: parent
+                    onClicked: { dialogBody.visible = false }
+                }
             }
         }
     }
 
     DropShadow {
         id: dialogShadow
-        anchors.fill: dialogBody
-        horizontalOffset: 5
-        verticalOffset: 5
+        anchors.fill: source
+        horizontalOffset: 4
+        verticalOffset: 4
         visible: dialogBody.visible
-        radius: 12
+        radius: 14
         samples: 24
-        spread: 1.0
+        spread: 0.3
         color: "#80000000"
         source: dialogBody
     }

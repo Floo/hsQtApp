@@ -3,6 +3,8 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
 import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
+
 
 Rectangle {
     id: rootAbluftSetupPage
@@ -12,6 +14,14 @@ Rectangle {
 
     property bool init: true
     readonly property string name: "Setup - Lüftung"
+    function isVisibleDialog() {
+        return valuepickerdialog.dialogvisible
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
+    }
 
     Component.onCompleted: Hsclient.getSetupAbluft()
 
@@ -129,7 +139,10 @@ Rectangle {
                 radioButton: false
                 bezeichner: "Dauerbetrieb"
                 hilfetext: "Dauerbetrieb auf niedriger Stufe"
-                onCheckedChanged: { if(!rootAbluftSetupPage.init) Hsclient.setSetupAbluft() }
+                onCheckedChanged: {
+                    Global.mainobj.state = "";
+                    if(!rootAbluftSetupPage.init) Hsclient.setSetupAbluft()
+                }
             }
         }
 

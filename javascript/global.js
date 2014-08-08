@@ -4,6 +4,8 @@ var hostname = "";
 var username = "";
 var password = "";
 
+var mainobj;
+
 var networkconfigOK = false;
 
 var	FS20_AUS = 0,

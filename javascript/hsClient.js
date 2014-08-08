@@ -152,7 +152,7 @@ function getSetupBewaesserung() {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var json = xmlhttp.responseText;
             var obj = JSON.parse(json);
             rootBewaesserungSetupPage.init = true;
@@ -175,17 +175,19 @@ function setSetupBewaesserung() {
     if (!Global.networkconfigOK) return;
 
     var data = "txtV1Start=" + beeteZeit.value + "&txtV2Start=" + kuebelZeit.value + "&txtV1Dauer=" +
-            beeteDauer.value.substring(0, value.indexOf(" ")) + "&txtV2Dauer=" +
-            kuebelDauer.value.substring(0, value.indexOf(" ")) + "&chkV1Auto=" + beeteAuto.checked +
+            beeteDauer.value.substring(0, beeteDauer.value.indexOf(" ")) + "&txtV2Dauer=" +
+            kuebelDauer.value.substring(0, kuebelDauer.value.indexOf(" ")) + "&chkV1Auto=" + beeteAuto.checked +
             "&chkV2Auto=" + kuebelAuto.checked + "&chkV1Rain=" + beeteRegen.checked + "&chkV2Rain=" + kuebelRegen.checked;
     httpPost("setTerrasse.php", data);
 }
 
-function initBewaesserungDauerDialog (value) {
+function initDauerDialog (value) {
+    Global.mainobj.state = "";
     valuepickerdialog.value = value.substring(0, value.indexOf(" "));
 }
 
-function initBewaesserungZeitDialog(value) {
+function initZeitDialog(value) {
+    Global.mainobj.state = "";
     timepickerdialog.hour = value.substring(0, value.indexOf(":"));
     timepickerdialog.minute = value.substring(value.indexOf(":") + 1, value.length);
 }
@@ -195,7 +197,7 @@ function getSetupAbluft() {
     if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var json = xmlhttp.responseText;
             var obj = JSON.parse(json);
             rootAbluftSetupPage.init = true;
@@ -227,7 +229,7 @@ function initAbluftTempDialog (value) {
 
 function setSetupAbluft() {
     if (!Global.networkconfigOK) return;
-    var data = "txtTemp=" + hwrTempValue.value.substring(0, value.indexOf(" "))  +  "&chkAClow=" +
+    var data = "txtTemp=" + hwrTempValue.value.substring(0, hwrTempValue.value.indexOf(" "))  +  "&chkAClow=" +
             abluft.checked +  "&chkHWRpermanent=" + hwrAn.checked  + "&chkHWRauto=" + hwrTemp.checked;
     httpPost("setLueftung.php", data)
 }
@@ -237,7 +239,7 @@ function getSetupSystem() {
     if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var json = xmlhttp.responseText;
             var obj = JSON.parse(json);
 
@@ -291,7 +293,7 @@ function getLicht () {
     if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var json = xmlhttp.responseText;
             var obj = JSON.parse(json);
             lichtModel.clear();
@@ -308,7 +310,7 @@ function getSzene () {
     if (!Global.networkconfigOK) return;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var json = xmlhttp.responseText;
             var obj = JSON.parse(json);
             szeneModel.clear();
@@ -336,7 +338,7 @@ function setLicht(lampenID, wert) {
 function setBewaesserung(ventil, state, time) {
     if (!Global.networkconfigOK) return;
     var data = "";
-    if (state == true) {
+    if (state === true) {
         if (ventil === 1)
             data = "device=VENTIL&txtButtonName=VENTIL_1_TIMER:" + time;
         else

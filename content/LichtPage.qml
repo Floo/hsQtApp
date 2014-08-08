@@ -15,6 +15,15 @@ Rectangle {
     property int selectedIndex: -1
     readonly property string name: "Licht"
 
+    function isVisibleDialog() {
+        return false
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
+    }
+
     Component.onCompleted: { Hsclient.getLicht() }
 
     ListModel {

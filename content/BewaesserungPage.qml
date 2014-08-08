@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
 
 Item {
     id: rootBewaesserungPage
@@ -10,6 +11,14 @@ Item {
     z: -1
 
     readonly property string name: "Bewässerung"
+    function isVisibleDialog() {
+        return false
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
+    }
 
     Component.onCompleted: Hsclient.getStatusBewaesserung()
 

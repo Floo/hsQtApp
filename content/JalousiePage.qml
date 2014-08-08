@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.1
 import QtGraphicalEffects 1.0
 import "../content"
 import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
 
 //ScrollView {
 Item {
@@ -18,6 +19,15 @@ Item {
     property int listViewDelegateHeight: 100
     property var jalNr
     readonly property string name: "Jalousie"
+
+    function isVisibleDialog() {
+        return false
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
+    }
 
     Rectangle {
         id: singleHeadline

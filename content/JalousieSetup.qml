@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
 import "../javascript/hsClient.js" as Hsclient
+import "../javascript/global.js" as Global
 
 Rectangle {
     id: rootJalSetupPage
@@ -12,6 +13,15 @@ Rectangle {
 
     property bool init: true
     readonly property string name: "Setup - Jalousie"
+
+    function isVisibleDialog() {
+        return dialog.dialogvisible
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Global.mainobj.state = "";
+    }
 
     Component.onCompleted: Hsclient.getSetupJal()
 

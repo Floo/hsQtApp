@@ -31,17 +31,12 @@ Item {
         }
     }
 
-    Rectangle {
+    Item {
         id: dialogBody
-        width: 700
-        height: 300
-        opacity: 1.0
+        width: 720
+        height: 320
         visible: false
         anchors.centerIn: parent
-        color: "grey"
-        border.color: "black"
-        border.width: 1
-        radius: 3
 
         onVisibleChanged: {
             if (visible == true) {
@@ -49,114 +44,125 @@ Item {
             }
         }
 
-        Column {
-            width: 600
-            anchors.top: parent.top
-            anchors.topMargin: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 30
-            Text {
-                id: valueText
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: "Abel"
-                font.pointSize: 30
-                color: "#E3905C"
-                font.bold: true
-                text: valueSlider.value + dialog.einheit
-            }
-
-            Slider {
-                id: valueSlider
-                anchors.horizontalCenter: parent.horizontalCenter
-                minimumValue: minValue
-                maximumValue: maxValue
-                stepSize: dialog.stepSize
-                style: valueSliderStyle
-                value: dialog.value
-            }
-        }
-
         Rectangle {
-            id: okButton
-            width: parent.width / 2
-            height: 80
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            color: "transparent"
-            opacity: okMouse.pressed ? 0.2 : 1
-            Rectangle {
-                width: parent.width
-                height: 2
-                border.color: Qt.lighter("grey", 1.2)
-                border.width: 1
-            }
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.family: "Abel"
-                font.pointSize: 18
-                text: "Übernehmen"
-            }
-            MouseArea {
-                id: okMouse
-                anchors.fill: parent
-                onClicked: {
-                    dialogBody.visible = false;
-                    dialog.valid = true;
-                    dialog.value = valueSlider.value;
-                    dialog.hasChanged();
+            width: 700
+            height: 300
+            opacity: 1.0
+            anchors.centerIn: parent
+            color: "grey"
+            border.color: Qt.lighter("grey", 0.9)
+            border.width: 1
+            radius: 3
+
+            Column {
+                width: 600
+                anchors.top: parent.top
+                anchors.topMargin: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 30
+                Text {
+                    id: valueText
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "Abel"
+                    font.pointSize: 30
+                    color: "#E3905C"
+                    font.bold: true
+                    text: valueSlider.value + dialog.einheit
+                }
+
+                Slider {
+                    id: valueSlider
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    minimumValue: minValue
+                    maximumValue: maxValue
+                    stepSize: dialog.stepSize
+                    style: valueSliderStyle
+                    value: dialog.value
                 }
             }
-        }
-        Rectangle {
-            width: 2
-            height: 80
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            border.color: Qt.lighter("grey", 1.2)
-            border.width: 1
-        }
 
-        Rectangle {
-            id: abbruchButton
-            width: parent.width / 2
-            height: 80
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            color: "transparent"
-            opacity: abbruchMouse.pressed ? 0.2 : 1
             Rectangle {
-                width: parent.width
-                height: 2
+                id: okButton
+                width: parent.width / 2
+                height: 80
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                color: "transparent"
+                opacity: okMouse.pressed ? 0.2 : 1
+                Rectangle {
+                    width: parent.width
+                    height: 2
+                    border.color: Qt.lighter("grey", 1.2)
+                    border.width: 1
+                }
+                Text {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "Abel"
+                    font.pointSize: 18
+                    text: "Übernehmen"
+                }
+                MouseArea {
+                    id: okMouse
+                    anchors.fill: parent
+                    onClicked: {
+                        dialogBody.visible = false;
+                        dialog.valid = true;
+                        dialog.value = valueSlider.value;
+                        dialog.hasChanged();
+                    }
+                }
+            }
+            Rectangle {
+                width: 2
+                height: 80
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
                 border.color: Qt.lighter("grey", 1.2)
                 border.width: 1
             }
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.family: "Abel"
-                font.pointSize: 18
-                text: "Abbrechen"
-            }
-            MouseArea {
-                id: abbruchMouse
-                anchors.fill: parent
-                onClicked: { dialogBody.visible = false }
+
+            Rectangle {
+                id: abbruchButton
+                width: parent.width / 2
+                height: 80
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                color: "transparent"
+                opacity: abbruchMouse.pressed ? 0.2 : 1
+                Rectangle {
+                    width: parent.width
+                    height: 2
+                    border.color: Qt.lighter("grey", 1.2)
+                    border.width: 1
+                }
+                Text {
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "Abel"
+                    font.pointSize: 18
+                    text: "Abbrechen"
+                }
+                MouseArea {
+                    id: abbruchMouse
+                    anchors.fill: parent
+                    onClicked: { dialogBody.visible = false }
+                }
             }
         }
     }
 
     DropShadow {
         id: dialogShadow
-        anchors.fill: dialogBody
-        horizontalOffset: 5
-        verticalOffset: 5
+        anchors.fill: source
+        horizontalOffset: 4
+        verticalOffset: 4
         visible: dialogBody.visible
-        radius: 12
+        radius: 14
         samples: 24
-        spread: 1.0
+        spread: 0.3
         color: "#80000000"
         source: dialogBody
     }
