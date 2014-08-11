@@ -33,7 +33,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: Global.mainobj.state = "";
+        onClicked: Global.mainobj.state = "nothingVisible";
     }
 
     Column {

@@ -63,7 +63,7 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             color: "transparent"
 
-            Behavior on x { NumberAnimation {} }
+            Behavior on x { NumberAnimation { easing.type: Easing.OutCubic } }
 
             Image {
                 width: 70; height: 70
@@ -78,8 +78,8 @@ ApplicationWindow {
                     if (mainPage.state == "infoVisible") {
                         mainPage.state = "nothingVisible"
                     } else {
-                        mainPage.state = "infoVisible"
-                        Hsclient.getStatus()
+                        infoLeisteXBehaviour.enabled = true;
+                        mainPage.state = "infoVisible";
                     }
                 }
             }
@@ -259,45 +259,26 @@ ApplicationWindow {
             height: parent.height
             z: -1
 
+            onStateChanged: if(state == "infoVisible") Hsclient.getStatus()
+
             readonly property string name: "Meth 9"
 
             function isVisibleDialog() {
                 return false
             }
 
-//            MouseArea {
-//                property bool gestActive: false
-//                property real oldX
-//                anchors.fill: parent
-//                onPressed: {
-//                    if (mouseX < parent.width / 5) {
-//                        //console.log("startGesture")
-//                        gestActive = true;
-//                        oldX = mouseX;
-//                    }
-//                    Global.mainobj.state = "";
-//                }
-//                onMouseXChanged: {
-//                    if (gestActive && mouseX - oldX > 100) {
-//                        mainPage.state = "infoVisible"
-//                    }
-//                }
-//                onReleased: {
-//                    gestActive = false;
-//                }
-//            }
-
             MouseArea {
                 property bool gestActive: false
                 anchors.fill: parent
                 onPressed: {
-                    if (mouseX < 20) {
+                    if (mouseX < 80) {
                         gestActive = true;
                     }
                 }
                 onMouseXChanged: {
-                    if (gestActive) {
+                    if (gestActive && mouseX < infoLeiste.breite) {
                         infoLeiste.x = mouseX - infoLeiste.breite;
+                        infoButton.x = -30 - (mouseX / infoLeiste.breite * 20);
                     }
                 }
                 onReleased: {
@@ -367,13 +348,16 @@ ApplicationWindow {
                 property int largeFont: 12
                 property int smallFont: 14
 
+                x: -width
                 width: breite + 20
                 height: parent.height
                 anchors.top: parent.top
-                z: 2
-                x: -width
 
-                Behavior on x {NumberAnimation { easing.type: Easing.OutCubic } }
+                Behavior on x {
+                    id: infoLeisteXBehaviour
+                    enabled: false
+                    NumberAnimation { easing.type: Easing.OutCubic }
+                }
 
                 MouseArea {
                     property bool gestActive: false
@@ -382,6 +366,7 @@ ApplicationWindow {
                     onPressed: {
                         gestActive = true;
                         oldX = mouseX;
+                        infoLeisteXBehaviour.enabled = true;
                     }
                     onMouseXChanged: {
                         if (gestActive && mouseX - oldX < - 200) {
@@ -416,7 +401,7 @@ ApplicationWindow {
                                 Text {
                                     height: 100
                                     font.family: "Abel"
-                                    font.pixelSize: 22
+                                    font.pixelSize: 24
                                     font.bold: true
                                     verticalAlignment: Qt.AlignVCenter
                                     text: "aktuell:"
@@ -557,6 +542,7 @@ ApplicationWindow {
                 }
 
             ]
+
             transitions: Transition {
                 //AnchorAnimation { duration: 200 }
             }
@@ -591,8 +577,8 @@ ApplicationWindow {
 
         Rectangle {
             id: setupMenu
-            width: 220
-            height: 320
+            width: 270
+            height: 370
             anchors.right: parent.right
             anchors.rightMargin: 15
             color: "transparent"
@@ -600,8 +586,8 @@ ApplicationWindow {
             y: -500
 
             Rectangle {
-                width: 200
-                height: 300
+                width: 250
+                height: 350
                 anchors.centerIn: parent
                 color: "white"
                 border.color: "grey"
@@ -610,8 +596,8 @@ ApplicationWindow {
                     anchors.fill: parent
                     model: setupModel
                     delegate: Rectangle {
-                        width: 200
-                        height: 60
+                        width: 250
+                        height: 70
                         color: index == setupMouse.pressed ? "lightgrey" : "transparent"
                         border.color: "grey"
                         Text {
@@ -619,7 +605,7 @@ ApplicationWindow {
                             anchors.left: parent.left
                             anchors.leftMargin: 20
                             font.family: "Abel"
-                            font.pointSize: 14
+                            font.pointSize: 16
                             text: title
                         }
                         MouseArea {
@@ -670,5 +656,14 @@ TODO TODO TODO
 - Hardware-Back-Key muss stackView.pop() auslösen
 - Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite
 - vorab laden der Daten
+- Schriftgröße infoLeiste
+- Szene ListView scrollen
+- Portrait/Landscape
+- auf Update prüfen
+- Verlauf anzeigen
+- Button LichtPage -> Farbe anpassen
+- LichtPage Heller und Dunkler
+- Splashscreen
+- Passwort-Eingabe vereinfachen
 */
 

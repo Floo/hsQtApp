@@ -18,8 +18,8 @@ Item {
             Image {
                 id: pic
                 anchors.centerIn: parent
-                width: 60
-                height: 60
+                width: 70
+                height: 70
                 fillMode: Image.PreserveAspectFit
             }
         }
@@ -35,7 +35,7 @@ Item {
             Text {
                 id: bezeichner
                 anchors { left: parent.left; leftMargin: 20; verticalCenter: parent.verticalCenter }
-                font { family: "Abel"; pixelSize: 18 }
+                font { family: "Abel"; pixelSize: 22 }
                 verticalAlignment: Qt.AlignVCenter
             }
 
@@ -43,7 +43,7 @@ Item {
                 id: text
                 x: bezeichner.x + bezeichner.width + 10
                 anchors.verticalCenter: parent.verticalCenter
-                font { family: "Abel"; pixelSize: 18 }
+                font { family: "Abel"; pixelSize: bezeichner.font.pixelSize }
                 verticalAlignment: Qt.AlignVCenter
             }
         }

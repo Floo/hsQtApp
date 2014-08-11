@@ -36,8 +36,8 @@ function getStatus () {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {
             var a = xmlhttp.responseXML.documentElement;
-            temperatur.text = getXMLfirstChild(a, 'TempAussen') + " °C<br>"
-                    + getXMLfirstChild(a, 'TempInnen') + " °C";
+            temperatur.text = getXMLfirstChild(a, 'TempInnen') + " °C<br>"
+                    + getXMLfirstChild(a, 'TempAussen') + " °C";
             aktuellesWetter.source = "../images/" + getXMLfirstChild(a, 'Symbol');
             var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
             var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');

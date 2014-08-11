@@ -5,7 +5,7 @@ import sys
 versionCodeString = 'android:versionCode="' + str(sys.argv[1]) + '"'
 versionNameString = 'android:versionName="' +  str(sys.argv[2]) + '"'
 
-f = open('AndroidManifest.xml', 'r+')
+f = open('android/AndroidManifest.xml', 'r+')
 text = f.read()
 
 newText = re.sub(r'android:versionName="[0-9.]*"', versionNameString, text)

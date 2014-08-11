@@ -53,7 +53,7 @@ isEmpty(VERSION){
 VERSIONSTRING = 0.$${VERSION}
 
 #Set VERSION in AndroidManifest.xml
-system(modifyAndroid.sh $${VERSION} $${VERSIONSTRING})
+#system(modifyAndroid.sh $${VERSION} $${VERSIONSTRING})
 
 VERSTR = '\\"$${VERSIONSTRING}\\"'  # place quotes around the version string
 DEFINES += VER=\"$${VERSTR}\" # create a VER macro containing the version string

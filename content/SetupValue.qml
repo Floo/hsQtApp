@@ -55,7 +55,7 @@ Item {
                 id: windMouse
                 anchors.fill: parent
                 onClicked: {
-                    Global.mainobj.state = "";
+                    Global.mainobj.state = "nothingVisible";
                     root.clicked();
                 }
             }

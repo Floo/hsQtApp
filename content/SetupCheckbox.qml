@@ -69,7 +69,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     checkbox.checked == true ? checkbox.checked = false : checkbox.checked = true;
-                    Global.mainobj.state = "";
+                    Global.mainobj.state = "nothingVisible";
                 }
             }
         }
