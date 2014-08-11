@@ -484,7 +484,7 @@ ApplicationWindow {
                             MouseArea {
                                 id: logMouse
                                 anchors.fill: parent
-                                onClicked: { mainPage.state = "nothingVisible"; stackView.push(Qt.resolvedUrl("content/Logfile.qml")) }
+                                onClicked: { mainPage.state = "nothingVisible"; stackView.push(Qt.resolvedUrl("content/LogfilePage.qml")) }
                             }
                         }
 
@@ -510,7 +510,7 @@ ApplicationWindow {
                             MouseArea {
                                 id: verlaufMouse
                                 anchors.fill: parent
-                                onClicked: { mainPage.state = "nothingVisible"; }
+                                onClicked: { mainPage.state = "nothingVisible"; stackView.push(Qt.resolvedUrl("content/VerlaufPage.qml")) }
                             }
                         }
                     }
@@ -656,14 +656,11 @@ TODO TODO TODO
 - Hardware-Back-Key muss stackView.pop() auslösen
 - Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite
 - vorab laden der Daten
-- Schriftgröße infoLeiste
-- Szene ListView scrollen
-- Portrait/Landscape
 - auf Update prüfen
-- Verlauf anzeigen
 - Button LichtPage -> Farbe anpassen
 - LichtPage Heller und Dunkler
-- Splashscreen
 - Passwort-Eingabe vereinfachen
+- Bug bei Eingabe mit virtueller Tastatur
+- Bewässerung Button auf aktuellen Status setzen
 */
 

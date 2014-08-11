@@ -47,7 +47,6 @@
         <file>images/Licht_An.png</file>
         <file>javascript/global.js</file>
         <file>javascript/storage.js</file>
-        <file>content/Logfile.qml</file>
         <file>content/InfoElement.qml</file>
         <file>images/Luecke.png</file>
         <file>images/Nacht.png</file>
@@ -62,5 +61,9 @@
         <file>images/bewaesserung_qt.png</file>
         <file>images/regentropfen_qt.png</file>
         <file>images/icon.png</file>
+        <file>content/VerlaufPage.qml</file>
+        <file>content/LogfilePage.qml</file>
+        <file>images/hinweis_white.png</file>
+        <file>images/rotate_qt.png</file>
     </qresource>
 </RCC>

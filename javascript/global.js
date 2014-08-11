@@ -4,6 +4,10 @@ var hostname = "";
 var username = "";
 var password = "";
 
+var kurve1 = 2;
+var kurve2 = 0;
+var intervall = 2;
+
 var mainobj;
 
 var networkconfigOK = false;

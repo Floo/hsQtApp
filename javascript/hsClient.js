@@ -63,7 +63,7 @@ function getStatusJal() {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var a = xmlhttp.responseXML.documentElement;
             var jal0text = getXMLfirstChild(a, 'posJal_0') + "/" + getXMLfirstChild(a, 'drvJal_0');
             var jal1text = getXMLfirstChild(a, 'posJal_1') + "/" + getXMLfirstChild(a, 'drvJal_1');
@@ -84,7 +84,7 @@ function getStatusBewaesserung() {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var a = xmlhttp.responseXML.documentElement;
             beete.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_1')
             kuebel.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_2')
@@ -94,6 +94,27 @@ function getStatusBewaesserung() {
     xmlhttp.send()
 }
 
+function getVerlauf(intKurve1, intKurve2, intZeitraum) {
+    var xmlhttp = new XMLHttpRequest()
+    var data = "intKurve1=" + intKurve1 + "&intKurve2=" + intKurve2 + "&intZeitraum=" + intZeitraum + "&boolGUI=2";
+
+    xmlhttp.open("POST", "http://" + Global.hostname + "/plot_wetter.php", "true", Global.username, Global.password);
+
+    // Send the proper header information along with the request
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.setRequestHeader("Content-length", data.length);
+    xmlhttp.setRequestHeader("Connection", "close");
+
+    xmlhttp.onreadystatechange = function() { // Call a function when the state changes.
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+            var foo = xmlhttp.responseText;
+            var filenameWetterKurve = foo.substring(foo.indexOf("<gnuplot><![CDATA[") + 18, foo.indexOf("]]></gnuplot>"));
+            verlaufImage.source = "http://" + Global.username + ":" + Global.password + "@" + Global.hostname + "/" + filenameWetterKurve;
+        }
+    }
+    xmlhttp.send(data);
+}
+
 //"up_time":"20:00","down_time":"10:00","auto_time":false,"jal_2_open":false,"weather":"0",
 //"wind_protection":false,"open_on_rain":false,"close_to_sun":"1"
 function getSetupJal() {
@@ -101,7 +122,7 @@ function getSetupJal() {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var json = xmlhttp.responseText;
             var obj = JSON.parse(json);
             rootJalSetupPage.init = true;

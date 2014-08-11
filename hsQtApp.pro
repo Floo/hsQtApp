@@ -32,9 +32,10 @@ OTHER_FILES += *.qml images/*.png \
     content/ListViewDelegate.qml \
     javascript/global.js \
     javascript/storage.js \
-    content/Logfile.qml \
     content/InfoElement.qml \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    content/VerlaufPage.qml \
+    content/LogfilePage.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
