@@ -33,8 +33,6 @@
         <file>content/TimePicker.qml</file>
         <file>content/TimePickerDialog.qml</file>
         <file>content/TimePickerSASUDialog.qml</file>
-        <file>images/tab_selected.png</file>
-        <file>images/tabs_standard.png</file>
         <file>images/textinput.png</file>
         <file>content/SASUPicker.qml</file>
         <file>content/SetupValue.qml</file>
