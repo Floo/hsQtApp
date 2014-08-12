@@ -8,7 +8,10 @@ Rectangle {
     property alias source: image.source
     property alias text: buttontext.text
     property alias pressed: click.pressed
+    property alias textcolor: buttontext.color
     signal buttonClicked()
+    signal buttonPressed()
+    signal buttonReleased()
 
     Column {
         width: parent.width
@@ -34,8 +37,8 @@ Rectangle {
     MouseArea {
         id: click
         anchors.fill: parent
-        onClicked: {
-            buttonClicked()
-        }
+        onClicked: buttonClicked()
+        onPressed: buttonPressed()
+        onReleased: buttonReleased()
     }
 }

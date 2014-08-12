@@ -67,9 +67,17 @@ Rectangle {
                     width: parent.width; height: parent.width
                     source: "../images/Auf.png"
                     text: "Heller"
-                    onButtonClicked: {
+                    textcolor: "black"
+//                    onButtonClicked: {
+//                        rootLichtPage.state = "";
+//                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_UP)
+//                    }
+                    onButtonPressed: {
                         rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_UP)
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_UP_START);
+                    }
+                    onButtonReleased: {
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_UP_STOP);
                     }
                 }
                 StartButton {
@@ -79,6 +87,7 @@ Rectangle {
                     width: parent.width; height: parent.width
                     source: "../images/Licht_An.png"
                     text: "Einschalten"
+                    textcolor: "black"
                     onButtonClicked: {
                         rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AN);
@@ -94,6 +103,7 @@ Rectangle {
                     width: parent.width; height: parent.width
                     source: "../images/Licht_Aus.png"
                     text: "Ausschalten"
+                    textcolor: "black"
                     onButtonClicked: {
                         rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AUS)
@@ -106,9 +116,17 @@ Rectangle {
                     width: parent.width; height: parent.width
                     source: "../images/Ab.png"
                     text: "Dunkler"
-                    onButtonClicked: {
+                    textcolor: "black"
+//                    onButtonClicked: {
+//                        rootLichtPage.state = "";
+//                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_DOWN)
+//                    }
+                    onButtonPressed: {
                         rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_DOWN)
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_START);
+                    }
+                    onButtonReleased: {
+                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_STOP);
                     }
                 }
             }

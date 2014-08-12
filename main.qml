@@ -41,6 +41,13 @@ ApplicationWindow {
         Component.onCompleted: console.log("Version " + version)
     }
 
+    onActiveChanged: {
+        if(Qt.ApplicationActive && stackView.depth > 1) {
+            stackView.pop(null);
+            textStatuszeile.text = stackView.currentItem.name;
+        }
+    }
+
     Rectangle {
         id: root
         color: "#ffffff"
@@ -250,6 +257,7 @@ ApplicationWindow {
         focus: true
         Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
                              stackView.pop();
+                             textStatuszeile.text = stackView.currentItem.name;
                              event.accepted = true;
                          }
 
@@ -484,7 +492,11 @@ ApplicationWindow {
                             MouseArea {
                                 id: logMouse
                                 anchors.fill: parent
-                                onClicked: { mainPage.state = "nothingVisible"; stackView.push(Qt.resolvedUrl("content/LogfilePage.qml")) }
+                                onClicked: {
+                                    mainPage.state = "nothingVisible";
+                                    stackView.push(Qt.resolvedUrl("content/LogfilePage.qml"))
+                                    textStatuszeile.text = stackView.currentItem.name;
+                                }
                             }
                         }
 
@@ -510,7 +522,11 @@ ApplicationWindow {
                             MouseArea {
                                 id: verlaufMouse
                                 anchors.fill: parent
-                                onClicked: { mainPage.state = "nothingVisible"; stackView.push(Qt.resolvedUrl("content/VerlaufPage.qml")) }
+                                onClicked: {
+                                    mainPage.state = "nothingVisible";
+                                    stackView.push(Qt.resolvedUrl("content/VerlaufPage.qml"))
+                                    textStatuszeile.text = stackView.currentItem.name;
+                                }
                             }
                         }
                     }
@@ -649,18 +665,17 @@ ApplicationWindow {
 /*
 TODO TODO TODO
 ==============
-- Fehlerbehandlung bei Netzwerkfehlern, 200 muss bei OK zurückgegeben werden
-- Gestensteuerung
-- Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen aif Screen-Größe
-- GridView in GridLayout verändern
+- Fehlerbehandlung bei Netzwerkfehlern, 200 muss bei OK zurückgegeben werden -> Symbol in Statusleiste
 - Hardware-Back-Key muss stackView.pop() auslösen
-- Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite
-- vorab laden der Daten
 - auf Update prüfen
-- Button LichtPage -> Farbe anpassen
-- LichtPage Heller und Dunkler
-- Passwort-Eingabe vereinfachen
 - Bug bei Eingabe mit virtueller Tastatur
-- Bewässerung Button auf aktuellen Status setzen
+
+nice to have
+------------
+- Scale/Translate verlaufImage
+- Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite (nur wenn App nicht im Background/Suspend)
+- vorab laden der Daten
+- Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen aif Screen-Größe
+
 */
 

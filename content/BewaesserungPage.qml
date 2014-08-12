@@ -43,7 +43,7 @@ Item {
                 anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
                 id: beete
                 value: 10
-                checked: statusText.indexOf("An") > -1
+                checked: statusText.indexOf("Aus") < 0
                 onSwitched: { Hsclient.setBewaesserung(1, checked, value), Hsclient.getStatusBewaesserung() }
             }
         }
@@ -67,7 +67,7 @@ Item {
                 anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
                 id: kuebel
                 value: 8
-                checked: statusText.indexOf("An") > -1
+                checked: statusText.indexOf("Aus") < 0
                 onSwitched: { Hsclient.setBewaesserung(2, checked, value), Hsclient.getStatusBewaesserung() }
             }
         }

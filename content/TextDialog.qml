@@ -9,6 +9,7 @@ Item {
     property alias dialogvisible: dialogBody.visible
     property string text
     property bool valid: false
+    property bool password: false
     property QtObject obj
     signal hasChanged
 
@@ -65,6 +66,7 @@ Item {
                 anchors.topMargin: 100
                 text: dialog.text
                 style: touchStyle
+                echoMode: dialog.password ? TextInput.PasswordEchoOnEdit : TextInput.Normal
 
                 onEditingFinished: dialogBody.dialogOK()
             }

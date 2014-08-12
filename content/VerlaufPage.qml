@@ -12,7 +12,7 @@ Rectangle {
     z: -1
 
     property bool init: true
-    readonly property string name: "Velauf"
+    readonly property string name: "Verlauf"
 
     property bool hasChangedSelection: false
 
@@ -54,10 +54,10 @@ Rectangle {
     ListModel {
         id: modelKurve1
         property int liste: 1
-        ListElement { name: "Temperatur innen"; wert: 1 }
-        ListElement { name: "Temperatur außen"; wert: 2 }
+        ListElement { name: "Temperatur<br>innen"; wert: 1 }
+        ListElement { name: "Temperatur<br>außen"; wert: 2 }
         ListElement { name: "Luftfeuchte"; wert: 3 }
-        ListElement { name: "Windgeschwindigkeit"; wert: 4 }
+        ListElement { name: "Wind-<br>geschwindigkeit"; wert: 4 }
         ListElement { name: "Regen"; wert: 5 }
         ListElement { name: "Helligkeit"; wert: 6 }
         ListElement { name: "Empfang"; wert: 7 }
@@ -67,10 +67,10 @@ Rectangle {
         id: modelKurve2
         property int liste: 2
         ListElement { name: "-------"; wert: 0 }
-        ListElement { name: "Temperatur innen"; wert: 1 }
-        ListElement { name: "Temperatur außen"; wert: 2 }
+        ListElement { name: "Temperatur<br>innen"; wert: 1 }
+        ListElement { name: "Temperatur<br>außen"; wert: 2 }
         ListElement { name: "Luftfeuchte"; wert: 3 }
-        ListElement { name: "Windgeschwindigkeit"; wert: 4 }
+        ListElement { name: "Wind-<br>geschwindigkeit"; wert: 4 }
         ListElement { name: "Regen"; wert: 5 }
         ListElement { name: "Helligkeit"; wert: 6 }
     }
@@ -92,6 +92,24 @@ Rectangle {
         anchors.verticalCenterOffset: 30
         anchors.horizontalCenter: parent.horizontalCenter
         fillMode: Image.PreserveAspectFit
+        visible: status === Image.Ready
+    }
+
+    ProgressBar {
+        anchors.centerIn: parent
+        width: 300
+        style: touchStyle
+        value: verlaufImage.status === Image.Null ? 0 : verlaufImage.progress
+        visible: verlaufImage.status === Image.Loading || verlaufImage.status === Image.Null
+    }
+
+    Text {
+        id: errorMessage
+        text: "Ladefehler"
+        font.family: "Abel"
+        font.pointSize: 22
+        color: "grey"
+        visible: verlaufImage.status === Image.Error
     }
 
     Item {
@@ -119,6 +137,7 @@ Rectangle {
                     anchors.centerIn: parent
                     font.family: "Abel"
                     font.pixelSize: 22
+                    horizontalAlignment: Text.AlignHCenter
                     text: name
                 }
                 MouseArea {
@@ -168,6 +187,8 @@ Rectangle {
                 anchors.centerIn: parent
                 font.family: "Abel"
                 font.pixelSize: 22
+                horizontalAlignment: Text.AlignHCenter
+                color: "#E3905C"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -192,7 +213,7 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "black"
+                color: "#E3905C"
             }
         }
         Rectangle {
@@ -206,6 +227,8 @@ Rectangle {
                 anchors.centerIn: parent
                 font.family: "Abel"
                 font.pixelSize: 22
+                horizontalAlignment: Text.AlignHCenter
+                color: "#E3905C"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -229,7 +252,7 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "black"
+                color: "#E3905C"
             }
         }
         Rectangle {
@@ -243,6 +266,8 @@ Rectangle {
                 anchors.centerIn: parent
                 font.family: "Abel"
                 font.pixelSize: 22
+                horizontalAlignment: Text.AlignHCenter
+                color: "#E3905C"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -266,7 +291,7 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "black"
+                color: "#E3905C"
             }
         }
         Rectangle {
@@ -279,6 +304,9 @@ Rectangle {
                 anchors.centerIn: parent
                 font.family: "Abel"
                 font.pixelSize: 22
+                horizontalAlignment: Text.AlignHCenter
+                font.weight: Font.DemiBold
+                color: "#E3905C"
                 text: "Reload"
             }
 
@@ -335,6 +363,25 @@ Rectangle {
                         verlaufImage.height = rootVerlaufPage.height - 90
                         verlaufImage.width = rootVerlaufPage.width - 30
                     }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: touchStyle
+        ProgressBarStyle {
+            panel: Rectangle {
+                implicitHeight: 15
+                implicitWidth: 300
+                color: "#444"
+                opacity: 0.8
+                Rectangle {
+                    antialiasing: true
+                    radius: 1
+                    color: "#E3905C"
+                    height: parent.height
+                    width: parent.width * control.value / control.maximumValue
                 }
             }
         }

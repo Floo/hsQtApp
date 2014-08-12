@@ -86,8 +86,10 @@ function getStatusBewaesserung() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === XMLHttpRequest.DONE) {
             var a = xmlhttp.responseXML.documentElement;
-            beete.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_1')
-            kuebel.statusText = "Status: " + getXMLfirstChild(a, 'Ventil_2')
+            var statusBeete = getXMLfirstChild(a, 'Ventil_1');
+            var statusKuebel = getXMLfirstChild(a, 'Ventil_2');
+            beete.statusText = "Status: " + statusBeete;
+            kuebel.statusText = "Status: " + statusKuebel;
         }
     }
     xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
