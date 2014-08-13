@@ -90,6 +90,14 @@ function getStatusBewaesserung() {
             var statusKuebel = getXMLfirstChild(a, 'Ventil_2');
             beete.statusText = "Status: " + statusBeete;
             kuebel.statusText = "Status: " + statusKuebel;
+            if((statusBeete.indexOf("Aus") < 0) !== beete.checked) {
+                cancelBeeteEvent = true;
+                beete.checked = statusBeete.indexOf("Aus") < 0;
+            }
+            if((statusKuebel.indexOf("Aus") < 0) !== kuebel.checked) {
+                cancelKuebelEvent = true;
+                kuebel.checked = statusKuebel.indexOf("Aus") < 0;
+            }
         }
     }
     xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)

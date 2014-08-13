@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 import QtQml.Models 2.1
+import QtQml 2.2
 import QtGraphicalEffects 1.0
 import AppSettings 1.0
 import "content"
@@ -41,12 +42,21 @@ ApplicationWindow {
         Component.onCompleted: console.log("Version " + version)
     }
 
-    onActiveChanged: {
-        if(Qt.ApplicationActive && stackView.depth > 1) {
-            stackView.pop(null);
+    property int appstate: Qt.application.state
+
+    onAppstateChanged: {
+        if(Qt.application.state === Qt.ApplicationActive && stackView.depth > 1) {
+            stackView.pop({item: null, immediate: true});
             textStatuszeile.text = stackView.currentItem.name;
         }
     }
+
+//    onActiveChanged: {
+//        if(Qt.ApplicationActive && stackView.depth > 1) {
+//            stackView.pop(null);
+//            textStatuszeile.text = stackView.currentItem.name;
+//        }
+//    }
 
     Rectangle {
         id: root
@@ -673,6 +683,8 @@ TODO TODO TODO
 - App Name
 - Versionsnummer in Manifest
 - Versionsnummer und Datum bei build aktualisieren
+- Splash-Screen in Manifest
+- BewässerungPage Schalter initialisieren
 
 nice to have
 ------------

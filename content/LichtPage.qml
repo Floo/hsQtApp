@@ -73,7 +73,7 @@ Rectangle {
 //                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_UP)
 //                    }
                     onButtonPressed: {
-                        rootLichtPage.state = "";
+                        //rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_UP_START);
                     }
                     onButtonReleased: {
@@ -89,7 +89,7 @@ Rectangle {
                     text: "Ein"
                     textcolor: "black"
                     onButtonClicked: {
-                        rootLichtPage.state = "";
+                        //rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AN);
                     }
                 }
@@ -105,7 +105,7 @@ Rectangle {
                     text: "Aus"
                     textcolor: "black"
                     onButtonClicked: {
-                        rootLichtPage.state = "";
+                        //rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AUS)
                     }
                 }
@@ -122,7 +122,7 @@ Rectangle {
 //                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_DOWN)
 //                    }
                     onButtonPressed: {
-                        rootLichtPage.state = "";
+                        //rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_START);
                     }
                     onButtonReleased: {

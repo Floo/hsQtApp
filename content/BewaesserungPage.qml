@@ -11,6 +11,8 @@ Item {
     z: -1
 
     readonly property string name: "Bewässerung"
+    property bool cancelBeeteEvent: false
+    property bool cancelKuebelEvent: false
     function isVisibleDialog() {
         return false
     }
@@ -21,6 +23,13 @@ Item {
     }
 
     Component.onCompleted: Hsclient.getStatusBewaesserung()
+
+    Timer {
+        id: reloadStatusTimer
+        interval: 1000
+        repeat: false
+        onTriggered: Hsclient.getStatusBewaesserung()
+    }
 
     Column {
         Rectangle {
@@ -42,9 +51,17 @@ Item {
             PanelBewaesserung {
                 anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
                 id: beete
-                value: 10
-                checked: statusText.indexOf("Aus") < 0
-                onSwitched: { Hsclient.setBewaesserung(1, checked, value), Hsclient.getStatusBewaesserung() }
+                value: 6
+                //checked: statusText.indexOf("Aus") < 0
+                onSwitched: {
+                    if(!cancelBeeteEvent) {
+                        Hsclient.setBewaesserung(1, checked, value);
+                        //console.log("setBeete")
+                        reloadStatusTimer.restart();
+                        //Hsclient.getStatusBewaesserung()
+                    }
+                    cancelBeeteEvent = false;
+                }
             }
         }
         Rectangle {
@@ -66,9 +83,17 @@ Item {
             PanelBewaesserung {
                 anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
                 id: kuebel
-                value: 8
-                checked: statusText.indexOf("Aus") < 0
-                onSwitched: { Hsclient.setBewaesserung(2, checked, value), Hsclient.getStatusBewaesserung() }
+                value: 6
+                //checked: statusText.indexOf("Aus") < 0
+                onSwitched: {
+                    if(!cancelKuebelEvent) {
+                        Hsclient.setBewaesserung(2, checked, value);
+                        //console.log("setKuebel")
+                        reloadStatusTimer.restart()
+                        //Hsclient.getStatusBewaesserung()
+                    }
+                    cancelKuebelEvent = false;
+                }
             }
         }
     }

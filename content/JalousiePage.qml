@@ -175,7 +175,7 @@ Item {
                     width: parent.width; height: parent.width
                     source: "../images/ImpAuf.png"
                     onButtonClicked: {
-                        rootJalPage.state = "";
+                        //rootJalPage.state = "";
                         Hsclient.drvJalousie(jalNr, "IMPAUF");
                     }
                 }
@@ -186,7 +186,7 @@ Item {
                     width: parent.width; height: parent.width
                     source: "../images/Auf.png"
                     onButtonClicked: {
-                        rootJalPage.state = "";
+                        //rootJalPage.state = "";
                         Hsclient.drvJalousie(jalNr, "AUF");
                     }
                 }
@@ -197,7 +197,7 @@ Item {
                     width: parent.width; height: parent.width
                     source: "../images/Stop.png"
                     onButtonClicked: {
-                        rootJalPage.state = "";
+                        //rootJalPage.state = "";
                         Hsclient.drvJalousie(jalNr, "STP");
                     }
                 }
@@ -208,7 +208,7 @@ Item {
                     width: parent.width; height: parent.width
                     source: "../images/Ab.png"
                     onButtonClicked: {
-                        rootJalPage.state = "";
+                        //rootJalPage.state = "";
                         Hsclient.drvJalousie(jalNr, "AB");
                     }
                 }
@@ -219,7 +219,7 @@ Item {
                     width: parent.width; height: parent.width
                     source: "../images/ImpAb.png"
                     onButtonClicked: {
-                        rootJalPage.state = "";
+                        //rootJalPage.state = "";
                         Hsclient.drvJalousie(jalNr, "IMPAB");
                     }
                 }
@@ -233,7 +233,7 @@ Item {
                     width: parent.width; height: parent.width
                     source: "../images/Luecke.png"
                     onButtonClicked: {
-                        rootJalPage.state = "";
+                        //rootJalPage.state = "";
                         Hsclient.drvJalousie(jalNr, "SUN");
                     }
                 }
