@@ -666,9 +666,13 @@ ApplicationWindow {
 TODO TODO TODO
 ==============
 - Fehlerbehandlung bei Netzwerkfehlern, 200 muss bei OK zurückgegeben werden -> Symbol in Statusleiste
-- Hardware-Back-Key muss stackView.pop() auslösen
+- Hardware-Back-Key muss stackView.pop() auslösen nicht das Beenden der App
 - auf Update prüfen
-- Bug bei Eingabe mit virtueller Tastatur
+- Bug bei Eingabe mit virtueller Tastatur (nur bei Password)
+- App Homescreen wenn zurück aus suspend
+- App Name
+- Versionsnummer in Manifest
+- Versionsnummer und Datum bei build aktualisieren
 
 nice to have
 ------------

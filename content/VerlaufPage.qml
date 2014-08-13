@@ -188,7 +188,7 @@ Rectangle {
                 font.family: "Abel"
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
-                color: "#E3905C"
+                color: "white"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -213,7 +213,7 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "#E3905C"
+                color: "white"
             }
         }
         Rectangle {
@@ -228,7 +228,7 @@ Rectangle {
                 font.family: "Abel"
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
-                color: "#E3905C"
+                color: "white"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -252,7 +252,7 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "#E3905C"
+                color: "white"
             }
         }
         Rectangle {
@@ -267,7 +267,7 @@ Rectangle {
                 font.family: "Abel"
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
-                color: "#E3905C"
+                color: "white"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -291,7 +291,7 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "#E3905C"
+                color: "white"
             }
         }
         Rectangle {
@@ -306,7 +306,7 @@ Rectangle {
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.DemiBold
-                color: "#E3905C"
+                color: "white"
                 text: "Reload"
             }
 

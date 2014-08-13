@@ -86,7 +86,7 @@ Rectangle {
                     border.width: 2
                     width: parent.width; height: parent.width
                     source: "../images/Licht_An.png"
-                    text: "Einschalten"
+                    text: "Ein"
                     textcolor: "black"
                     onButtonClicked: {
                         rootLichtPage.state = "";
@@ -102,7 +102,7 @@ Rectangle {
                     border.width: 2
                     width: parent.width; height: parent.width
                     source: "../images/Licht_Aus.png"
-                    text: "Ausschalten"
+                    text: "Aus"
                     textcolor: "black"
                     onButtonClicked: {
                         rootLichtPage.state = "";
