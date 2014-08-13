@@ -390,6 +390,7 @@ function drvJalousie(jalNr, command) {
         data = "device=JAL&txtButtonName=" + command + "_" + jalNr[i];
         httpPost("drv.php", data);
     }
+    reloadStatusTimer.start();
 }
 
 

@@ -24,6 +24,13 @@ Item {
         return false
     }
 
+    Timer {
+        id: reloadStatusTimer
+        interval: 1000
+        repeat: false
+        onTriggered: Hsclient.getStatusJal()
+    }
+
     MouseArea {
         anchors.fill: parent
         onClicked: Global.mainobj.state = "nothingVisible";

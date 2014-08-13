@@ -1,9 +1,13 @@
 #!/usr/bin/python
 import re
-import sys
+from subprocess import check_output
 
-versionCodeString = 'android:versionCode="' + str(sys.argv[1]) + '"'
-versionNameString = 'android:versionName="' +  str(sys.argv[2]) + '"'
+version = check_output("git rev-list HEAD --count", shell=True)
+
+version = int(version)
+
+versionCodeString = 'android:versionCode="' + str(version) + '"'
+versionNameString = 'android:versionName="0.' +  str(version) + '"'
 
 f = open('android/AndroidManifest.xml', 'r+')
 text = f.read()
