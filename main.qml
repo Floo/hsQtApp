@@ -25,6 +25,7 @@ ApplicationWindow {
         Global.password = Storage.getSetting("password");
 
         Global.mainobj = mainPage;
+        Global.errorButton = errorButton;
 
         Hsclient.checkNetworkSettings();
 
@@ -39,7 +40,6 @@ ApplicationWindow {
 
     AppSettings {
         id: settings
-        Component.onCompleted: console.log("Version " + version)
     }
 
     property int appstate: Qt.application.state
@@ -50,13 +50,6 @@ ApplicationWindow {
             textStatuszeile.text = stackView.currentItem.name;
         }
     }
-
-//    onActiveChanged: {
-//        if(Qt.ApplicationActive && stackView.depth > 1) {
-//            stackView.pop(null);
-//            textStatuszeile.text = stackView.currentItem.name;
-//        }
-//    }
 
     Rectangle {
         id: root
@@ -73,12 +66,13 @@ ApplicationWindow {
 
         Rectangle {
             id: infoButton
-            width:  80
-            height: 80
+            width:  70
+            height: 70
+            radius: 4
             x: -30
             visible: stackView.depth == 1
             anchors.verticalCenter: parent.verticalCenter
-            color: "transparent"
+            color: infoButtonMouse.pressed ? "grey" : "transparent"
 
             Behavior on x { NumberAnimation { easing.type: Easing.OutCubic } }
 
@@ -88,7 +82,7 @@ ApplicationWindow {
                 source: "images/info_white.png"
             }
             MouseArea {
-                id: infomouse
+                id: infoButtonMouse
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked: {
@@ -104,14 +98,15 @@ ApplicationWindow {
 
         Rectangle {
             id: homeButton
-            width: 80
-            height: 80
+            width: 70
+            height: 70
+            radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: setupButton.left
             anchors.rightMargin: 30
             visible: opacity
             opacity: stackView.depth > 1 ? 1 : 0
-            color: "transparent"
+            color: homeButtonMouse.pressed ? "grey" : "transparent"
 
             Behavior on opacity { NumberAnimation{} }
 
@@ -124,6 +119,7 @@ ApplicationWindow {
             }
 
             MouseArea {
+                id: homeButtonMouse
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked: {
@@ -135,14 +131,63 @@ ApplicationWindow {
         }
 
         Rectangle {
+            id: errorButton
+
+            function showErrorButton(infoTitle, infoText) {
+                messageDialog.informativeText = infoText;
+                messageDialog.title = infoTitle;
+                opacity = 1;
+                errorButtonTimer.start()
+            }
+
+            Timer {
+                id: errorButtonTimer
+                interval: 10000
+                repeat: false
+                onTriggered: errorButton.opacity = 0
+            }
+
+            width: 70
+            height: 70
+            radius: 4
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: homeButton.left
+            anchors.rightMargin: 30
+            visible: opacity
+            opacity: 0
+            color: errorButtonMouse.pressed ? "grey" : "transparent"
+
+            Behavior on opacity { NumberAnimation{} }
+
+            Image {
+                fillMode: Image.PreserveAspectFit
+                width: 65
+                height: 65
+                anchors.centerIn: parent
+                source: "images/hinweis_white.png"
+            }
+
+            MouseArea {
+                id: errorButtonMouse
+                anchors.fill: parent
+                anchors.margins: -10
+                onClicked: {
+                    mainPage.state = "nothingVisible";
+                    messageDialog.visible = true;
+                }
+            }
+        }
+
+        Rectangle {
             id: setupButton
             width: 70
             height: 70
+            radius: 3
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: 30
 
-            color: "transparent"
+            color: setupButtonMouse.pressed ? "grey" : "transparent"
 
             Image {
                 anchors.fill: parent
@@ -150,6 +195,7 @@ ApplicationWindow {
             }
 
             MouseArea {
+                id: setupButtonMouse
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked: {
@@ -166,22 +212,24 @@ ApplicationWindow {
 
         Rectangle {
             id: backButton
-            width: 60
+            width: 70
             anchors.left: parent.left
             anchors.leftMargin: 60
             opacity: stackView.depth > 1 ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
-            height: 60
+            height: 70
             radius: 4
-            color: backmouse.pressed ? "#222" : "transparent"
+            color: backButtonMouse.pressed ? "grey" : "transparent"
             Behavior on opacity { NumberAnimation{} }
             Image {
-                anchors.verticalCenter: parent.verticalCenter
+                width: 60
+                height: 60
+                anchors.centerIn: parent
                 source: "images/navigation_previous_item.png"
             }
             MouseArea {
-                id: backmouse
+                id: backButtonMouse
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked: {
@@ -265,9 +313,13 @@ ApplicationWindow {
         anchors.fill: parent
         // Implements back key navigation
         focus: true
-        Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                             stackView.pop();
-                             textStatuszeile.text = stackView.currentItem.name;
+        Keys.onReleased: if (event.key === Qt.Key_Back) {
+                             if (stackView.depth > 1) {
+                                 stackView.pop();
+                                 textStatuszeile.text = stackView.currentItem.name;
+                             } else {
+                                 state = "nothingVisible";
+                             }
                              event.accepted = true;
                          }
 
@@ -547,7 +599,6 @@ ApplicationWindow {
                 State {
                     name: "infoVisible"
                     PropertyChanges { target: infoLeiste; x: 0 }
-                    //AnchorChanges { target: infoLeiste; anchors.left: mainPage.left }
                     PropertyChanges { target: setupMenu; y: -500 }
                     PropertyChanges { target: overlay; opacity: 0.5; visible: true }
                     PropertyChanges { target: infoButton; x: -50 }
@@ -569,9 +620,6 @@ ApplicationWindow {
 
             ]
 
-            transitions: Transition {
-                //AnchorAnimation { duration: 200 }
-            }
             Rectangle {
                 id: overlay
                 anchors.fill: parent
@@ -664,34 +712,22 @@ ApplicationWindow {
     }
     MessageDialog {
         id: messageDialog
-        //        onAccepted: {
-        //            console.log("And of course you could only agree.")
-        //            //Qt.quit()
-        //        }
-        //Component.onCompleted: visible = true
     }
 }
 
 /*
 TODO TODO TODO
 ==============
-- Fehlerbehandlung bei Netzwerkfehlern, 200 muss bei OK zurückgegeben werden -> Symbol in Statusleiste
-- Hardware-Back-Key muss stackView.pop() auslösen nicht das Beenden der App
 - auf Update prüfen
 - Bug bei Eingabe mit virtueller Tastatur (nur bei Password)
-- App Homescreen wenn zurück aus suspend
-- App Name
-- Versionsnummer in Manifest
-- Versionsnummer und Datum bei build aktualisieren
-- Splash-Screen in Manifest
-- BewässerungPage Schalter initialisieren
+
 
 nice to have
 ------------
 - Scale/Translate verlaufImage
 - Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite (nur wenn App nicht im Background/Suspend)
 - vorab laden der Daten
-- Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen aif Screen-Größe
+- Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen auf Screen-Größe
 
 */
 

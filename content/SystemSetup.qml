@@ -173,16 +173,6 @@ Rectangle {
             width: parent.width
             height: 100
             SetupValue {
-                id: showLogfile
-                bezeichner: "Logfile anzeigen"
-                onClicked: { console.debug("Logfile anzeigen") }
-            }
-        }
-
-        Item {
-            width: parent.width
-            height: 100
-            SetupValue {
                 id: showVersion
                 bezeichner: "App Info"
                 value: "Meth9, Version: " + appsettings.version + ", Build: " +

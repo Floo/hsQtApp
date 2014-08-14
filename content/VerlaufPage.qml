@@ -129,9 +129,9 @@ Rectangle {
             delegate: Rectangle {
                 width: rootVerlaufPage.width / 4 + 40
                 height: 60
-                border.color: "black"
+                border.color: "grey"
                 border.width: 1
-                color: auswahlMouse.pressed ? Qt.lighter("lightgrey", 0.8) : "lightgrey"
+                color: auswahlMouse.pressed ? Qt.lighter("lightgrey", 0.8) : "white"
 
                 Text {
                     anchors.centerIn: parent
@@ -180,7 +180,7 @@ Rectangle {
             id: kurve1
             width: parent.width / 4
             height: parent.height
-            color: mouseKurve1.pressed ? Qt.lighter("grey", 0.8) : "grey"
+            color: mouseKurve1.pressed ? Qt.lighter("lightgrey", 0.8) : "lightgrey"
 
             Text {
                 id: textKurve1
@@ -188,7 +188,7 @@ Rectangle {
                 font.family: "Abel"
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
-                color: "white"
+                color: "black"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -213,14 +213,14 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "white"
+                color: "black"
             }
         }
         Rectangle {
             id: kurve2
             width: parent.width / 4
             height: parent.height
-            color: mouseKurve2.pressed ? Qt.lighter("grey", 0.8) : "grey"
+            color: mouseKurve2.pressed ? Qt.lighter("lightgrey", 0.8) : "lightgrey"
 
             Text {
                 id: textKurve2
@@ -228,7 +228,7 @@ Rectangle {
                 font.family: "Abel"
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
-                color: "white"
+                color: "black"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -252,14 +252,14 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "white"
+                color: "black"
             }
         }
         Rectangle {
             id: intervall
             width: parent.width / 4
             height: parent.height
-            color: mouseIntervall.pressed ? Qt.lighter("grey", 0.8) : "grey"
+            color: mouseIntervall.pressed ? Qt.lighter("lightgrey", 0.8) : "lightgrey"
 
             Text {
                 id: textIntervall
@@ -267,7 +267,7 @@ Rectangle {
                 font.family: "Abel"
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
-                color: "white"
+                color: "black"
                 onTextChanged: hasChangedSelection = true
             }
 
@@ -291,14 +291,14 @@ Rectangle {
                 height: parent.height - 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                color: "white"
+                color: "black"
             }
         }
         Rectangle {
             id: reload
             width: parent.width / 4
             height: parent.height
-            color: mouseReload.pressed ? Qt.lighter("grey", 0.8) : "grey"
+            color: mouseReload.pressed ? Qt.lighter("lightgrey", 0.8) : "lightgrey"
 
             Text {
                 anchors.centerIn: parent
@@ -306,7 +306,7 @@ Rectangle {
                 font.pixelSize: 22
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.DemiBold
-                color: "white"
+                color: "black"
                 text: "Reload"
             }
 

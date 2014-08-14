@@ -9,6 +9,7 @@ var kurve2 = 0;
 var intervall = 2;
 
 var mainobj;
+var errorButton;
 
 var networkconfigOK = false;
 
