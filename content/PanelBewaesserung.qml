@@ -8,6 +8,7 @@ Item {
     property alias statusText: status.text
     property alias value: slider_id.value
     property alias checked: schalter.checked
+    property alias enabled: schalter.enabled
     signal switched
 
     width: 100
@@ -27,7 +28,7 @@ Item {
             id: slider_id
             style: touchStyle
             minimumValue: 1
-            maximumValue: 30
+            maximumValue: 20
             stepSize: 1
             value: 6
         }

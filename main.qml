@@ -29,12 +29,6 @@ ApplicationWindow {
 
         Hsclient.checkNetworkSettings();
 
-        if (!Global.networkconfigOK) {
-            messageDialog.title = "Netzwerkfehler"
-            messageDialog.informativeText = "Netzwerkkonfiguration unvollständig."
-            messageDialog.visible = true;
-        }
-
         Hsclient.getStatus()
     }
 
@@ -161,8 +155,8 @@ ApplicationWindow {
 
             Image {
                 fillMode: Image.PreserveAspectFit
-                width: 65
-                height: 65
+                width: 55
+                height: 55
                 anchors.centerIn: parent
                 source: "images/hinweis_white.png"
             }

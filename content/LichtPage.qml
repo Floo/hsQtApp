@@ -68,20 +68,15 @@ Rectangle {
                     source: "../images/Auf.png"
                     text: "Heller"
                     textcolor: "black"
-//                    onButtonClicked: {
-//                        rootLichtPage.state = "";
-//                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_UP)
-//                    }
                     onButtonPressed: {
-                        //rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_UP_START);
+                        Hsclient.setDimm(lichtModel.get(selectedIndex).id, Global.DIMM_UP_START);
                     }
                     onButtonReleased: {
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_UP_STOP);
+                        Hsclient.setDimm(lichtModel.get(selectedIndex).id, Global.DIMM_UP_STOP);
                     }
                 }
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
@@ -89,7 +84,6 @@ Rectangle {
                     text: "Ein"
                     textcolor: "black"
                     onButtonClicked: {
-                        //rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AN);
                     }
                 }
@@ -105,7 +99,6 @@ Rectangle {
                     text: "Aus"
                     textcolor: "black"
                     onButtonClicked: {
-                        //rootLichtPage.state = "";
                         Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_AUS)
                     }
                 }
@@ -117,16 +110,11 @@ Rectangle {
                     source: "../images/Ab.png"
                     text: "Dunkler"
                     textcolor: "black"
-//                    onButtonClicked: {
-//                        rootLichtPage.state = "";
-//                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.FS20_DIMM_DOWN)
-//                    }
                     onButtonPressed: {
-                        //rootLichtPage.state = "";
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_START);
+                        Hsclient.setDimm(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_START);
                     }
                     onButtonReleased: {
-                        Hsclient.setLicht(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_STOP);
+                        Hsclient.setDimm(lichtModel.get(selectedIndex).id, Global.DIMM_DOWN_STOP);
                     }
                 }
             }

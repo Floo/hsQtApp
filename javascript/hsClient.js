@@ -106,6 +106,7 @@ function getStatusBewaesserung() {
                 var a = xmlhttp.responseXML.documentElement;
                 var statusBeete = getXMLfirstChild(a, 'Ventil_1');
                 var statusKuebel = getXMLfirstChild(a, 'Ventil_2');
+
                 beete.statusText = "Status: " + statusBeete;
                 kuebel.statusText = "Status: " + statusKuebel;
                 if((statusBeete.indexOf("Aus") < 0) !== beete.checked) {
@@ -120,9 +121,9 @@ function getStatusBewaesserung() {
                 Global.errorButton.showErrorButton("Netzwerkfehler", xmlhttp.status + " " + xmlhttp.statusText);
             }
         }
-        xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
-        xmlhttp.send()
     }
+    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
+    xmlhttp.send()
 }
 
 function getVerlauf(intKurve1, intKurve2, intZeitraum) {
@@ -440,6 +441,11 @@ function setSzene(name) {
 
 function setLicht(lampenID, wert) {
     var data = "device=LICHT&txtLampe=" + lampenID + "&txtWert=" + wert;
+    httpPost("drv.php", data);
+}
+
+function setDimm(lampenID, wert) {
+    var data = "device=DIMM&txtLampe=" + lampenID + "&txtWert=" + wert;
     httpPost("drv.php", data);
 }
 

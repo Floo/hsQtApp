@@ -43,13 +43,13 @@ Rectangle {
         hasChangedSelection = false;
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            auswahl.y = -500
-            Global.mainobj.state = "nothingVisible";
-        }
-    }
+//    MouseArea {
+//        anchors.fill: parent
+//        onClicked: {
+//            auswahl.y = -500
+//            Global.mainobj.state = "nothingVisible";
+//        }
+//    }
 
     ListModel {
         id: modelKurve1
@@ -88,11 +88,42 @@ Rectangle {
         id: verlaufImage
         width: parent.width - 30
         height: parent.height - 90
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: 30
-        anchors.horizontalCenter: parent.horizontalCenter
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2 + 60
+//        anchors.verticalCenter: parent.verticalCenter
+//        anchors.verticalCenterOffset: 30
+//        anchors.horizontalCenter: parent.horizontalCenter
         fillMode: Image.PreserveAspectFit
         visible: status === Image.Ready
+        antialiasing: true
+    }
+
+    PinchArea {
+        id: verlaufPinch
+
+        anchors.fill: parent
+        pinch.target: verlaufImage
+        pinch.maximumScale: 3
+        pinch.minimumScale: 1
+        pinch.dragAxis: Pinch.XAndYAxis
+        pinch.minimumX: -pinch.maximumX
+        pinch.maximumX: 600
+        pinch.minimumY: -pinch.maximumY
+        pinch.maximumY: 300
+
+
+        MouseArea {
+            id: verlaufDrag
+
+            anchors.fill: parent
+            hoverEnabled: true
+            drag.target: verlaufImage
+            drag.minimumX: verlaufPinch.pinch.minimumX
+            drag.minimumY: verlaufPinch.pinch.minimumY
+            drag.maximumX: verlaufPinch.pinch.maximumX
+            drag.maximumY: verlaufPinch.pinch.maximumY
+        }
+
     }
 
     ProgressBar {
@@ -355,13 +386,21 @@ Rectangle {
                     Global.mainobj.state = "nothingVisible";
                     auswahl.y = -500;
                     if(verlaufImage.rotation === 0) {
-                        verlaufImage.rotation = 90
-                        verlaufImage.height = rootVerlaufPage.width - 30
-                        verlaufImage.width = rootVerlaufPage.height - 90
+                        verlaufImage.scale = 1;
+                        verlaufImage.rotation = 90;
+                        verlaufImage.height = rootVerlaufPage.width - 30;
+                        verlaufImage.width = rootVerlaufPage.height - 90;
+                        verlaufPinch.pinch.maximumX = 200;
+                        verlaufPinch.pinch.maximumY = 500;
+                        verlaufPinch.pinch.maximumScale = 1.7;
                     } else {
-                        verlaufImage.rotation = 0
-                        verlaufImage.height = rootVerlaufPage.height - 90
-                        verlaufImage.width = rootVerlaufPage.width - 30
+                        verlaufImage.scale = 1;
+                        verlaufImage.rotation = 0;
+                        verlaufImage.height = rootVerlaufPage.height - 90;
+                        verlaufImage.width = rootVerlaufPage.width - 30;
+                        verlaufPinch.pinch.maximumX = 600;
+                        verlaufPinch.pinch.maximumY = 300;
+                        verlaufPinch.pinch.maximumScale = 2.7;
                     }
                 }
             }

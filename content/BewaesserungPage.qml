@@ -49,16 +49,15 @@ Item {
         Item {
             width: 400; height: 400
             PanelBewaesserung {
-                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
                 id: beete
+                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
+                enabled: !kuebel.checked
                 value: 6
                 //checked: statusText.indexOf("Aus") < 0
                 onSwitched: {
                     if(!cancelBeeteEvent) {
                         Hsclient.setBewaesserung(1, checked, value);
-                        //console.log("setBeete")
                         reloadStatusTimer.restart();
-                        //Hsclient.getStatusBewaesserung()
                     }
                     cancelBeeteEvent = false;
                 }
@@ -81,16 +80,15 @@ Item {
         Item {
             width: 400; height: 400
             PanelBewaesserung {
-                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
                 id: kuebel
+                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
+                enabled: !beete.checked
                 value: 6
                 //checked: statusText.indexOf("Aus") < 0
                 onSwitched: {
                     if(!cancelKuebelEvent) {
                         Hsclient.setBewaesserung(2, checked, value);
-                        //console.log("setKuebel")
-                        reloadStatusTimer.restart()
-                        //Hsclient.getStatusBewaesserung()
+                        reloadStatusTimer.restart();
                     }
                     cancelKuebelEvent = false;
                 }
