@@ -312,7 +312,7 @@ ApplicationWindow {
                                  stackView.pop();
                                  textStatuszeile.text = stackView.currentItem.name;
                              } else {
-                                 state = "nothingVisible";
+                                 mainPage.state = "nothingVisible";
                              }
                              event.accepted = true;
                          }

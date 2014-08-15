@@ -176,7 +176,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 2
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
@@ -187,7 +187,7 @@ Item {
                     }
                 }
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
@@ -198,7 +198,7 @@ Item {
                     }
                 }
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
@@ -209,7 +209,7 @@ Item {
                     }
                 }
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
@@ -220,7 +220,7 @@ Item {
                     }
                 }
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
@@ -234,7 +234,7 @@ Item {
                 Rectangle { height: 10; width: parent.width; color: "transparent" }
 
                 StartButton {
-                    color: Qt.lighter("#E3905C", 1.2)
+                    color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)
                     border.color: Qt.lighter("#E3905C", 1.5)
                     border.width: 2
                     width: parent.width; height: parent.width
