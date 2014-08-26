@@ -5,6 +5,7 @@ import QtQml.Models 2.1
 import QtQml 2.2
 import QtGraphicalEffects 1.0
 import AppSettings 1.0
+import QtQuick.Window 2.0
 import "content"
 import "javascript/hsClient.js" as Hsclient
 import "javascript/global.js" as Global
@@ -12,9 +13,18 @@ import "javascript/storage.js" as Storage
 
 ApplicationWindow {
     visible: true
+    title: qsTr("Meth 9")
+
     width: 800
     height: 1280
-    title: qsTr("Meth 9")
+    property int screenwidth: 800
+    property int screenheight: 1280
+
+//    width: Screen.width
+//    height: Screen.height
+//    property int screenwidth: Screen.width
+//    property int screenheight: Screen.height
+
 
     Component.onCompleted: {
         // Initialize the database
@@ -30,6 +40,9 @@ ApplicationWindow {
         Hsclient.checkNetworkSettings();
 
         Hsclient.getStatus()
+
+        console.log("Gesamthöhe " + Screen.height)
+        console.log("Gesamtbreite " + Screen.width)
     }
 
     AppSettings {
@@ -56,12 +69,12 @@ ApplicationWindow {
         border.bottom: 8
         source: "images/toolbar.png"
         width: parent.width
-        height: 80
+        height: 0.067 * screenheight
 
         Rectangle {
             id: infoButton
-            width:  70
-            height: 70
+            width:  height
+            height: header.height - 10
             radius: 4
             x: -30
             visible: stackView.depth == 1
@@ -71,8 +84,7 @@ ApplicationWindow {
             Behavior on x { NumberAnimation { easing.type: Easing.OutCubic } }
 
             Image {
-                width: 70; height: 70
-                anchors.centerIn: parent
+                anchors.fill: parent
                 source: "images/info_white.png"
             }
             MouseArea {
@@ -92,8 +104,8 @@ ApplicationWindow {
 
         Rectangle {
             id: homeButton
-            width: 70
-            height: 70
+            width: height
+            height: header.height - 10
             radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: setupButton.left
@@ -106,8 +118,8 @@ ApplicationWindow {
 
             Image {
                 fillMode: Image.PreserveAspectFit
-                width: 65
-                height: 65
+                anchors.fill: parent
+                anchors.margins: 0.04 * parent.height
                 anchors.centerIn: parent
                 source: "images/navigation_home.png"
             }
@@ -141,8 +153,8 @@ ApplicationWindow {
                 onTriggered: errorButton.opacity = 0
             }
 
-            width: 70
-            height: 70
+            width: height
+            height: header.height - 10
             radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: homeButton.left
@@ -155,9 +167,8 @@ ApplicationWindow {
 
             Image {
                 fillMode: Image.PreserveAspectFit
-                width: 55
-                height: 55
-                anchors.centerIn: parent
+                anchors.fill: parent
+                anchors.margins: 0.11 * parent.height
                 source: "images/hinweis_white.png"
             }
 
@@ -174,9 +185,9 @@ ApplicationWindow {
 
         Rectangle {
             id: setupButton
-            width: 70
-            height: 70
-            radius: 3
+            width: height
+            height: header.height - 10
+            radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: 30
@@ -206,20 +217,20 @@ ApplicationWindow {
 
         Rectangle {
             id: backButton
-            width: 70
+            width: height
+            height: header.height - 10
+            radius: 4
             anchors.left: parent.left
             anchors.leftMargin: 60
             opacity: stackView.depth > 1 ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
-            height: 70
-            radius: 4
+
             color: backButtonMouse.pressed ? "grey" : "transparent"
             Behavior on opacity { NumberAnimation{} }
             Image {
-                width: 60
-                height: 60
-                anchors.centerIn: parent
+                anchors.fill: parent
+                anchors.margins: 0.071 * parent.height
                 source: "images/navigation_previous_item.png"
             }
             MouseArea {
@@ -368,8 +379,8 @@ ApplicationWindow {
 
                 Image {
                     id: meth9Pic
-                    height: 280
-                    width: 280
+                    height: 0.22 * screenheight
+                    width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/haus_klein.png"
                     fillMode: Image.PreserveAspectFit
@@ -387,7 +398,8 @@ ApplicationWindow {
                     id: gridView
                     anchors.horizontalCenter: parent.horizontalCenter
                     model: pageModel
-                    width: 600; height: 600
+                    width: 0.78 * screenwidth
+                    height: width
                     cellWidth: width/2; cellHeight: height/2
                     delegate: StartButton {
                         width: gridView.cellWidth
