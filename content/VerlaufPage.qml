@@ -128,7 +128,7 @@ Rectangle {
 
     ProgressBar {
         anchors.centerIn: parent
-        width: 300
+        width: 450
         style: touchStyle
         value: verlaufImage.status === Image.Null ? 0 : verlaufImage.progress
         visible: verlaufImage.status === Image.Loading || verlaufImage.status === Image.Null
@@ -159,7 +159,7 @@ Rectangle {
             model: modelKurve1
             delegate: Rectangle {
                 width: rootVerlaufPage.width / 4 + 40
-                height: 60
+                height: 90
                 border.color: "grey"
                 border.width: 1
                 color: auswahlMouse.pressed ? Qt.lighter("lightgrey", 0.8) : "white"
@@ -167,7 +167,7 @@ Rectangle {
                 Text {
                     anchors.centerIn: parent
                     font.family: "Abel"
-                    font.pixelSize: 22
+                    font.pixelSize: 33
                     horizontalAlignment: Text.AlignHCenter
                     text: name
                 }
@@ -205,7 +205,7 @@ Rectangle {
     }
 
     Row {
-        height: 60
+        height: 90
         width: parent.width
         Rectangle {
             id: kurve1
@@ -217,7 +217,7 @@ Rectangle {
                 id: textKurve1
                 anchors.centerIn: parent
                 font.family: "Abel"
-                font.pixelSize: 22
+                font.pixelSize: 33
                 horizontalAlignment: Text.AlignHCenter
                 color: "black"
                 onTextChanged: hasChangedSelection = true
@@ -231,7 +231,7 @@ Rectangle {
                     listviewAuswahl.model = modelKurve1
                     if(auswahl.y < 0) {
                         auswahl.x = 0
-                        auswahl.y = 60
+                        auswahl.y = 90
                     } else {
                         menuAnimation.xValue = 0
                         menuAnimation.start()
@@ -257,7 +257,7 @@ Rectangle {
                 id: textKurve2
                 anchors.centerIn: parent
                 font.family: "Abel"
-                font.pixelSize: 22
+                font.pixelSize: 33
                 horizontalAlignment: Text.AlignHCenter
                 color: "black"
                 onTextChanged: hasChangedSelection = true
@@ -271,7 +271,7 @@ Rectangle {
                     listviewAuswahl.model = modelKurve2
                     if(auswahl.y < 0) {
                         auswahl.x = rootVerlaufPage.width / 4
-                        auswahl.y = 60
+                        auswahl.y = 90
                     } else {
                         menuAnimation.xValue = rootVerlaufPage.width / 4
                         menuAnimation.start()
@@ -296,7 +296,7 @@ Rectangle {
                 id: textIntervall
                 anchors.centerIn: parent
                 font.family: "Abel"
-                font.pixelSize: 22
+                font.pixelSize: 33
                 horizontalAlignment: Text.AlignHCenter
                 color: "black"
                 onTextChanged: hasChangedSelection = true
@@ -310,7 +310,7 @@ Rectangle {
                     listviewAuswahl.model = modelIintervall
                     if(auswahl.y < 0) {
                         auswahl.x = rootVerlaufPage.width / 2
-                        auswahl.y = 60
+                        auswahl.y = 90
                     } else {
                         menuAnimation.xValue = rootVerlaufPage.width / 2
                         menuAnimation.start()
@@ -334,7 +334,7 @@ Rectangle {
             Text {
                 anchors.centerIn: parent
                 font.family: "Abel"
-                font.pixelSize: 22
+                font.pixelSize: 33
                 horizontalAlignment: Text.AlignHCenter
                 font.weight: Font.DemiBold
                 color: "black"
@@ -357,14 +357,14 @@ Rectangle {
     SequentialAnimation {
         id: menuAnimation
         property alias xValue: menuAnimationAction.value
-        NumberAnimation { target: auswahl ; property: "y"; duration: 200; from: 60; to: -500; easing.type: Easing.OutCubic }
+        NumberAnimation { target: auswahl ; property: "y"; duration: 200; from: 90; to: -500; easing.type: Easing.OutCubic }
         PropertyAction { id: menuAnimationAction; target: auswahl; property: "x"; value: rootVerlaufPage.width / 4 }
-        NumberAnimation { target: auswahl; property: "y"; duration: 200; from: -500; to: 60; easing.type: Easing.OutCubic }
+        NumberAnimation { target: auswahl; property: "y"; duration: 200; from: -500; to: 90; easing.type: Easing.OutCubic }
     }
 
     Rectangle {
         id: buttonRotate
-        width: 80
+        width: 120
         height: width
         anchors.bottom: parent.bottom
         anchors.rightMargin: 20
@@ -411,8 +411,8 @@ Rectangle {
         id: touchStyle
         ProgressBarStyle {
             panel: Rectangle {
-                implicitHeight: 15
-                implicitWidth: 300
+                implicitHeight: 22
+                implicitWidth: 450
                 color: "#444"
                 opacity: 0.8
                 Rectangle {

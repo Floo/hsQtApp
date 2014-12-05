@@ -16,7 +16,7 @@ Item {
 
     Component.onCompleted: { Hsclient.getStatusJal() }
 
-    property int listViewDelegateHeight: 100
+    property int listViewDelegateHeight: 150
     property var jalNr
     readonly property string name: "Jalousie"
 
@@ -38,7 +38,7 @@ Item {
 
     Rectangle {
         id: singleHeadline
-        height: 80
+        height: 120
         width: parent.width
         color: "#E3905C"
 
@@ -109,7 +109,7 @@ Item {
         id: listSingle
         anchors.fill: parent
         anchors.top: parent.top
-        anchors.topMargin: 80
+        anchors.topMargin: 120
         model: singleJalModel
         delegate: ListViewDelegate {
             bezeichner: name
@@ -163,13 +163,13 @@ Item {
     Item {
         id: buttonListe
         height: parent.height
-        width: 140
+        width: 190
         x: parent.width
         Rectangle {
             height: parent.height
             anchors.top: parent.top
             anchors.right: parent.right
-            width: 120
+            width: 160
             color: "#eeeeee"
             Column {
                 width: parent.width
@@ -231,7 +231,7 @@ Item {
                     }
                 }
 
-                Rectangle { height: 10; width: parent.width; color: "transparent" }
+                Rectangle { height: 15; width: parent.width; color: "transparent" }
 
                 StartButton {
                     color: pressed ? "#E3905C" : Qt.lighter("#E3905C", 1.2)

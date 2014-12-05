@@ -6,13 +6,13 @@ import QtQuick.Controls.Styles 1.2
 Item {
     id: root
     width: parent.width
-    height: 100
+    height: 150
     property alias bezeichner: bezeichner.text
     property alias subtext: hilfetext.text
     property alias icon: icon.source
     property bool hasIcon: true
     property bool selected: false
-    property int leftTextMargin: 30
+    property int leftTextMargin: 45
     signal clicked
 
     Rectangle {
@@ -50,7 +50,7 @@ Item {
             fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: 50
+            anchors.rightMargin: 65
             visible: root.hasIcon
             source: "../images/next_page_pan472c.png"
         }

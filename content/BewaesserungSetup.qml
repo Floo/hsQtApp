@@ -29,12 +29,12 @@ Rectangle {
         anchors.fill: parent
         Rectangle {
             width: parent.width
-            height: 60
+            height: 90
             color: "#E3905C"
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 30
+                anchors.leftMargin: 45
                 font.family: "Abel"
                 font.pointSize: 16
                 font.bold: true
@@ -51,7 +51,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: beeteRegen
                 checked: true
@@ -62,7 +62,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: beeteAuto
                 checked: true
@@ -73,10 +73,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: beeteZeit
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: beeteAuto.checked
                 bezeichner: "Startzeit:"
                 value: "00:00"
@@ -89,10 +89,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: beeteDauer
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: beeteAuto.checked
                 bezeichner: "Dauer:"
                 value: "0 min"
@@ -110,12 +110,12 @@ Rectangle {
         }
         Rectangle {
             width: parent.width
-            height: 60
+            height: 90
             color: "#E3905C"
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 30
+                anchors.leftMargin: 45
                 font.family: "Abel"
                 font.pointSize: 16
                 font.bold: true
@@ -132,7 +132,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: kuebelRegen
                 checked: true
@@ -143,7 +143,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: kuebelAuto
                 checked: true
@@ -154,10 +154,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: kuebelZeit
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: kuebelAuto.checked
                 bezeichner: "Startzeit:"
                 value: "00:00"
@@ -170,10 +170,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: kuebelDauer
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: kuebelAuto.checked
                 bezeichner: "Dauer:"
                 value: "0 min"

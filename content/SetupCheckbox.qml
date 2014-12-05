@@ -10,7 +10,7 @@ Item {
     property alias hilfetext: hilfetext.text
     property alias checked: checkbox.checked
     property alias exclusiveGroup: checkbox.exclusiveGroup
-    property int leftTextMargin: 30
+    property int leftTextMargin: 40
     property bool radioButton: false
     signal checkboxChanged
 
@@ -20,7 +20,7 @@ Item {
         anchors.fill: parent
         Rectangle {
             width: parent.width
-            height: 100
+            height: 150
             color: windMouse.pressed ? "lightgrey" : "transparent"
             Column {
                 anchors.verticalCenter: parent.verticalCenter
@@ -50,7 +50,7 @@ Item {
                 id: checkbox
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                anchors.rightMargin: 50
+                anchors.rightMargin: 65
                 checked: true
                 enabled: root.enabled
                 style: checkBoxStyle
@@ -79,8 +79,8 @@ Item {
         id: checkBoxStyle
         CheckBoxStyle {
             indicator: Rectangle {
-                implicitWidth: 32
-                implicitHeight: 32
+                implicitWidth: 45
+                implicitHeight: 45
                 radius: radioButton ? implicitWidth / 2 : 3
                 border.color: control.activeFocus ? "darkblue" : "gray"
                 border.width: 2

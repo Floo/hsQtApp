@@ -14,7 +14,7 @@ Item {
     width: 100
 
     Column {
-        spacing: 30
+        spacing: 45
 
         Text {
             id: status
@@ -59,18 +59,18 @@ Item {
         id: touchStyle
         SliderStyle {
             handle: Rectangle {
-                width: 30
-                height: 30
+                width: 45
+                height: 45
                 radius: height
                 antialiasing: true
                 color: Qt.lighter("#E3905C", 1.2)
             }
 
             groove: Item {
-                implicitHeight: 50
-                implicitWidth: 400
+                implicitHeight: 65
+                implicitWidth: 600
                 Rectangle {
-                    height: 8
+                    height: 10
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#444"
@@ -92,19 +92,19 @@ Item {
         SwitchStyle {
 
             groove: Rectangle {
-                implicitHeight: 50
-                implicitWidth: 152
+                implicitHeight: 65
+                implicitWidth: 228
                 Rectangle {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
                     width: parent.width/2 - 2
-                    height: 20
+                    height: 26
                     anchors.margins: 2
                     color: control.checked ? "#E3905C" : "#222"
                     Behavior on color {ColorAnimation {}}
                     Text {
-                        font.pixelSize: 23
+                        font.pixelSize: 34
                         color: "white"
                         anchors.centerIn: parent
                         text: "ON"
@@ -115,7 +115,7 @@ Item {
                     height: parent.height
                     anchors.right: parent.right
                     Text {
-                        font.pixelSize: 23
+                        font.pixelSize: 34
                         color: "white"
                         anchors.centerIn: parent
                         text: "OFF"

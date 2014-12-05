@@ -15,16 +15,11 @@ ApplicationWindow {
     visible: true
     title: qsTr("Meth 9")
 
-    width: 800
-    height: 1280
-    property int screenwidth: 800
-    property int screenheight: 1280
+//    width: 800
+//    height: 1280
 
-//    width: Screen.width
-//    height: Screen.height
-//    property int screenwidth: Screen.width
-//    property int screenheight: Screen.height
-
+    width: 1080
+    height: 1920
 
     Component.onCompleted: {
         // Initialize the database
@@ -40,9 +35,6 @@ ApplicationWindow {
         Hsclient.checkNetworkSettings();
 
         Hsclient.getStatus()
-
-        console.log("Gesamthöhe " + Screen.height)
-        console.log("Gesamtbreite " + Screen.width)
     }
 
     AppSettings {
@@ -69,12 +61,12 @@ ApplicationWindow {
         border.bottom: 8
         source: "images/toolbar.png"
         width: parent.width
-        height: 0.067 * screenheight
+        height: 120
 
         Rectangle {
             id: infoButton
             width:  height
-            height: header.height - 10
+            height: header.height - 15
             radius: 4
             x: -30
             visible: stackView.depth == 1
@@ -105,11 +97,11 @@ ApplicationWindow {
         Rectangle {
             id: homeButton
             width: height
-            height: header.height - 10
+            height: header.height - 15
             radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: setupButton.left
-            anchors.rightMargin: 30
+            anchors.rightMargin: 40
             visible: opacity
             opacity: stackView.depth > 1 ? 1 : 0
             color: homeButtonMouse.pressed ? "grey" : "transparent"
@@ -119,7 +111,7 @@ ApplicationWindow {
             Image {
                 fillMode: Image.PreserveAspectFit
                 anchors.fill: parent
-                anchors.margins: 0.04 * parent.height
+                anchors.margins: 7
                 anchors.centerIn: parent
                 source: "images/navigation_home.png"
             }
@@ -154,11 +146,11 @@ ApplicationWindow {
             }
 
             width: height
-            height: header.height - 10
+            height: header.height - 15
             radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: homeButton.left
-            anchors.rightMargin: 30
+            anchors.rightMargin: 45
             visible: opacity
             opacity: 0
             color: errorButtonMouse.pressed ? "grey" : "transparent"
@@ -168,7 +160,7 @@ ApplicationWindow {
             Image {
                 fillMode: Image.PreserveAspectFit
                 anchors.fill: parent
-                anchors.margins: 0.11 * parent.height
+                anchors.margins: 15
                 source: "images/hinweis_white.png"
             }
 
@@ -190,7 +182,7 @@ ApplicationWindow {
             radius: 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: 30
+            anchors.rightMargin: 45
 
             color: setupButtonMouse.pressed ? "grey" : "transparent"
 
@@ -230,7 +222,7 @@ ApplicationWindow {
             Behavior on opacity { NumberAnimation{} }
             Image {
                 anchors.fill: parent
-                anchors.margins: 0.071 * parent.height
+                anchors.margins: 5
                 source: "images/navigation_previous_item.png"
             }
             MouseArea {
@@ -247,9 +239,10 @@ ApplicationWindow {
 
         Text {
             id: textStatuszeile
-            font.pixelSize: 42
+            //font.pixelSize: 63
+            font.pointSize: 18
             //Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
-            x: backButton.x + 80
+            x: backButton.x + 120
             anchors.verticalCenter: parent.verticalCenter
             color: "white"
             text: "Meth 9"
@@ -379,7 +372,7 @@ ApplicationWindow {
 
                 Image {
                     id: meth9Pic
-                    height: 0.22 * screenheight
+                    height: 420
                     width: height
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "images/haus_klein.png"
@@ -393,12 +386,17 @@ ApplicationWindow {
                     font.pointSize: 18
                     text: "Haussteuerung - Methfesselstr. 9"
                 }
+                Item {
+                    // Separator
+                    width: parent.width
+                    height: 50
+                }
 
                 GridView {
                     id: gridView
                     anchors.horizontalCenter: parent.horizontalCenter
                     model: pageModel
-                    width: 0.78 * screenwidth
+                    width: 840
                     height: width
                     cellWidth: width/2; cellHeight: height/2
                     delegate: StartButton {
@@ -462,30 +460,30 @@ ApplicationWindow {
 
                     Column {
                         //anchors.horizontalCenter: parent.horizontalCenter
-                        property int largeFont: 12
-                        property int smallFont: 10
+                        property int largeFont: 18
+                        property int smallFont: 15
 
                         anchors.top: parent.top
                         anchors.topMargin: 10
                         Rectangle {
-                            height: 100
+                            height: 150
                             width: infoLeiste.breite
                             color: "transparent"
                             Row {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 spacing: 20
                                 Text {
-                                    height: 100
+                                    height: 150
                                     font.family: "Abel"
-                                    font.pixelSize: 24
+                                    font.pixelSize: 36
                                     font.bold: true
                                     verticalAlignment: Qt.AlignVCenter
                                     text: "aktuell:"
                                 }
 
                                 Image {
-                                    width: 90
-                                    height: 100
+                                    width: 135
+                                    height: 150
                                     fillMode: Image.PreserveAspectFit
                                     id: aktuellesWetter
                                     source: "images/Sonne.png"
@@ -506,13 +504,13 @@ ApplicationWindow {
                         }
                         InfoElement {
                             id: regen
-                            height: 110
+                            height: 165
                             source: "images/regentropfen_qt.png"
                             bezeichner: "Regen (1h):<br>Regen (24h):<br>Regen (7d):"
                         }
                         InfoElement {
                             id: jalousie
-                            height: 140
+                            height: 210
                             source: "images/jalousie_qt.png"
                             bezeichner: "Jalousie 1:<br>Jalousie 2:<br>Jalousie 3:<br>Jalousie 4:"
                         }
@@ -548,7 +546,7 @@ ApplicationWindow {
                         Rectangle {
                             id: menuLog
                             width: infoLeiste.breite
-                            height: 80
+                            height: 100
                             color: logMouse.pressed ? "grey" : "transparent"
 
                             Text {
@@ -578,7 +576,7 @@ ApplicationWindow {
 
                         Rectangle {
                             width: infoLeiste.breite
-                            height: 80
+                            height: 100
                             color: verlaufMouse.pressed ? "grey" : "transparent"
 
                             Text {
@@ -605,20 +603,20 @@ ApplicationWindow {
                 State {
                     name: "infoVisible"
                     PropertyChanges { target: infoLeiste; x: 0 }
-                    PropertyChanges { target: setupMenu; y: -500 }
+                    PropertyChanges { target: setupMenu; y: -700 }
                     PropertyChanges { target: overlay; opacity: 0.5; visible: true }
-                    PropertyChanges { target: infoButton; x: -50 }
+                    PropertyChanges { target: infoButton; x: -60 }
                 },
                 State {
                     name: "setupVisible"
-                    PropertyChanges { target: setupMenu; y: -10 }
+                    PropertyChanges { target: setupMenu; y: -20 }
                     PropertyChanges { target: infoLeiste; x: -infoLeiste.width }
                     PropertyChanges { target: overlay; opacity: 0; visible: false }
                     PropertyChanges { target: infoButton; x: -30 }
                 },
                 State {
                     name: "nothingVisible"
-                    PropertyChanges { target: setupMenu; y: -500 }
+                    PropertyChanges { target: setupMenu; y: -700 }
                     PropertyChanges { target: infoLeiste; x: -infoLeiste.width }
                     PropertyChanges { target: overlay; opacity: 0; visible: false }
                     PropertyChanges { target: infoButton; x: -30 }
@@ -657,17 +655,17 @@ ApplicationWindow {
 
         Rectangle {
             id: setupMenu
-            width: 270
-            height: 370
+            width: 380
+            height: 565
             anchors.right: parent.right
-            anchors.rightMargin: 15
+            anchors.rightMargin: 20
             color: "transparent"
             z: 99
-            y: -500
+            y: -700
 
             Rectangle {
-                width: 250
-                height: 350
+                width: 340
+                height: 525
                 anchors.centerIn: parent
                 color: "white"
                 border.color: "grey"
@@ -676,14 +674,14 @@ ApplicationWindow {
                     anchors.fill: parent
                     model: setupModel
                     delegate: Rectangle {
-                        width: 250
-                        height: 70
+                        width: 340
+                        height: 105
                         color: index == setupMouse.pressed ? "lightgrey" : "transparent"
                         border.color: "grey"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.left
-                            anchors.leftMargin: 20
+                            anchors.leftMargin: 25
                             font.family: "Abel"
                             font.pointSize: 16
                             text: title
@@ -730,7 +728,6 @@ TODO TODO TODO
 
 nice to have
 ------------
-- Scale/Translate verlaufImage
 - Timer-gesteuerte Aktualisierung des Status auf Bewässerung und Jalousie-Seite (nur wenn App nicht im Background/Suspend)
 - vorab laden der Daten
 - Unabhängigkeit von der Bildschirmauflösung, Schriftgröße mit font.pixelSize an Größe des Feldes angepasst, relative Größe bezogen auf Screen-Größe

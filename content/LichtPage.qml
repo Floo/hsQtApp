@@ -49,12 +49,12 @@ Rectangle {
     Item {
         id: buttonListe
         height: parent.height
-        width: 140
+        width: 190
         x: parent.width
         Rectangle {
             height: parent.height
             anchors.right: parent.right
-            width: 120
+            width: 160
             color: "#eeeeee"
             Column {
                 width: parent.width

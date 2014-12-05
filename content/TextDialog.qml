@@ -30,8 +30,8 @@ Item {
     }
     Item {
         id: dialogBody
-        width: 720
-        height: 320
+        width: 970
+        height: 480
         anchors.centerIn: parent
         anchors.verticalCenterOffset: -parent.height / 4
         visible: false
@@ -50,8 +50,8 @@ Item {
         }
 
         Rectangle {
-            width: 700
-            height: 300
+            width: 940
+            height: 450
             opacity: 1.0
             anchors.centerIn: parent
             color: "grey"
@@ -63,7 +63,7 @@ Item {
                 id: eingabeFeld
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
-                anchors.topMargin: 100
+                anchors.topMargin: 150
                 text: dialog.text
                 style: touchStyle
                 echoMode: dialog.password ? TextInput.PasswordEchoOnEdit : TextInput.Normal
@@ -74,7 +74,7 @@ Item {
             Rectangle {
                 id: okButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 color: "transparent"
@@ -103,7 +103,7 @@ Item {
             }
             Rectangle {
                 width: 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 border.color: Qt.lighter("grey", 1.2)
@@ -113,7 +113,7 @@ Item {
             Rectangle {
                 id: abbruchButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
                 color: "transparent"
@@ -159,10 +159,10 @@ Item {
 
         TextFieldStyle {
             textColor: "white"
-            font.pixelSize: 28
+            font.pixelSize: 50
             background: Item {
-                implicitHeight: 50
-                implicitWidth: 500
+                implicitHeight: 75
+                implicitWidth: 675
                 BorderImage {
                     source: "../images/textinput.png"
                     border.left: 8

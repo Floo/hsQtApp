@@ -8,7 +8,7 @@ Item {
     id: root
     property alias bezeichner: bezeichner.text
     property alias value: value.text
-    property int leftTextMargin: 30
+    property int leftTextMargin: 45
     signal clicked
 
     anchors.fill: parent
@@ -17,7 +17,7 @@ Item {
         anchors.fill: parent
         Rectangle {
             width: parent.width
-            height: 100
+            height: 150
             color: windMouse.pressed ? "lightgrey" : "transparent"
             Column {
                 anchors.verticalCenter: parent.verticalCenter

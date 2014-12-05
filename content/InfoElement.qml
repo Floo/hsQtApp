@@ -8,7 +8,7 @@ Item {
     property alias bezeichner: bezeichner.text
 
     width: infoLeiste.breite
-    height: 80
+    height: 120
     Row {
         anchors.left: parent.left
         anchors.leftMargin: 0
@@ -18,24 +18,24 @@ Item {
             Image {
                 id: pic
                 anchors.centerIn: parent
-                width: 70
-                height: 70
+                width: 105
+                height: 105
                 fillMode: Image.PreserveAspectFit
             }
         }
         Rectangle {
             width: 1
-            height: infoElement.height - 10
+            height: infoElement.height - 13
             anchors.verticalCenter: parent.verticalCenter
             color: "black"
         }
         Item {
             height: infoElement.height
-            width: infoElement.width - 121
+            width: infoElement.width - 161
             Text {
                 id: bezeichner
                 anchors { left: parent.left; leftMargin: 20; verticalCenter: parent.verticalCenter }
-                font { family: "Abel"; pixelSize: 22 }
+                font { family: "Abel"; pixelSize: 33 }
                 verticalAlignment: Qt.AlignVCenter
             }
 

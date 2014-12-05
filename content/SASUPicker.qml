@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.2
 
 Item {
     id: root
-    width: 600
+    width: 816
 
     property alias sonne: sonnenSlider.value
     property alias offset: offsetSlider.value
@@ -13,7 +13,7 @@ Item {
 
     Column {
         width: parent.width
-        spacing: 30
+        spacing: 45
         Text {
             id: uhrzeit
             anchors.horizontalCenter: parent.horizontalCenter
@@ -55,8 +55,8 @@ Item {
 
         SliderStyle {
             handle: Rectangle {
-                width: 300
-                height: 46
+                width: 408
+                height: 64
                 radius: 1
                 antialiasing: true
                 color: "transparent"
@@ -65,10 +65,10 @@ Item {
             }
 
             groove: Item {
-                implicitHeight: 50
-                implicitWidth: 600
+                implicitHeight: 68
+                implicitWidth: 816
                 Rectangle {
-                    height: 40
+                    height: 54
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#444"
@@ -79,7 +79,7 @@ Item {
                         model: ["SA", "SU"]
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 300
+                            width: 408
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"
@@ -97,8 +97,8 @@ Item {
         id: offsetSliderStyle
         SliderStyle {
             handle: Rectangle {
-                width: 46
-                height: 46
+                width: 63
+                height: 64
                 radius: 1
                 antialiasing: true
                 color: "transparent"
@@ -107,10 +107,10 @@ Item {
             }
 
             groove: Item {
-                implicitHeight: 50
-                implicitWidth: 600
+                implicitHeight: 68
+                implicitWidth: 816
                 Rectangle {
-                    height: 40
+                    height: 54
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#444"
@@ -121,7 +121,7 @@ Item {
                         model: ["-90", ".", "-60", ".", "-30", ".", "0", ".", "30", ".", "60", ".", "90"]
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 46
+                            width: 63
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"

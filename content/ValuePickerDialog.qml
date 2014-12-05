@@ -33,8 +33,8 @@ Item {
 
     Item {
         id: dialogBody
-        width: 720
-        height: 320
+        width: 970
+        height: 480
         visible: false
         anchors.centerIn: parent
 
@@ -45,8 +45,8 @@ Item {
         }
 
         Rectangle {
-            width: 700
-            height: 300
+            width: 940
+            height: 450
             opacity: 1.0
             anchors.centerIn: parent
             color: "grey"
@@ -55,11 +55,11 @@ Item {
             radius: 3
 
             Column {
-                width: 600
+                width: 816
                 anchors.top: parent.top
-                anchors.topMargin: 30
+                anchors.topMargin: 45
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 30
+                spacing: 45
                 Text {
                     id: valueText
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -84,7 +84,7 @@ Item {
             Rectangle {
                 id: okButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 color: "transparent"
@@ -116,7 +116,7 @@ Item {
             }
             Rectangle {
                 width: 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 border.color: Qt.lighter("grey", 1.2)
@@ -126,7 +126,7 @@ Item {
             Rectangle {
                 id: abbruchButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
                 color: "transparent"
@@ -172,8 +172,8 @@ Item {
 
         SliderStyle {
             handle: Rectangle {
-                width: Math.round(600 / dialog.modelData.length)
-                height: 46
+                width: Math.round(816 / dialog.modelData.length)
+                height: 64
                 radius: 1
                 antialiasing: true
                 color: "transparent"
@@ -182,10 +182,10 @@ Item {
             }
 
             groove: Item {
-                implicitHeight: 50
-                implicitWidth: 600
+                implicitHeight: 68
+                implicitWidth: 816
                 Rectangle {
-                    height: 40
+                    height: 54
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#444"
@@ -196,7 +196,7 @@ Item {
                         model: dialog.modelData
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: Math.round(600 / dialog.modelData.length)
+                            width: Math.round(816 / dialog.modelData.length)
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"

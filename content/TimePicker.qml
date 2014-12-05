@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.2
 
 Item {
     id: root
-    width: 600
+    width: 816
 
     property alias hour: stundenSlider.value
     property alias minute: minutenSlider.value
@@ -13,7 +13,7 @@ Item {
 
     Column {
         width: parent.width
-        spacing: 30
+        spacing: 45
         Text {
             id: uhrzeit
             anchors.horizontalCenter: parent.horizontalCenter
@@ -57,8 +57,8 @@ Item {
 
         SliderStyle {
             handle: Rectangle {
-                width: 25
-                height: 46
+                width: 34
+                height: 64
                 radius: 1
                 antialiasing: true
                 color: "transparent"
@@ -67,10 +67,10 @@ Item {
             }
 
             groove: Item {
-                implicitHeight: 50
-                implicitWidth: 600
+                implicitHeight: 68
+                implicitWidth: 816
                 Rectangle {
-                    height: 40
+                    height: 54
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#444"
@@ -81,7 +81,7 @@ Item {
                         model: ["0", ".", ".", "3", ".", ".", "6", ".", ".", "9", ".", ".", "12", ".", ".", "15", ".", ".", "18", ".", ".", "21", ".", "."]
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 25
+                            width: 34
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"
@@ -99,8 +99,8 @@ Item {
         id: minutenSliderStyle
         SliderStyle {
             handle: Rectangle {
-                width: 50
-                height: 46
+                width: 68
+                height: 64
                 radius: 1
                 antialiasing: true
                 color: "transparent"
@@ -109,10 +109,10 @@ Item {
             }
 
             groove: Item {
-                implicitHeight: 50
-                implicitWidth: 600
+                implicitHeight: 68
+                implicitWidth: 816
                 Rectangle {
-                    height: 40
+                    height: 54
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
                     color: "#444"
@@ -123,7 +123,7 @@ Item {
                         model: ["00", ".", ".", "15", ".", ".", "30", ".", ".", "45", ".", "."]
                         delegate: Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            width: 50
+                            width: 68
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.family: "Abel"

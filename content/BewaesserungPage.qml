@@ -33,7 +33,7 @@ Item {
 
     Column {
         Rectangle {
-            height: 80
+            height: 120
             width: rootBewaesserungPage.width
             color: "#E3905C"
 
@@ -47,10 +47,10 @@ Item {
             }
         }
         Item {
-            width: 400; height: 400
+            width: 600; height: 600
             PanelBewaesserung {
                 id: beete
-                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
+                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 65 }
                 enabled: !kuebel.checked
                 value: 6
                 //checked: statusText.indexOf("Aus") < 0
@@ -64,7 +64,7 @@ Item {
             }
         }
         Rectangle {
-            height: 80
+            height: 120
             width: rootBewaesserungPage.width
             color: "#E3905C"
 
@@ -78,10 +78,10 @@ Item {
             }
         }
         Item {
-            width: 400; height: 400
+            width: 600; height: 600
             PanelBewaesserung {
                 id: kuebel
-                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 50 }
+                anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 65 }
                 enabled: !beete.checked
                 value: 6
                 //checked: statusText.indexOf("Aus") < 0

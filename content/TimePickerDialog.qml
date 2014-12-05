@@ -29,8 +29,8 @@ Item {
     }
     Item {
         id: dialogBody
-        width: 720
-        height: 420
+        width: 970
+        height: 640
         visible: false
         anchors.centerIn: parent
 
@@ -41,8 +41,8 @@ Item {
         }
 
         Rectangle {
-            width: 700
-            height: 400
+            width: 940
+            height: 600
             opacity: 1.0
             anchors.centerIn: parent
             color: "grey"
@@ -54,14 +54,14 @@ Item {
                 id: picker
                 width: parent.width
                 anchors.top: parent.top
-                anchors.topMargin: 30
+                anchors.topMargin: 45
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Rectangle {
                 id: okButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 color: "transparent"
@@ -93,7 +93,7 @@ Item {
             }
             Rectangle {
                 width: 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 border.color: Qt.lighter("grey", 1.2)
@@ -103,7 +103,7 @@ Item {
             Rectangle {
                 id: abbruchButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
                 color: "transparent"

@@ -39,8 +39,8 @@ Item {
 
     Item {
         id: dialogBody
-        width: 720
-        height: 470
+        width: 970
+        height: 700
         visible: false
         anchors.centerIn: parent
 
@@ -53,8 +53,8 @@ Item {
 
         Rectangle {
 
-            width: 700
-            height: 450
+            width: 940
+            height: 670
             opacity: 1.0
 
             anchors.centerIn: parent
@@ -66,7 +66,7 @@ Item {
             TabView {
                 id: tabview
                 width: parent.width
-                height: 300
+                height: 450
                 style: tabTouchStyle
                 Tab {
                     title: "Uhrzeit"
@@ -74,7 +74,7 @@ Item {
                         id: uhrzeitPicker
                         width: parent.width
                         anchors.top: parent.top
-                        anchors.topMargin: 30
+                        anchors.topMargin: 40
                         anchors.horizontalCenter: parent.horizontalCenter
                         hour: dialog.hour
                         minute: dialog.minute
@@ -87,7 +87,7 @@ Item {
                         id: sonnenstandPicker
                         width: parent.width
                         anchors.top: parent.top
-                        anchors.topMargin: 30
+                        anchors.topMargin: 40
                         anchors.horizontalCenter: parent.horizontalCenter
                         sonne: dialog.sonne
                         offset: dialog.offset
@@ -99,7 +99,7 @@ Item {
             Rectangle {
                 id: okButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 color: "transparent"
@@ -136,7 +136,7 @@ Item {
             }
             Rectangle {
                 width: 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 border.color: Qt.lighter("grey", 1.2)
@@ -146,7 +146,7 @@ Item {
             Rectangle {
                 id: abbruchButton
                 width: parent.width / 2
-                height: 80
+                height: 120
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
                 color: "transparent"
@@ -195,7 +195,7 @@ Item {
             frame: Item { }
             tab: Item {
                 implicitWidth: control.width/control.count
-                implicitHeight: 50
+                implicitHeight: 120
                 Rectangle {
                     anchors.fill: parent
                     color: Qt.lighter("grey", 0.8)
@@ -207,9 +207,10 @@ Item {
 //                    source: styleData.selected ? "../images/toolbar.png" : ""
                     Text {
                         anchors.centerIn: parent
-                        color: "white"
+                        color: "#E3905C"
                         text: styleData.title.toUpperCase()
-                        font.pixelSize: 18
+                        font.weight: Font.DemiBold
+                        font.pixelSize: 50
                     }
                     Rectangle {
                         visible: index > 0

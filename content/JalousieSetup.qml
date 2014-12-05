@@ -29,7 +29,7 @@ Rectangle {
         anchors.fill: parent
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: wetter
                 checked: true
@@ -40,7 +40,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: wind
                 checked: true
@@ -51,7 +51,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: regen
                 checked: true
@@ -62,7 +62,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: tuer
                 checked: true
@@ -72,7 +72,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: luecke
                 checked: true
@@ -84,7 +84,7 @@ Rectangle {
         // Separator
         Item {
             width: parent.width
-            height: 30
+            height: 45
             Rectangle {
                 width: parent.width
                 height: 2
@@ -97,7 +97,7 @@ Rectangle {
 
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: zeit
                 checked: true
@@ -108,10 +108,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: zeitOeffnen
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: zeit.checked
                 bezeichner: "Zeit zum Öffnen:"
                 value: "00:00"
@@ -124,10 +124,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: zeitSchliessen
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: zeit.checked
                 bezeichner: "Zeit zum Schließen:"
                 value: "00:00"

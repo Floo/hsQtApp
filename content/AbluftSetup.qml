@@ -29,12 +29,12 @@ Rectangle {
         anchors.fill: parent
         Rectangle {
             width: parent.width
-            height: 60
+            height: 90
             color: "#E3905C"
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 30
+                anchors.leftMargin: 45
                 font.family: "Abel"
                 font.pointSize: 16
                 font.bold: true
@@ -57,7 +57,7 @@ Rectangle {
 
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: hwrAus
                 checked: true
@@ -68,7 +68,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: hwrAn
                 checked: false
@@ -79,7 +79,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: hwrTemp
                 checked: false
@@ -90,10 +90,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: hwrTempValue
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: hwrTemp.checked
                 bezeichner: "Temperaturschwelle:"
                 value: valuepickerdialog.value + " °C"
@@ -111,12 +111,12 @@ Rectangle {
         }
         Rectangle {
             width: parent.width
-            height: 60
+            height: 90
             color: "#E3905C"
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 30
+                anchors.leftMargin: 45
                 font.family: "Abel"
                 font.pointSize: 16
                 font.bold: true
@@ -133,7 +133,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: abluft
                 radioButton: false

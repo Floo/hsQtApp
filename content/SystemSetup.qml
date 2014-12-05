@@ -41,7 +41,7 @@ Rectangle {
 
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: hostname
 
@@ -63,7 +63,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: username
 
@@ -86,7 +86,7 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: password
 
@@ -117,7 +117,7 @@ Rectangle {
         // Separator
         Item {
             width: parent.width
-            height: 30
+            height: 45
             Rectangle {
                 width: parent.width
                 height: 2
@@ -130,7 +130,7 @@ Rectangle {
 
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupCheckbox {
                 id: autostartGUI
                 bezeichner: "Autostart GUI"
@@ -140,10 +140,10 @@ Rectangle {
         }
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: autostartGUIZeit
-                leftTextMargin: 50
+                leftTextMargin: 65
                 enabled: autostartGUI.checked
                 bezeichner: "Startzeit:"
                 value: "7:00"
@@ -158,7 +158,7 @@ Rectangle {
         // Separator
         Item {
             width: parent.width
-            height: 30
+            height: 45
             Rectangle {
                 width: parent.width
                 height: 2
@@ -171,7 +171,7 @@ Rectangle {
 
         Item {
             width: parent.width
-            height: 100
+            height: 150
             SetupValue {
                 id: showVersion
                 bezeichner: "App Info"
