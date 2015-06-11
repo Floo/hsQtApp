@@ -517,7 +517,7 @@ ApplicationWindow {
                         InfoElement {
                             id: lueftung
                             source: "images/lueftung_qt.png"
-                            bezeichner: "Orientierungslicht:<br>Abluft HWR:"
+                            bezeichner: "Zentrale Abluft:<br>Abluft HWR:"
                         }
                         InfoElement {
                             id: sasu

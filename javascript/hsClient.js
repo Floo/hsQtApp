@@ -49,7 +49,7 @@ function getStatus () {
                 var jal3text = getXMLfirstChild(a, 'posJal_3') + "/" + getXMLfirstChild(a, 'drvJal_3');
                 jalousie.text = jal0text + "<br>" + jal1text + "<br>" + jal2text + "<br>" + jal3text;
                 sasu.text = getXMLfirstChild(a, 'SA') + " Uhr<br>" + getXMLfirstChild(a, 'SU') + " Uhr"
-                lueftung.text = getXMLfirstChild(a, 'Orient') + "<br>" + getXMLfirstChild(a, 'HWR')
+                lueftung.text = getXMLfirstChild(a, 'Abluft') + "<br>" + getXMLfirstChild(a, 'HWR')
                 var hellText = getXMLfirstChild(a, 'EmpfangHell');
                 var wetterText = getXMLfirstChild(a, 'EmpfangWetter');
                 empfang.text = hellText.substr(0, hellText.length - 1) +
@@ -61,7 +61,7 @@ function getStatus () {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -89,7 +89,7 @@ function getStatusJal() {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -122,7 +122,7 @@ function getStatusBewaesserung() {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/weather.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -135,7 +135,7 @@ function getVerlauf(intKurve1, intKurve2, intZeitraum) {
     var xmlhttp = new XMLHttpRequest()
     var data = "intKurve1=" + intKurve1 + "&intKurve2=" + intKurve2 + "&intZeitraum=" + intZeitraum + "&boolGUI=2";
 
-    xmlhttp.open("POST", "http://" + Global.hostname + "/plot_wetter.php", "true", Global.username, Global.password);
+    xmlhttp.open("POST", "https://" + Global.hostname + "/plot_wetter.php", "true", Global.username, Global.password);
 
     // Send the proper header information along with the request
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -147,7 +147,7 @@ function getVerlauf(intKurve1, intKurve2, intZeitraum) {
             if (xmlhttp.status === 200) {
                 var foo = xmlhttp.responseText;
                 var filenameWetterKurve = foo.substring(foo.indexOf("<gnuplot><![CDATA[") + 18, foo.indexOf("]]></gnuplot>"));
-                verlaufImage.source = "http://" + Global.username + ":" + Global.password + "@" + Global.hostname + "/" + filenameWetterKurve;
+                verlaufImage.source = "https://" + Global.username + ":" + Global.password + "@" + Global.hostname + "/" + filenameWetterKurve;
             } else {
                 Global.errorButton.showErrorButton("Netzwerkfehler", xmlhttp.status + " " + xmlhttp.statusText);
             }
@@ -185,7 +185,7 @@ function getSetupJal() {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -241,7 +241,7 @@ function getSetupBewaesserung() {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -298,7 +298,7 @@ function getSetupAbluft() {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -339,7 +339,7 @@ function getSetupSystem() {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/setup_m.php", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -354,7 +354,7 @@ function getLogfile() {
     var now = +(new Date);
     var data = "device=LOGFILE_INVERS&timestamp=" + now;
 
-    http.open("POST", "http://" + Global.hostname + "/drv.php", "true", Global.username, Global.password);
+    http.open("POST", "https://" + Global.hostname + "/drv.php", "true", Global.username, Global.password);
 
     // Send the proper header information along with the request
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -402,7 +402,7 @@ function getLicht () {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/licht_m.php?id=licht", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/licht_m.php?id=licht", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -426,7 +426,7 @@ function getSzene () {
             }
         }
     }
-    xmlhttp.open("POST", "http://" + Global.hostname + "/licht_m.php?id=szene", "true", Global.username, Global.password)
+    xmlhttp.open("POST", "https://" + Global.hostname + "/licht_m.php?id=szene", "true", Global.username, Global.password)
     xmlhttp.send()
 }
 
@@ -481,7 +481,7 @@ function httpPost (destination, data) {
         return;
     }
     var http = new XMLHttpRequest()
-    http.open("POST", "http://" + Global.hostname + "/" + destination, "true", Global.username, Global.password);
+    http.open("POST", "https://" + Global.hostname + "/" + destination, "true", Global.username, Global.password);
 
     // Send the proper header information along with the request
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
