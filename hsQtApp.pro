@@ -64,4 +64,10 @@ HEADERS += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$PWD/lib/libcrypto.so \
+        $$PWD/lib/libssl.so
+}
+
 

@@ -23,6 +23,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         // Initialize the database
+        console.log("Debugausgabe");
         Storage.initialize();
 
         Global.hostname = Storage.getSetting("hostname");
