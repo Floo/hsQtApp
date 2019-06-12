@@ -70,4 +70,7 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         $$PWD/lib/libssl.so
 }
 
+DISTFILES += \
+    fonts/Abel-Regular.ttf
+
 

@@ -21,6 +21,8 @@ ApplicationWindow {
     width: 1080
     height: 1920
 
+    FontLoader { id: fontAbel; source: "fonts/Abel-Regular.ttf" }
+
     Component.onCompleted: {
         // Initialize the database
         console.log("Debugausgabe");

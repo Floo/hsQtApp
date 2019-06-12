@@ -63,5 +63,6 @@
         <file>content/LogfilePage.qml</file>
         <file>images/hinweis_white.png</file>
         <file>images/rotate_qt.png</file>
+        <file>fonts/Abel-Regular.ttf</file>
     </qresource>
 </RCC>
